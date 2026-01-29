@@ -18,7 +18,7 @@ const Footer = () => {
     {
       icon: <FaLinkedinIn />,
       color: "hover:text-blue-700",
-      url: "www.linkedin.com/in/technova-hub2o26", // replace with your LinkedIn URL
+      url: "https://www.linkedin.com/in/technova-hub2o26/", // replace with your LinkedIn URL
     },
   ];
 
