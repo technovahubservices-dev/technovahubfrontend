@@ -27,8 +27,12 @@ const navItems = [
     name: "CAREER",
     link: [{ name: "Internship Offered", path: "/courses" },
     { name: "Verify Certificate", path: "/verifyCertificate" },
+     { name: "Neuro Science", path: "https://neuroscience-website-landingpage.vercel.app/" },
     ],
+
+  
   },
+  
   { name: "CONTACT", path: "/contact" },
 ];
 
