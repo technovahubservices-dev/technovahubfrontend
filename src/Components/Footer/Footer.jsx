@@ -1,12 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
+  // Social links with URLs
+  const socialLinks = [
+    {
+      icon: <FaFacebookF />,
+      color: "hover:text-blue-600",
+
+    },
+    {
+      icon: <FaInstagram />,
+      color: "hover:text-pink-500",
+      url: "https://www.instagram.com/tech_novahub26?igsh=aHY2MTAxN3diamdk", // replace with your Instagram URL
+    },
+    {
+      icon: <FaLinkedinIn />,
+      color: "hover:text-blue-700",
+      url: "https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3Bp7iKRkkCRo6Ylus7SNHF6A%3D%3D", // replace with your LinkedIn URL
+    },
+  ];
+
   return (
     <section
       id="footer"
@@ -29,14 +44,12 @@ const Footer = () => {
 
             {/* Social Icons */}
             <div className="flex justify-center md:justify-start space-x-4 mt-6">
-              {[
-                { icon: <FaFacebookF />, color: "hover:text-blue-600" },
-                { icon: <FaInstagram />, color: "hover:text-pink-500" },
-                { icon: <FaLinkedinIn />, color: "hover:text-blue-700" },
-              ].map((item, i) => (
+              {socialLinks.map((item, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`text-gray-600 ${item.color} transform hover:scale-110 transition-all duration-300`}
                 >
                   <div className="p-3 rounded-full bg-white/60 backdrop-blur-md shadow-md hover:shadow-lg">
@@ -58,15 +71,11 @@ const Footer = () => {
                 { name: "About", link: "/about" },
                 { name: "Courses", link: "/courses" },
                 { name: "Contact", link: "/contact" },
-                
               ].map((item, i) => (
                 <li key={i}>
                   <Link
                     to={item.link}
-                    className={`transition ${item.special
-                      ? "text-blue-700 font-semibold hover:text-blue-800"
-                      : "hover:text-blue-600"
-                      }`}
+                    className={`transition hover:text-blue-600`}
                   >
                     {item.name}
                   </Link>

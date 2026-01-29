@@ -5,52 +5,52 @@ const policies = {
   terms: {
     title: "Terms and Conditions",
     content: `
-1. **Services Offered**  
+1. Services Offered  
 Technovahub provides technology education and software solutions including Robotics, AI, ML, Web & Game Development, Animation, Drone Technology, Cybersecurity, Blockchain, Agentic/Generative AI, AR/VR, certified training programs, workshops, and IT/automation solutions.
 
-2. **Registration and Use**  
+2. Registration and Use  
 All information during registration must be accurate. Course materials are for personal learning only and may not be copied, shared, or resold without permission.
 
-3. **Payments and Refunds**  
+3. Payments and Refunds 
 Full payment is required. Refunds only if explicitly stated. Scholarship eligibility requires official documentation.
 
-4. **Intellectual Property**  
+4. Intellectual Property
 All content is property of Technovahub. Unauthorized reproduction or distribution is prohibited. Solutions delivered to businesses are the company's IP.
 
-5. **Liability Disclaimer**  
+5. Liability Disclaimer
 Technovahub is not responsible for any loss, damage, or injury from participation or use of solutions.
 
-6. **Third-Party Links**  
+6. Third-Party Links
 We are not responsible for external website content or privacy practices.
 
-7. **Changes to Terms**  
+7. Changes to Terms
 We may revise these terms anytime; updates will be posted on the website.
     `,
   },
   privacy: {
     title: "Privacy Policy",
     content: `
-1. **Information We Collect**  
-- Personal Details: Name, email, phone, address.  
-- Usage Data: How you use our services.  
-- Payment Details: Processed securely via trusted gateways.
+1. Information We Collect  
+Personal Details: Name, email, phone, address.  
+Usage Data: How you use our services.  
+Payment Details: Processed securely via trusted gateways.
 
-2. **How We Use Your Data**  
+2. How We Use Your Data 
 To register/manage account, deliver services, send updates/certificates, improve offerings.
 
-3. **Sharing of Information**  
+3. Sharing of Information
 Not sold or rented. Shared only with service providers or legal authorities if required.
 
-4. **Cookies**  
+4. Cookies  
 Enhance browsing experience. Disabling may limit functionality.
 
-5. **Security**  
+5. Security
 Industry-standard measures applied; no method is fully secure.
 
-6. **Your Rights**  
+6. Your Rights
 Request access, correction, or deletion anytime.
 
-7. **Changes to Policy**  
+7. Changes to Policy
 Updates posted on the website.
     `,
   },
@@ -82,7 +82,7 @@ export default function TermsAndCondition() {
            Mail: technovahubcareer@gmail.com </span>
 <br />
                  <span>
-                  Call: +91 9360962810
+                  Call: +91 9003530230
                   </span>  
                   <br />
 
