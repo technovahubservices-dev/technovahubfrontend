@@ -8,6 +8,7 @@ const Footer = () => {
     {
       icon: <FaFacebookF />,
       color: "hover:text-blue-600",
+      url: "https://www.facebook.com/profile.php?id=61586702535581",
 
     },
     {
