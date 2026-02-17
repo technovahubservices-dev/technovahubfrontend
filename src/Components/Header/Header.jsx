@@ -28,6 +28,8 @@ const navItems = [
     link: [{ name: "Internship Offered", path: "/courses" },
     { name: "Verify Certificate", path: "/verifyCertificate" },
      { name: "Neuro Science", path: "https://neuroscience-website-landingpage.vercel.app/" },
+     { name: "Nexion", path: "https://nexion-ruby.vercel.app/" },
+     { name: "Trackpulse", path: "https://tracking-app-landing-page-self.vercel.app/" },
     ],
 
   
