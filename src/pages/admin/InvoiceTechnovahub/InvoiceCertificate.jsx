@@ -16,10 +16,10 @@ export default function InvoiceCertificate() {
   const [declarationInfo, setDeclarationInfo] = useState({
     declarationText:
       "Product Quality: Tested by QMS, EMS, OHSAS. No Sales Involved. Payments will be received only in company name through Cheque. Goods once sold cannot be taken back in any circumstances.",
-    bankName: "STATE BANK OF INDIA, VILLIYANUR",
-    accountNo: "41331089375",
-    branchIfsc: "SBIN0016854",
-    AccountName: "TECHNOVAHUB",
+    bankName: "HDFC BANK, VENKATESHWARA NAGAR, PONDICHERRY",
+    accountNo: "50100297512837",
+    branchIfsc: "HDFC0001278",
+    AccountName: "VIDHYAVATHI",
   });
 
   useEffect(() => {
@@ -196,7 +196,7 @@ export default function InvoiceCertificate() {
         imgWidth * ratio,
         imgHeight * ratio
       );
-      pdf.save(`Invoice_${tableItems[0]?.invoiceId || "000"}.pdf`);
+      pdf.save(`Quotation_${tableItems[0]?.invoiceId || "000"}.pdf`);
       document.body.removeChild(clone);
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -227,7 +227,7 @@ const handlePrint = () => {
   printWindow.document.write(`
     <html>
       <head>
-        <title>Invoice</title>
+        <title>Quotation</title>
         ${styles}
         <style>
           @page {
@@ -361,7 +361,7 @@ if (loading)
           className="shadow-lg px-4 py-2 md:px-6 md:py-3 rounded-md bg-green-600 text-white flex items-center gap-2 text-sm md:text-base font-bold  transition-colors"
         >
           <FaDownload />
-          <span>Download Invoice</span>
+          <span>Download Quotation</span>
         </button>
 
         <button
@@ -369,7 +369,7 @@ if (loading)
           className="shadow-lg px-4 py-2 md:px-6 md:py-3 rounded-md bg-green-500 text-white flex items-center gap-2 text-sm md:text-base hover:bg-green-600 transition-colors"
         >
           <FaPrint />
-          <span>Print Invoice</span>
+          <span>Print Quotation</span>
         </button>
 
       
@@ -399,7 +399,7 @@ if (loading)
               />
             </div>
             <div className="flex justify-center text-xl mb-5">
-              <h1 style={{ color: "#05499bff", fontWeight: "bold"  }}>INVOICE</h1>
+              <h1 style={{ color: "#05499bff", fontWeight: "bold"  }}>QUOTATION</h1>
             </div>
 
             {/* Buyer Info & Invoice Details */}
@@ -428,7 +428,7 @@ if (loading)
             <div className="w-full flex flex-col gap-3 mt-5 md:flex-row justify-between mb-3">
               <div className="md:w-1/2 mb-4 md:mb-0">
                 <p style={{ color: "#05438fff", fontWeight:"bold",  marginBottom: "10px" ,fontSize:"13px"}}>
-                  Invoice To: <br />{" "}
+                  Quotation To: <br />{" "}
                   <span style={{ color: "#040202ff", fontWeight: "500" }}>
                     {tableItems[0]?.invoiceTo || "N/A"}
                   </span>
@@ -466,7 +466,7 @@ if (loading)
                   <tbody>
   {[
     {
-      label: "Invoice #",
+      label: "Quotation #",
       value: tableItems[0]?.invoiceId || "-",
     },
     {
@@ -543,7 +543,6 @@ if (loading)
                   >
                     <th className="px-3 py-2">Sl No.</th>
                     <th className="px-3 py-2 text-left">Items Desc</th>
-                    <th className="px-3 py-2">HSN/SAC</th>
                     <th className="px-3 py-2 text-right">Qty</th>
                     <th className="px-3 py-2 text-right">Price</th>
                     <th className="px-3 py-2 text-right">Disc%</th>
@@ -580,7 +579,6 @@ if (loading)
                       >
                         <td className="px-3 py-2 text-center">{index + 1}</td>
                         <td className="px-3 py-2 text-left text-[12px]">{row.desc}</td>
-                        <td className="px-3 py-2 text-center  text-[12px]">{row.hsn}</td>
                         <td className="px-3 py-2 text-right  text-[12px]">{qty}</td>
                         <td className="px-3 py-2 text-right  text-[12px]">
                           ₹ {rate.toFixed(2)}
@@ -599,7 +597,7 @@ if (loading)
                   
                    <br />
                   <tr style={{ borderTop: "1px solid #ddd" }}>
-  <td colSpan={7} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
+  <td colSpan={6} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
     Sub Total
   </td>
   <td style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "500", color: "#222" }}>
@@ -608,7 +606,7 @@ if (loading)
 </tr>
 
 <tr>
-  <td colSpan={7} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
+  <td colSpan={6} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
     Total Discount
   </td>
   <td style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "500", color: "#198754" }}>
@@ -617,7 +615,7 @@ if (loading)
 </tr>
 
 <tr style={{ backgroundColor: "#f9f9f9" }}>
-  <td colSpan={7} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
+  <td colSpan={6} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
     CGST (9%)
   </td>
   <td style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "500", color: "#222" }}>
@@ -626,7 +624,7 @@ if (loading)
 </tr>
 
 <tr style={{ backgroundColor: "#f9f9f9" }}>
-  <td colSpan={7} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
+  <td colSpan={6} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
     SGST (9%)
   </td>
   <td style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "500", color: "#222" }}>
@@ -635,7 +633,7 @@ if (loading)
 </tr>
 
 <tr style={{ borderTop: "2px solid #999", backgroundColor: "#f1f1f1" }}>
-  <td colSpan={7} style={{ padding: "8px", textAlign: "right", fontSize: "15px", fontWeight: "700", color: "#111" }}>
+  <td colSpan={6} style={{ padding: "8px", textAlign: "right", fontSize: "15px", fontWeight: "700", color: "#111" }}>
     Grand Total
   </td>
   <td style={{ padding: "8px", textAlign: "right", fontSize: "15px", fontWeight: "700", color: "#111" }}>
@@ -644,7 +642,7 @@ if (loading)
 </tr>
 
 <tr>
-  <td colSpan={7} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
+  <td colSpan={6} style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "600", color: "#444" }}>
     You Saved
   </td>
   <td style={{ padding: "8px", textAlign: "right", fontSize: "14px", fontWeight: "500", color: "#198754" }}>
@@ -674,8 +672,12 @@ if (loading)
                   { key: "accountNo", label: "A/c No.:" },
                   { key: "branchIfsc", label: "Branch & IFS Code:" },
                 ].map(({ key, label }) => (
-                  <div key={key} className="flex gap-2 items-center mt-2">
+                  <div
+                    key={key}
+                    className={`flex gap-2 mt-2 ${key === "bankName" ? "items-start" : "items-center"}`}
+                  >
                     <h5
+                      className={key === "bankName" ? "shrink-0 w-[95px]" : ""}
                       style={{
                         fontWeight: "600",
                         fontSize: "12px",
@@ -685,6 +687,7 @@ if (loading)
                       {label}
                     </h5>
                     <p
+                      className={key === "bankName" ? "flex-1 leading-tight break-words" : ""}
                       style={{ fontSize: "12px", color: "#111" }}
                       contentEditable
                       suppressContentEditableWarning={true}

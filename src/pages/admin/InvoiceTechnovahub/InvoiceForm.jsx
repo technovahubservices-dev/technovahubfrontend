@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { addInvoice, updateInvoice } from "../../../api/invoiceApi";
 
 const InvoiceForm = ({ onClose, onRefresh, editData }) => {
+  const [invoiceId, setInvoiceId] = useState(editData?.invoiceId || "");
   const [invoiceTo, setInvoiceTo] = useState(editData?.invoiceTo || "");
   const [address, setAddress] = useState(editData?.address || "");
   const [items, setItems] = useState(
@@ -29,6 +30,7 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const dataToSend = {
+      ...(invoiceId.trim() ? { invoiceId: invoiceId.trim() } : {}),
       invoiceTo,
       address,
       date,
@@ -94,6 +96,19 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {editData && (
+          <div>
+            <label className="font-medium text-gray-700">Quotation ID</label>
+            <input
+              type="text"
+              value={invoiceId}
+              onChange={(e) => setInvoiceId(e.target.value.toUpperCase())}
+              placeholder="Enter ID (example: INV-001)"
+              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+        )}
+
         <div>
           <label className="font-medium text-gray-700">Invoice To</label>
           <input
