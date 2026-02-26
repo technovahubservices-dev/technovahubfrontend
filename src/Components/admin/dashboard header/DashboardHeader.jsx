@@ -15,6 +15,7 @@ const DashboardHeader = ({ toggleSidebar }) => {
       await logoutAdmin();
       localStorage.removeItem("adminToken");
       localStorage.removeItem("adminUser");
+      localStorage.removeItem("adminLoginAt");
       toast.success("Logout Successfully");
       navigate("/adminlogin");
     } catch (err) {

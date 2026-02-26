@@ -27,6 +27,7 @@ const AdminLogin = () => {
         // Store token & user info
         localStorage.setItem("adminToken", data.token);
         localStorage.setItem("adminUser", JSON.stringify(data.user || { userName }));
+        localStorage.setItem("adminLoginAt", String(Date.now()));
 
         toast.success("Admin Login Successful");
 

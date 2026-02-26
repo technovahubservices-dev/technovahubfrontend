@@ -39,17 +39,39 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
   }, [uniqueInvoiceIds]);
 
   const invoiceRows = invoices
-    .flatMap((inv) =>
-      inv.items.map((item) => ({
+    .map((inv) => {
+      const items = Array.isArray(inv.items) ? inv.items : [];
+      const firstDesc = items[0]?.desc || "-";
+      const moreCount = Math.max(items.length - 1, 0);
+      const desc = moreCount > 0 ? `${firstDesc} +${moreCount} more` : firstDesc;
+
+      let totalAmount = 0;
+      let totalBase = 0;
+      let totalQty = 0;
+
+      items.forEach((item) => {
+        const qty = Number(item.qty) || 0;
+        const rate = Number(item.rate) || 0;
+        const discount = Number(item.discount) || 0;
+        const gst = Number(item.gst) || 0;
+        const baseAmount = qty * rate;
+        const afterDiscount = baseAmount - (baseAmount * discount) / 100;
+        totalAmount += afterDiscount + (afterDiscount * gst) / 100;
+        totalBase += baseAmount;
+        totalQty += qty;
+      });
+
+      return {
+        _invoiceId: inv._id,
         invoiceId: inv.invoiceId,
         invoiceTo: inv.invoiceTo,
-        address: inv.address,
         date: inv.date,
         dueDate: inv.dueDate,
-        ...item,
-        _invoiceId: inv._id,
-      }))
-    )
+        desc,
+        rate: totalQty > 0 ? totalBase / totalQty : 0,
+        totalAmount,
+      };
+    })
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   const filteredRows = invoiceRows.filter((row) => {
@@ -115,7 +137,7 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
               placeholder="Min"
               className="border border-gray-300 rounded-lg px-3 py-2 w-full sm:w-20"
             />
-            <span className="text-gray-600 font-medium">–</span>
+            <span className="text-gray-600 font-medium">-</span>
             <input
               type="number"
               value={maxRate}
@@ -146,14 +168,9 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
             <tr>
               <th className="py-2 px-3 text-left">{`${docLabel} ID`}</th>
               <th className="py-2 px-3 text-left">{`${docLabel} To`}</th>
-              <th className="py-2 px-3 text-left">Address</th>
               <th className="py-2 px-3 text-left">Description</th>
-              <th className="py-2 px-3 text-left">GST %</th>
               <th className="py-2 px-3 text-left">{`${docLabel} Date`}</th>
               <th className="py-2 px-3 text-left">Due On</th>
-              <th className="py-2 px-3 text-left">Qty</th>
-              <th className="py-2 px-3 text-left">Rate</th>
-              <th className="py-2 px-3 text-left">Discount %</th>
               <th className="py-2 px-3 text-left">Amount</th>
               <th className="py-2 px-3 text-left">Actions</th>
             </tr>
@@ -161,19 +178,13 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
           <tbody className="divide-y divide-gray-200 bg-white ">
             {currentRows.length === 0 ? (
               <tr>
-                <td colSpan="12" className="text-center py-6 text-gray-500">
+                <td colSpan="7" className="text-center py-6 text-gray-500">
                   {`No ${docLabel.toLowerCase()}s found.`}
                 </td>
               </tr>
             ) : (
               currentRows.map((row, idx) => {
-                const qty = Number(row.qty) || 0;
-                const rate = Number(row.rate) || 0;
-                const discount = Number(row.discount) || 0;
-                const gst = Number(row.gst) || 0;
-                const baseAmount = qty * rate;
-                const afterDiscount = baseAmount - (baseAmount * discount) / 100;
-                const totalAmount = afterDiscount + (afterDiscount * gst) / 100;
+                const totalAmount = Number(row.totalAmount) || 0;
 
                 return (
                   <tr
@@ -187,15 +198,10 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
                       {row.invoiceId}
                     </td>
                     <td className="py-2 px-3">{row.invoiceTo}</td>
-                    <td className="py-2 px-3">{row.address}</td>
                     <td className="py-2 px-3">{row.desc}</td>
-                    <td className="py-2 px-3">{gst}%</td>
                     <td className="py-2 px-3">{row.date ? new Date(row.date).toLocaleDateString("en-GB") : "-"}</td>
                     <td className="py-2 px-3">{row.dueDate ? new Date(row.dueDate).toLocaleDateString("en-GB") : "-"}</td>
-                    <td className="py-2 px-3">{qty}</td>
-                    <td className="py-2 px-3">{rate.toFixed(2)}</td>
-                    <td className="py-2 px-3">{discount}%</td>
-                    <td className="py-2 px-3 font-semibold text-right">₹{totalAmount.toFixed(2)}</td>
+                    <td className="py-2 px-3 font-semibold text-right">{"\u20B9"}{totalAmount.toFixed(2)}</td>
                     <td className="py-2 px-3 flex gap-2">
                       <button
                         onClick={() => {
