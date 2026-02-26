@@ -13,8 +13,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { name: "Gallery", icon: <Images />, path: "/admin/gallery" },
     { name: "Courses", icon: <BookOpen />, path: "/admin/courses" },
     { name: "Certificate", icon: <Award />, path: "/admin/certificate" },
-    { name: "Aroun Quotation", icon: <LiaFileInvoiceDollarSolid />, path: "/admin/quotation" }, 
+    { name: "Aroun Quotation", icon: <LiaFileInvoiceDollarSolid />, path: "/admin/arounquotation" }, 
       { name: "Aroun Invoice", icon: <LiaFileInvoiceDollarSolid />, path: "/admin/arouninvoice" }, 
+    { name: "TechnovaHub Quotation", icon: <FaFileInvoiceDollar />, path: "/admin/quotation" },
     { name: "TechnovaHub Invoice", icon: <FaFileInvoiceDollar />, path: "/admin/invoice" },
     { name: "Salary Slip Generator", icon: <FaFileInvoiceDollar />, path: "/admin/salaryslip" },
    
@@ -73,3 +74,4 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 };
 
 export default Sidebar;
+

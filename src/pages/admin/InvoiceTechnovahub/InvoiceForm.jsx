@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { addInvoice, updateInvoice } from "../../../api/invoiceApi";
 
-const InvoiceForm = ({ onClose, onRefresh, editData }) => {
+const InvoiceForm = ({ onClose, onRefresh, editData, docType = "invoice" }) => {
+  const isQuotation = docType === "quotation";
+  const docLabel = isQuotation ? "Quotation" : "Invoice";
   const [invoiceId, setInvoiceId] = useState(editData?.invoiceId || "");
   const [invoiceTo, setInvoiceTo] = useState(editData?.invoiceTo || "");
   const [address, setAddress] = useState(editData?.address || "");
   const [items, setItems] = useState(
     editData?.items || [
-      { desc: "", hsn: "", gst: 18, qty: 1, rate: 0, unit: "Nos", discount: 0 },
+      { desc: "", gst: 18, qty: 1, rate: 0, unit: "Nos", discount: 0 },
     ]
   );
 
@@ -29,8 +31,14 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const normalizedId = invoiceId.trim();
+    const generatedQuotationId = `QT-${Date.now().toString().slice(-6)}`;
     const dataToSend = {
-      ...(invoiceId.trim() ? { invoiceId: invoiceId.trim() } : {}),
+      ...(isQuotation
+        ? { invoiceId: normalizedId || generatedQuotationId }
+        : normalizedId
+          ? { invoiceId: normalizedId }
+          : {}),
       invoiceTo,
       address,
       date,
@@ -46,17 +54,17 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
     try {
       if (editData) {
         await updateInvoice(editData._id, dataToSend);
-        alert("✅ Invoice updated successfully!");
+        alert(`Updated ${docLabel} successfully!`);
       } else {
         await addInvoice(dataToSend);
         console.log("Sending invoice data:", dataToSend);
-        alert("✅ Invoice created successfully!");
+        alert(`Created ${docLabel} successfully!`);
       }
       onRefresh();
       onClose();
     } catch (error) {
       console.error(error);
-      alert("❌ Error saving invoice!");
+      alert(`Error saving ${docLabel}!`);
     }
   };
 
@@ -69,7 +77,7 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
   const addItem = () => {
     setItems([
       ...items,
-      { desc: "", hsn: "", gst: 18, qty: 1, rate: 0, unit: "Nos", discount: 0 },
+      { desc: "", gst: 18, qty: 1, rate: 0, unit: "Nos", discount: 0 },
     ]);
   };
 
@@ -92,13 +100,13 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
   return (
     <div className="p-6 md:p-8 bg-white rounded-2xl shadow-xl">
       <h2 className="text-center text-2xl font-bold text-blue-700 mb-6">
-        {editData ? "Edit Invoice" : "Create New Invoice"}
+        {editData ? `Edit ${docLabel}` : `Create New ${docLabel}`}
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {editData && (
           <div>
-            <label className="font-medium text-gray-700">Quotation ID</label>
+            <label className="font-medium text-gray-700">{`${docLabel} ID`}</label>
             <input
               type="text"
               value={invoiceId}
@@ -110,7 +118,7 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
         )}
 
         <div>
-          <label className="font-medium text-gray-700">Invoice To</label>
+          <label className="font-medium text-gray-700">{`${docLabel} To`}</label>
           <input
             type="text"
             value={invoiceTo}
@@ -134,7 +142,7 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="font-medium text-gray-700">Invoice Date</label>
+            <label className="font-medium text-gray-700">{`${docLabel} Date`}</label>
             <input
               type="date"
               value={date}
@@ -164,7 +172,6 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
             <thead className="bg-blue-500 text-white">
               <tr>
                 <th className="py-2 px-3">Description</th>
-                <th className="py-2 px-3">HSN</th>
                 <th className="py-2 px-3">Qty</th>
                 <th className="py-2 px-3">Rate</th>
                 <th className="py-2 px-3">GST %</th>
@@ -182,15 +189,6 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
                       placeholder="Description"
                       value={item.desc}
                       onChange={(e) => handleItemChange(index, "desc", e.target.value)}
-                      className="w-full px-2 py-1 border rounded"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      placeholder="HSN"
-                      value={item.hsn}
-                      onChange={(e) => handleItemChange(index, "hsn", e.target.value)}
                       className="w-full px-2 py-1 border rounded"
                     />
                   </td>
@@ -271,7 +269,7 @@ const InvoiceForm = ({ onClose, onRefresh, editData }) => {
             type="submit"
             className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
           >
-            {editData ? "Update Invoice" : "Create Invoice"}
+            {editData ? `Update ${docLabel}` : `Create ${docLabel}`}
           </button>
         </div>
       </form>

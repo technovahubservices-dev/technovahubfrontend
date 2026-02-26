@@ -2,7 +2,10 @@ import React, { useState, useMemo } from "react";
 import { deleteInvoice } from "../../../api/invoiceApi";
 import { Link } from "react-router-dom";
 
-const InvoiceTable = ({ invoices, onEdit, onRefresh }) => {
+const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
+  const isQuotation = docType === "quotation";
+  const docLabel = isQuotation ? "Quotation" : "Invoice";
+  const listPath = isQuotation ? "/admin/quotation" : "/admin/invoice";
   const [invoiceIdFilter, setInvoiceIdFilter] = useState("");
   const [minRate, setMinRate] = useState("");
   const [maxRate, setMaxRate] = useState("");
@@ -11,13 +14,13 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh }) => {
   const rowsPerPage = 5;
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this invoice?")) return;
+    if (!window.confirm(`Are you sure you want to delete this ${docLabel.toLowerCase()}?`)) return;
     try {
       await deleteInvoice(id);
       onRefresh();
     } catch (err) {
       console.error(err);
-      alert("Failed to delete invoice");
+      alert(`Failed to delete ${docLabel.toLowerCase()}`);
     }
   };
 
@@ -88,13 +91,13 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh }) => {
           />
         </div>
         <div className="flex flex-col w-full sm:w-48">
-          <label className="text-gray-700 font-medium mb-1">Filter by Invoice ID</label>
+          <label className="text-gray-700 font-medium mb-1">{`Filter by ${docLabel} ID`}</label>
           <select
             value={invoiceIdFilter}
             onChange={(e) => setInvoiceIdFilter(e.target.value)}
             className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 w-full"
           >
-            <option value="">All Invoices</option>
+            <option value="">{`All ${docLabel}s`}</option>
             {uniqueInvoiceIds.map((id, idx) => (
               <option key={idx} value={id}>
                 {id}
@@ -130,8 +133,8 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh }) => {
             Clear Filters
           </button>
 
-          <Link to="/admin/invoice">
-            <button className="text-blue-600 text-[10px] md:text-xl cursor-pointer">Go to Invoice page </button>
+          <Link to={listPath}>
+            <button className="text-blue-600 text-[10px] md:text-xl cursor-pointer">{`Go to ${docLabel} page`}</button>
           </Link>
         </div>
       </div>
@@ -141,13 +144,12 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh }) => {
         <table className="w-full min-w-[900px]  text-sm sm:text-base">
           <thead className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
             <tr>
-              <th className="py-2 px-3 text-left">Invoice ID</th>
-              <th className="py-2 px-3 text-left">Invoice To</th>
+              <th className="py-2 px-3 text-left">{`${docLabel} ID`}</th>
+              <th className="py-2 px-3 text-left">{`${docLabel} To`}</th>
               <th className="py-2 px-3 text-left">Address</th>
               <th className="py-2 px-3 text-left">Description</th>
-              <th className="py-2 px-3 text-left">HSN</th>
               <th className="py-2 px-3 text-left">GST %</th>
-              <th className="py-2 px-3 text-left">Invoice Date</th>
+              <th className="py-2 px-3 text-left">{`${docLabel} Date`}</th>
               <th className="py-2 px-3 text-left">Due On</th>
               <th className="py-2 px-3 text-left">Qty</th>
               <th className="py-2 px-3 text-left">Rate</th>
@@ -159,8 +161,8 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh }) => {
           <tbody className="divide-y divide-gray-200 bg-white ">
             {currentRows.length === 0 ? (
               <tr>
-                <td colSpan="13" className="text-center py-6 text-gray-500">
-                  No invoices found.
+                <td colSpan="12" className="text-center py-6 text-gray-500">
+                  {`No ${docLabel.toLowerCase()}s found.`}
                 </td>
               </tr>
             ) : (
@@ -187,7 +189,6 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh }) => {
                     <td className="py-2 px-3">{row.invoiceTo}</td>
                     <td className="py-2 px-3">{row.address}</td>
                     <td className="py-2 px-3">{row.desc}</td>
-                    <td className="py-2 px-3">{row.hsn}</td>
                     <td className="py-2 px-3">{gst}%</td>
                     <td className="py-2 px-3">{row.date ? new Date(row.date).toLocaleDateString("en-GB") : "-"}</td>
                     <td className="py-2 px-3">{row.dueDate ? new Date(row.dueDate).toLocaleDateString("en-GB") : "-"}</td>

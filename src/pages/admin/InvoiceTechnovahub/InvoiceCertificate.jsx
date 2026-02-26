@@ -6,8 +6,14 @@ import { FaDownload, FaPrint } from "react-icons/fa";
 import qr from "../../../assets/images/logoremove.png";
 import {Link} from "react-router-dom"
 
-export default function InvoiceCertificate() {
+export default function InvoiceCertificate({ docType = "invoice" }) {
   const quotationRef = useRef(null);
+  const isQuotation = docType === "quotation";
+  const pageTitle = isQuotation ? "QUOTATION" : "INVOICE";
+  const docLabel = isQuotation ? "Quotation" : "Invoice";
+  const toLabel = isQuotation ? "Quotation To" : "Invoice To";
+  const docIdLabel = isQuotation ? "Quotation #" : "Invoice #";
+  const editPath = isQuotation ? "/admin/quotationEdit" : "/admin/invoiceEdit";
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,8 +32,11 @@ export default function InvoiceCertificate() {
     async function fetchItems() {
       try {
         const data = await getInvoice();
-        setItems(data || []);
-        if (data?.length) setInvoiceIdFilter(data[0].invoiceId);
+        const scoped = (data || []).filter((inv) =>
+          isQuotation ? /^QT-/i.test(inv?.invoiceId || "") : !/^QT-/i.test(inv?.invoiceId || "")
+        );
+        setItems(scoped);
+        if (scoped?.length) setInvoiceIdFilter(scoped[0].invoiceId);
       } catch (error) {
         console.error("Error fetching invoices:", error);
       } finally {
@@ -35,7 +44,7 @@ export default function InvoiceCertificate() {
       }
     }
     fetchItems();
-  }, []);
+  }, [docType]);
 
   const invoiceIdOptions = items.map((inv) => inv.invoiceId);
   const filteredInvoices = items.filter(
@@ -196,7 +205,7 @@ export default function InvoiceCertificate() {
         imgWidth * ratio,
         imgHeight * ratio
       );
-      pdf.save(`Quotation_${tableItems[0]?.invoiceId || "000"}.pdf`);
+      pdf.save(`${docLabel}_${tableItems[0]?.invoiceId || "000"}.pdf`);
       document.body.removeChild(clone);
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -227,7 +236,7 @@ const handlePrint = () => {
   printWindow.document.write(`
     <html>
       <head>
-        <title>Quotation</title>
+        <title>${docLabel}</title>
         ${styles}
         <style>
           @page {
@@ -349,7 +358,7 @@ if (loading)
             ))}
           </select>
         </div>
-<Link to="/admin/invoiceEdit">
+<Link to={editPath}>
 <button className="bg-yellow-500 p-3 px-6 font-bold text-white cursor-pointer rounded-md">
           Modify Changes
         </button>
@@ -361,7 +370,7 @@ if (loading)
           className="shadow-lg px-4 py-2 md:px-6 md:py-3 rounded-md bg-green-600 text-white flex items-center gap-2 text-sm md:text-base font-bold  transition-colors"
         >
           <FaDownload />
-          <span>Download Quotation</span>
+          <span>{`Download ${docLabel}`}</span>
         </button>
 
         <button
@@ -369,7 +378,7 @@ if (loading)
           className="shadow-lg px-4 py-2 md:px-6 md:py-3 rounded-md bg-green-500 text-white flex items-center gap-2 text-sm md:text-base hover:bg-green-600 transition-colors"
         >
           <FaPrint />
-          <span>Print Quotation</span>
+          <span>{`Print ${docLabel}`}</span>
         </button>
 
       
@@ -399,7 +408,7 @@ if (loading)
               />
             </div>
             <div className="flex justify-center text-xl mb-5">
-              <h1 style={{ color: "#05499bff", fontWeight: "bold"  }}>QUOTATION</h1>
+              <h1 style={{ color: "#05499bff", fontWeight: "bold"  }}>{pageTitle}</h1>
             </div>
 
             {/* Buyer Info & Invoice Details */}
@@ -428,7 +437,7 @@ if (loading)
             <div className="w-full flex flex-col gap-3 mt-5 md:flex-row justify-between mb-3">
               <div className="md:w-1/2 mb-4 md:mb-0">
                 <p style={{ color: "#05438fff", fontWeight:"bold",  marginBottom: "10px" ,fontSize:"13px"}}>
-                  Quotation To: <br />{" "}
+                  {toLabel}: <br />{" "}
                   <span style={{ color: "#040202ff", fontWeight: "500" }}>
                     {tableItems[0]?.invoiceTo || "N/A"}
                   </span>
@@ -466,7 +475,7 @@ if (loading)
                   <tbody>
   {[
     {
-      label: "Quotation #",
+      label: docIdLabel,
       value: tableItems[0]?.invoiceId || "-",
     },
     {
@@ -718,3 +727,4 @@ if (loading)
     </div>
   );
 }
+

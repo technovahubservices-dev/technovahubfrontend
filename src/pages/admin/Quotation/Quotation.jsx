@@ -292,7 +292,7 @@ const handlePrint = () => {
       <span>Download Quotation</span>
     </button>
 
-    <Link to="/admin/quotationEdit" className="w-full sm:w-auto">
+    <Link to="/admin/arounquotationEdit" className="w-full sm:w-auto">
       <button className="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow hover:bg-yellow-600 transition w-full sm:w-auto">
         Modify Quotation
       </button>

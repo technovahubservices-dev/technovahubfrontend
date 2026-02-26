@@ -44,7 +44,7 @@ const Certificate = () => (
   </div>
 );
 
-const Quotation = () => (
+const ArounQuotation = () => (
   <div className="">
   <QuotationUI/>
 
@@ -53,7 +53,7 @@ const Quotation = () => (
 );
 
 
-const QuotationEdit = () => (
+const ArounQuotationEdit = () => (
   <div className="">
 <QuotationManager/>
   </div>
@@ -61,17 +61,29 @@ const QuotationEdit = () => (
 
 
 
-const Invoice = () => (
+const Quotation = () => (
   <div className="">
-    <InvoiceCertificate/> 
+    <InvoiceCertificate docType="quotation" /> 
 
    
   </div>
 );
 
+const QuotationEdit = () => (
+  <div className="">
+  <InvoiceMangar docType="quotation" />
+  </div>
+);
+
+const Invoice = () => (
+  <div className="">
+    <InvoiceCertificate docType="invoice" />
+  </div>
+);
+
 const InvoiceEdit = () => (
   <div className="">
-  <InvoiceMangar />
+  <InvoiceMangar docType="invoice" />
   </div>
 );
 
@@ -111,12 +123,13 @@ const MainContent = () => {
         <Route path="gallery" element={<Gallery />} />
         <Route path="certificate" element={<Certificate />} />
         <Route path="courses" element={<Course />} />
-        <Route path="quotation" element={<Quotation />} />
-        <Route path="quotationEdit" element={<QuotationEdit />} />
+        <Route path="arounquotation" element={<ArounQuotation />} />
+        <Route path="arounquotationEdit" element={<ArounQuotationEdit />} />
         <Route path="arouninvoice" element={<ArounVoice />} />
         <Route path="arouninvoiceedit" element={<ArounVoiceEdit />} />
 
-
+        <Route path="quotation" element={<Quotation />} />
+        <Route path="quotationEdit" element={<QuotationEdit />} />
         <Route path="invoice" element={<Invoice />} />
         <Route path="invoiceEdit" element={<InvoiceEdit />} />
         <Route path="ERP" element={<Productivity />} />

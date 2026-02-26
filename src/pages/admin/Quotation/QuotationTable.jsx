@@ -153,7 +153,7 @@ const QuotationTable = ({ onEdit }) => {
   </button>
 
   {/* View Quotation Button */}
-  <Link to="/admin/quotation" className="w-full sm:w-auto">
+  <Link to="/admin/arounquotation" className="w-full sm:w-auto">
     <button className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition w-full sm:w-auto font-semibold">
       View Quotation
     </button>

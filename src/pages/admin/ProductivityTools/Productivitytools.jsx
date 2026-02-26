@@ -17,7 +17,7 @@ const tools = [
     name: "DocuForge",
     desc: "Create professional documents in seconds.",
     icon: <FileText className="text-indigo-500 w-8 h-8" />,
-    link: "/admin/invoice",
+    link: "/admin/quotation",
   },
   {
     name: "PaySync",
