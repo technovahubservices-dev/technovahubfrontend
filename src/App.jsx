@@ -22,6 +22,8 @@ import Softwaresol from "./pages/softwareSolutions/Softwaresol";
 import ScrollToTop from "./Components/ScrollToTop";
 import Homeseven from "./pages/Homeseven";
 import Sevenhome from "./pages/Sevenhome";
+import ProductPage from "./pages/Product/ProductPage";
+import NeuroSciencePage from "./pages/Career/NeuroSciencePage";
 
 
 
@@ -61,6 +63,8 @@ const App = () => {
           <Route path="/gallery" element={<GalleryPages />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/softwaresolutions" element={<Softwaresol />} />
+          <Route path="/product/:slug" element={<ProductPage />} />
+          <Route path="/career/neuro-science" element={<NeuroSciencePage />} />
           <Route path="/7Days-AI-innovation" element={<Homeseven />} />
           <Route path="/young-innovator" element={<YoungInnovator />} />
 
