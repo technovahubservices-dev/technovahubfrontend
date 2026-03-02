@@ -25,16 +25,19 @@ const navItems = [
   },
   {
     name: "CAREER",
-    link: [{ name: "Internship Offered", path: "/courses" },
-    { name: "Verify Certificate", path: "/verifyCertificate" },
-     { name: "Neuro Science", path: "https://neuroscience-website-landingpage.vercel.app/" },
-     { name: "Nexion", path: "https://nexion-ruby.vercel.app/" },
-     { name: "Trackpulse", path: "https://tracking-app-landing-page-self.vercel.app/" },
+    link: [
+      { name: "Internship Offered", path: "/courses" },
+      { name: "Verify Certificate", path: "/verifyCertificate" },
+      { name: "Neuro Science", path: "/career/neuro-science" },
     ],
-
-  
   },
-  
+  {
+    name: "PRODUCT",
+    link: [
+      { name: "Nexion", path: "/product/nexion" },
+      { name: "Trackpulse", path: "/product/trackpulse" },
+    ],
+  },
   { name: "CONTACT", path: "/contact" },
 ];
 
@@ -44,11 +47,15 @@ const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const location = useLocation();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsOpen((prev) => !prev);
+    setOpenDropdown(null);
+  };
 
   const toggleDropdown = (name) => {
     setOpenDropdown((prev) => (prev === name ? null : name));
   };
+  const isExternalLink = (path) => path?.startsWith("http");
 
   const getLinkClasses = (path) =>
     `text-base font-semibold transition duration-200 ease-in-out pt-1 ${location.pathname === path
@@ -61,6 +68,11 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+  }, [location.pathname]);
 
   return (
     <nav className="fixed top-0 w-full z-50">
@@ -112,16 +124,31 @@ const Navbar = () => {
                         }`}
                     >
                       {item.link.map((sub, index) => (
-                        <Link
-                          key={sub.name}
-                          to={sub.path}
-                          onClick={() => setOpenDropdown(null)}
-                          className={`block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition
+                        isExternalLink(sub.path) ? (
+                          <a
+                            key={sub.name}
+                            href={sub.path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setOpenDropdown(null)}
+                            className={`block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition
                             ${index === 0 ? "rounded-t-xl" : ""}
                             ${index === item.link.length - 1 ? "rounded-b-xl" : ""}`}
-                        >
-                          {sub.name}
-                        </Link>
+                          >
+                            {sub.name}
+                          </a>
+                        ) : (
+                          <Link
+                            key={sub.name}
+                            to={sub.path}
+                            onClick={() => setOpenDropdown(null)}
+                            className={`block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition
+                            ${index === 0 ? "rounded-t-xl" : ""}
+                            ${index === item.link.length - 1 ? "rounded-b-xl" : ""}`}
+                          >
+                            {sub.name}
+                          </Link>
+                        )
                       ))}
                     </div>
                   )}
@@ -134,6 +161,7 @@ const Navbar = () => {
               onClick={toggleMenu}
               className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition"
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
             >
               {isOpen ? <X className="text-gray-900" /> : <Menu className="text-gray-900" />}
             </button>
@@ -142,7 +170,9 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         <div
-          className={`lg:hidden absolute top-full left-0 w-full transition-all duration-300 ease-in-out bg-white shadow-lg overflow-hidden ${isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          className={`lg:hidden absolute top-full left-0 w-full transition-all duration-300 ease-in-out bg-white shadow-lg ${isOpen
+              ? "max-h-[calc(100vh-84px)] opacity-100 overflow-y-auto"
+              : "max-h-0 opacity-0 overflow-hidden"
             }`}
         >
           <div className="px-4 py-6 space-y-4 flex flex-col items-center">
@@ -166,20 +196,33 @@ const Navbar = () => {
                 <div key={item.name} className="w-full text-center space-y-2">
                   <div className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2 mt-4 border-b border-gray-100 pb-1">{item.name}</div>
                   {item.link.map((sub) => (
-                    <NavLink
-                      key={sub.name}
-                      to={sub.path}
-                      onClick={toggleMenu}
-                      className={({ isActive }) =>
-                        `block w-full text-center py-2 text-base font-medium transition rounded-lg
+                    isExternalLink(sub.path) ? (
+                      <a
+                        key={sub.name}
+                        href={sub.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={toggleMenu}
+                        className="block w-full text-center py-2 text-base font-medium transition rounded-lg text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                      >
+                        {sub.name}
+                      </a>
+                    ) : (
+                      <NavLink
+                        key={sub.name}
+                        to={sub.path}
+                        onClick={toggleMenu}
+                        className={({ isActive }) =>
+                          `block w-full text-center py-2 text-base font-medium transition rounded-lg
                         ${isActive
-                          ? "text-blue-700 bg-blue-50"
-                          : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                        }`
-                      }
-                    >
-                      {sub.name}
-                    </NavLink>
+                            ? "text-blue-700 bg-blue-50"
+                            : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                          }`
+                        }
+                      >
+                        {sub.name}
+                      </NavLink>
+                    )
                   ))}
                 </div>
               )
