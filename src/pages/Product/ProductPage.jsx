@@ -18,7 +18,7 @@ const ProductPage = () => {
 
   if (!product) {
     return (
-      <main className="pt-28 min-h-screen px-4 md:px-8">
+      <main className="min-h-screen px-4 md:px-8">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-3xl font-bold text-gray-900">Product not found</h1>
         </div>
@@ -27,9 +27,9 @@ const ProductPage = () => {
   }
 
   return (
-    <main className="pt-[150px] md:pt-[92px] min-h-screen bg-white">
+    <main className="min-h-screen bg-white">
       <section className="w-full">
-        <div className="w-full h-[calc(100vh-105px)] md:h-[calc(100vh-117px)] overflow-hidden">
+        <div className="w-full h-screen overflow-hidden">
           <iframe
             title={product.name}
             src={product.url}

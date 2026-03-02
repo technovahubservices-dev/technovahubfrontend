@@ -2,9 +2,9 @@ import React from "react";
 
 const NeuroSciencePage = () => {
   return (
-    <main className="pt-20 min-h-screen bg-white">
+    <main className="min-h-screen bg-white">
       <section className="w-full">
-        <div className="w-full h-[calc(100vh-80px)] overflow-hidden">
+        <div className="w-full h-screen overflow-hidden">
           <iframe
             title="Neuro Science"
             src="https://neuroscience-website-landingpage.vercel.app/"
