@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logoremove.png";
 
 const navItems = [
-  { name: "HOME", path: "/" },
+  { name: "hOME", path: "/" },
   { name: "ABOUT US", path: "/about" },
 
   {
@@ -79,6 +79,7 @@ const Navbar = () => {
       <div
         className={`transition-all duration-300 ${isScrolled ? "backdrop-blur-md bg-white/90 shadow-sm py-1" : "bg-transparent py-3 md:py-4"
           }`}
+        style={{ paddingBottom: "5px" }}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center h-16 md:h-20">
