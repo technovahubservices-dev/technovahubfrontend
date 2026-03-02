@@ -27,9 +27,9 @@ const ProductPage = () => {
   }
 
   return (
-    <main className="pt-20 min-h-screen bg-white">
+    <main className="pt-[150px] md:pt-[92px] min-h-screen bg-white">
       <section className="w-full">
-        <div className="w-full h-[calc(100vh-80px)] overflow-hidden">
+        <div className="w-full h-[calc(100vh-105px)] md:h-[calc(100vh-117px)] overflow-hidden">
           <iframe
             title={product.name}
             src={product.url}
