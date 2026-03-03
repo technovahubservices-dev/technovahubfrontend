@@ -94,7 +94,7 @@ const Navbar = () => {
               <img
                 src={logo}
                 alt="logo"
-                className="h-14 md:h-20 w-auto object-contain"
+                className={`h-14 md:h-20 w-auto object-contain transition ${useLightNavText ? "invert scale-110 md:scale-115" : ""}`}
               />
             </Link>
 
