@@ -46,8 +46,6 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const location = useLocation();
-  const isYoungInnovatorPage = location.pathname === "/young-innovator";
-  const useLightNavText = isYoungInnovatorPage && !isScrolled;
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -61,12 +59,8 @@ const Navbar = () => {
 
   const getLinkClasses = (path) =>
     `text-base font-semibold transition duration-200 ease-in-out pt-1 ${location.pathname === path
-      ? useLightNavText
-        ? "text-white border-b-2 border-white"
-        : "text-blue-700 border-b-2 border-blue-700"
-      : useLightNavText
-        ? "text-white/90 hover:text-purple-200 hover:border-b-2 hover:border-purple-200"
-        : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
+      ? "text-blue-700 border-b-2 border-blue-700"
+      : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
     }`;
 
   useEffect(() => {
@@ -94,7 +88,7 @@ const Navbar = () => {
               <img
                 src={logo}
                 alt="logo"
-                className={`h-14 md:h-20 w-auto object-contain transition ${useLightNavText ? "invert scale-110 md:scale-115" : ""}`}
+                className="h-14 md:h-20 w-auto object-contain"
               />
             </Link>
 
@@ -109,13 +103,12 @@ const Navbar = () => {
                   ) : (
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className={`flex items-center gap-1 text-base font-semibold transition ${useLightNavText ? "text-white/90 hover:text-purple-200" : "text-gray-900 hover:text-blue-600"
-                        }`}
+                      className="flex items-center gap-1 text-base font-semibold text-gray-900 hover:text-blue-600 transition"
                     >
                       {item.name}
                       <ChevronDown
                         size={16}
-                        className={`${useLightNavText ? "text-purple-200" : "text-blue-500"} transition-transform duration-300 ${openDropdown === item.name ? "rotate-180" : ""
+                        className={`text-blue-500 transition-transform duration-300 ${openDropdown === item.name ? "rotate-180" : ""
                           }`}
                       />
                     </button>
@@ -167,16 +160,11 @@ const Navbar = () => {
             {/* MOBILE TOGGLE */}
             <button
               onClick={toggleMenu}
-              className={`lg:hidden p-2 rounded-md transition ${useLightNavText ? "hover:bg-white/10" : "hover:bg-gray-100"
-                }`}
+              className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition"
               aria-label="Toggle menu"
               aria-expanded={isOpen}
             >
-              {isOpen ? (
-                <X className={useLightNavText ? "text-white" : "text-gray-900"} />
-              ) : (
-                <Menu className={useLightNavText ? "text-white" : "text-gray-900"} />
-              )}
+              {isOpen ? <X className="text-gray-900" /> : <Menu className="text-gray-900" />}
             </button>
           </div>
         </div>
