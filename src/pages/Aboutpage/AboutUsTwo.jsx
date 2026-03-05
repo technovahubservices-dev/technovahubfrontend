@@ -80,7 +80,7 @@ function AboutUsTwo() {
 <section className="mt-28 ">
 
   <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 tracking-tight">
-    Discover What We Do & Who We Serve
+    Industries We Serve
   </h2>
 
   <p className="text-gray-600 text-center mt-4 max-w-4xl mx-auto 
