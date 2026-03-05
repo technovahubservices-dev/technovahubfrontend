@@ -1,31 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import banner1 from "../../assets/images/b2.jpg";
-import banner2 from "../../assets/images/train.jpg";
-import banner3 from "../../assets/images/newimg.jpeg";
-import banner4 from "../../assets/images/4.jpg";
-import Agile from "../../assets/agile2.jpg";
-import Title from "../../Components/Title";
+import React from "react";
+import ecosystemImage from "../../assets/images/software-ecosystem-option-4.svg";
 
 const Softwarebanner = () => {
-  const images = [banner1, banner2, banner3, banner4];
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <header className="relative pt-28 md:pt-44 h-auto md:min-h-[80vh] overflow-hidden font-poppins bg-[#f7f7f7]">
       <div className="container mx-auto px-4 md:px-6 py-10 md:py-0 h-full">
         <div className="flex flex-col-reverse lg:flex-row h-full items-center gap-10">
-
-          {/* LEFT CONTENT */}
           <div className="flex-1 space-y-5 z-10 relative">
-            {/* Heading */}
             <div className="flex flex-col items-start justify-start text-left">
               <h1
                 className="
@@ -40,39 +21,57 @@ const Softwarebanner = () => {
               </h1>
             </div>
 
-            {/* Subheading */}
             <h3 className="text-md sm:text-lg md:text-xl font-medium text-blue-600">
               Delivering Business and Digital Transformation
             </h3>
 
-            {/* Description */}
             <p className="text-gray-600 leading-relaxed max-w-full sm:max-w-xl">
-              If you are looking for a true professional company then you are at the right place for your solution. We have a complete team of designers & developers to give a perfect blend of interactivity & creativity.
+              If you are looking for a true professional company then you are at
+              the right place for your solution. We have a complete team of
+              designers and developers to give a perfect blend of interactivity
+              and creativity.
             </p>
 
-            {/* Technova Hub Corporate Profile */}
+            <p className="text-gray-700 leading-relaxed max-w-full sm:max-w-xl bg-blue-50 border-l-4 border-blue-500 rounded-r-lg px-4 py-3 shadow-sm">
+              We automate workflows through intelligent{" "}
+              <span className="font-semibold text-blue-700">CRM systems</span>{" "}
+              powered by{" "}
+              <span className="font-semibold text-blue-700">
+                AI Agents, RAG and Large Language Models (LLMs)
+              </span>
+              . Our solutions help organizations{" "}
+              <span className="font-semibold text-blue-700">
+                streamline operations
+              </span>
+              , enhance decision making and scale efficiently with advanced AI
+              technologies.
+            </p>
+
             <ul className="space-y-3 sm:space-y-4 max-w-full sm:max-w-xl mt-4">
               <li className="flex items-start gap-2 sm:gap-3">
-                <span className="mt-1 flex-shrink-0 w-5 h-5 text-blue-500">➤</span>
+                <span className="mt-2 flex-shrink-0 w-2 h-2 rounded-full bg-blue-500"></span>
                 <span className="text-gray-700 leading-relaxed hover:text-blue-600 transition-colors text-sm sm:text-base">
-                  Technova Hub delivers automation solutions for industrial workflows, improving efficiency and operational performance.
+                  Technova Hub delivers automation solutions for industrial
+                  workflows, improving efficiency and operational performance.
                 </span>
               </li>
               <li className="flex items-start gap-2 sm:gap-3">
-                <span className="mt-1 flex-shrink-0 w-5 h-5 text-blue-500">➤</span>
+                <span className="mt-2 flex-shrink-0 w-2 h-2 rounded-full bg-blue-500"></span>
                 <span className="text-gray-700 leading-relaxed hover:text-blue-600 transition-colors text-sm sm:text-base">
-                  We enable businesses to manage and optimize operations through AI-driven solutions.
+                  We enable businesses to manage and optimize operations through
+                  AI-driven solutions.
                 </span>
               </li>
               <li className="flex items-start gap-2 sm:gap-3">
-                <span className="mt-1 flex-shrink-0 w-5 h-5 text-blue-500">➤</span>
+                <span className="mt-2 flex-shrink-0 w-2 h-2 rounded-full bg-blue-500"></span>
                 <span className="text-gray-700 leading-relaxed hover:text-blue-600 transition-colors text-sm sm:text-base">
-                  Expertise in Artificial Intelligence, Machine Learning, and Deep Learning implementation to drive intelligent, scalable outcomes.
+                  Expertise in Artificial Intelligence, Machine Learning and
+                  Deep Learning implementation to drive intelligent, scalable
+                  outcomes.
                 </span>
               </li>
             </ul>
 
-            {/* Call to Action Button */}
             <button
               className="
             mt-4 inline-block
@@ -88,20 +87,16 @@ const Softwarebanner = () => {
             </button>
           </div>
 
-          {/* RIGHT IMAGE / GRAPHIC */}
           <div className="flex-1 relative w-full flex justify-center items-center z-0">
             <img
-              src={Agile}
-              alt="Agile Development Process"
-              className="w-full max-w-[400px] sm:max-w-[500px] md:max-w-[650px] xl:max-w-[750px] 2xl:max-w-[850px] object-contain"
+              src={ecosystemImage}
+              alt="Software ecosystem illustration for CRM, Mobile App and BI App development"
+              className="w-full max-w-[440px] sm:max-w-[620px] md:max-w-[760px] xl:max-w-[840px] object-contain rounded-xl shadow-md"
             />
           </div>
         </div>
       </div>
     </header>
-
-
-
   );
 };
 

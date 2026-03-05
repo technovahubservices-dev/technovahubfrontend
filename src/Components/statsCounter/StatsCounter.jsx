@@ -26,11 +26,11 @@ const useCounter = (end, duration = 4000) => {
 
 // ✅ Stats Data
 const stats = [
-  { number: 1800, label: "Students Trained" },
-  { number: 800, label: "Entrepreneurs Trained" },
+  { number: 2210, label: "Students Trained" },
+  { number: 1100, label: "Entrepreneurs Trained" },
   { number: 10, label: "Awards Won" },
   { number: 15, label: "Courses Offered" },
-  { number: 25, label: "Projects Achieved" },
+  { number: 35, label: "Projects Achieved" },
 ];
 
 // ✅ Main Component
