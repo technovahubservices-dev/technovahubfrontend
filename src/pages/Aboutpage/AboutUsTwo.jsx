@@ -150,10 +150,10 @@ function AboutUsTwo() {
       </div>
       <div className="p-5">
         <h3 className="text-lg font-semibold text-blue-600 mb-2 tracking-wide">
-          Start-ups
+          Start ups
         </h3>
         <p className="text-gray-700 text-base leading-relaxed tracking-wide">
-          We help start-ups scale faster with CRM, automation, and digital strategies.
+          We help start ups scale faster with CRM, automation, and digital strategies.
         </p>
       </div>
     </div>

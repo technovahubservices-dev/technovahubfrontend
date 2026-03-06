@@ -1,9 +1,9 @@
 import React from "react";
-import ecosystemImage from "../../assets/images/software-ecosystem-option-4.svg";
+import ecosystemImage from "../../assets/images/software-ecosystem-option-2.svg";
 
 const Softwarebanner = () => {
   return (
-    <header className="relative pt-28 md:pt-44 h-auto md:min-h-[80vh] overflow-hidden font-poppins bg-[#f7f7f7]">
+    <header className="relative pt-28 md:pt-44 h-auto md:min-h-[80vh] overflow-hidden font-poppins bg-white">
       <div className="container mx-auto px-4 md:px-6 py-10 md:py-0 h-full">
         <div className="flex flex-col-reverse lg:flex-row h-full items-center gap-10">
           <div className="flex-1 space-y-5 z-10 relative">
@@ -59,7 +59,7 @@ const Softwarebanner = () => {
                 <span className="mt-2 flex-shrink-0 w-2 h-2 rounded-full bg-blue-500"></span>
                 <span className="text-gray-700 leading-relaxed hover:text-blue-600 transition-colors text-sm sm:text-base">
                   We enable businesses to manage and optimize operations through
-                  AI-driven solutions.
+                  AI driven solutions.
                 </span>
               </li>
               <li className="flex items-start gap-2 sm:gap-3">

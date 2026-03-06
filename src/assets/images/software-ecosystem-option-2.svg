@@ -17,15 +17,15 @@
     </style>
   </defs>
 
-  <rect width="1400" height="820" fill="url(#bg2)"/>
+  <rect width="1400" height="820" fill="#ffffff"/>
   <rect x="42" y="42" width="1316" height="736" rx="16" fill="#fff" stroke="#dbeafe" stroke-width="3"/>
 
   <rect x="300" y="88" width="800" height="94" rx="16" fill="url(#bar2)"/>
   <text x="700" y="150" text-anchor="middle" class="h">AI SOFTWARE ECOSYSTEM</text>
 
-  <line x1="700" y1="350" x2="380" y2="280" stroke="#93c5fd" stroke-width="6" stroke-dasharray="12 12"/>
-  <line x1="700" y1="350" x2="1020" y2="280" stroke="#93c5fd" stroke-width="6" stroke-dasharray="12 12"/>
-  <line x1="700" y1="350" x2="700" y2="560" stroke="#93c5fd" stroke-width="6" stroke-dasharray="12 12"/>
+  <line x1="700" y1="350" x2="380" y2="320" stroke="#93c5fd" stroke-width="6" stroke-dasharray="12 12"/>
+  <line x1="700" y1="350" x2="1020" y2="320" stroke="#93c5fd" stroke-width="6" stroke-dasharray="12 12"/>
+  <line x1="700" y1="350" x2="700" y2="540" stroke="#93c5fd" stroke-width="6" stroke-dasharray="12 12"/>
 
   <circle cx="700" cy="350" r="150" fill="#f8fbff" stroke="#93c5fd" stroke-width="5"/>
   <circle cx="700" cy="350" r="102" fill="#dbeafe"/>
@@ -33,17 +33,17 @@
   <text x="700" y="340" text-anchor="middle" class="core">CRM CORE</text>
   <text x="700" y="382" text-anchor="middle" class="sub">Central Customer Engine</text>
 
-  <rect x="230" y="200" width="300" height="140" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
-  <text x="380" y="275" text-anchor="middle" class="node">AI AGENT</text>
-  <text x="380" y="312" text-anchor="middle" class="sub">Automated actions</text>
+  <rect x="230" y="240" width="300" height="140" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
+  <text x="380" y="315" text-anchor="middle" class="node">AI AGENT</text>
+  <text x="380" y="352" text-anchor="middle" class="sub">Automated actions</text>
 
-  <rect x="870" y="200" width="300" height="140" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
-  <text x="1020" y="275" text-anchor="middle" class="node">RAG</text>
-  <text x="1020" y="312" text-anchor="middle" class="sub">Context retrieval</text>
+  <rect x="870" y="240" width="300" height="140" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
+  <text x="1020" y="315" text-anchor="middle" class="node">RAG</text>
+  <text x="1020" y="352" text-anchor="middle" class="sub">Context retrieval</text>
 
-  <rect x="550" y="560" width="300" height="140" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
-  <text x="700" y="635" text-anchor="middle" class="node">LLM</text>
-  <text x="700" y="672" text-anchor="middle" class="sub">Language intelligence</text>
+  <rect x="550" y="550" width="300" height="140" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
+  <text x="700" y="625" text-anchor="middle" class="node">LLM</text>
+  <text x="700" y="662" text-anchor="middle" class="sub">Language intelligence</text>
 
   <rect x="120" y="730" width="1160" height="62" rx="31" fill="url(#bar2)"/>
   <text x="700" y="772" text-anchor="middle" class="flow">AI AGENTS | RAG | LLM WORKFLOWS</text>
