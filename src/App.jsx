@@ -34,7 +34,14 @@ import YoungInnovator from "./pages/YoungInnovator";
 // Wrapper to use location
 const Layout = ({ children }) => {
   const location = useLocation();
-  const hideHeaderFooter = location.pathname.startsWith("/admin");
+  const hideHeaderFooterRoutes = new Set([
+    "/product/nexion",
+    "/product/trackpulse",
+    "/career/neuro-science",
+  ]);
+  const hideHeaderFooter =
+    location.pathname.startsWith("/admin") ||
+    hideHeaderFooterRoutes.has(location.pathname);
 
   return (
     <div>

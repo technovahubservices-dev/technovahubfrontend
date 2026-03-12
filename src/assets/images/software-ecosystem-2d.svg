@@ -1,0 +1,43 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#F3F4F6"/>
+  <rect x="48" y="48" width="1104" height="604" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="2"/>
+
+  <path d="M240 104H960L920 140H280L240 104Z" fill="#2E3192"/>
+  <rect x="320" y="88" width="560" height="76" fill="#3A6FB7"/>
+  <text x="600" y="138" text-anchor="middle" fill="#F8FAFC" font-size="54" font-family="Arial, sans-serif" font-weight="700">
+    SOFTWARE ECOSYSTEM
+  </text>
+
+  <g transform="translate(0,15)">
+    <circle cx="260" cy="385" r="140" fill="#CBD5E1"/>
+    <circle cx="260" cy="385" r="112" fill="#F8FAFC"/>
+    <circle cx="260" cy="385" r="86" fill="#F8FAFC" stroke="#1F3E8A" stroke-width="20" stroke-dasharray="340 220" transform="rotate(-35 260 385)"/>
+    <text x="260" y="320" text-anchor="middle" fill="#1F3E8A" font-size="44" font-family="Arial, sans-serif" font-weight="700">CRM</text>
+    <text x="260" y="356" text-anchor="middle" fill="#1F3E8A" font-size="30" font-family="Arial, sans-serif" font-weight="700">APP</text>
+    <text x="260" y="452" text-anchor="middle" fill="#3A6FB7" font-size="22" font-family="Arial, sans-serif">Customers • Leads</text>
+  </g>
+
+  <g transform="translate(0,15)">
+    <circle cx="600" cy="385" r="140" fill="#CBD5E1"/>
+    <circle cx="600" cy="385" r="112" fill="#F8FAFC"/>
+    <circle cx="600" cy="385" r="86" fill="#F8FAFC" stroke="#1F3E8A" stroke-width="20" stroke-dasharray="340 220" transform="rotate(-35 600 385)"/>
+    <text x="600" y="320" text-anchor="middle" fill="#1F3E8A" font-size="44" font-family="Arial, sans-serif" font-weight="700">MOBILE</text>
+    <text x="600" y="356" text-anchor="middle" fill="#1F3E8A" font-size="30" font-family="Arial, sans-serif" font-weight="700">APP</text>
+    <text x="600" y="452" text-anchor="middle" fill="#3A6FB7" font-size="22" font-family="Arial, sans-serif">Realtime • UX</text>
+  </g>
+
+  <g transform="translate(0,15)">
+    <circle cx="940" cy="385" r="140" fill="#CBD5E1"/>
+    <circle cx="940" cy="385" r="112" fill="#F8FAFC"/>
+    <circle cx="940" cy="385" r="86" fill="#F8FAFC" stroke="#1F3E8A" stroke-width="20" stroke-dasharray="340 220" transform="rotate(-35 940 385)"/>
+    <text x="940" y="320" text-anchor="middle" fill="#1F3E8A" font-size="44" font-family="Arial, sans-serif" font-weight="700">BI</text>
+    <text x="940" y="356" text-anchor="middle" fill="#1F3E8A" font-size="30" font-family="Arial, sans-serif" font-weight="700">APP</text>
+    <text x="940" y="452" text-anchor="middle" fill="#3A6FB7" font-size="22" font-family="Arial, sans-serif">KPI • Insights</text>
+  </g>
+
+  <rect x="120" y="548" width="960" height="44" rx="22" fill="#3A6FB7"/>
+  <path d="M120 570H1080" stroke="#DCEAFE" stroke-width="3" stroke-dasharray="12 12"/>
+  <text x="600" y="578" text-anchor="middle" fill="#F8FAFC" font-size="24" font-family="Arial, sans-serif" font-weight="700">
+    AI AGENTS • RAG • LLMs POWERED WORKFLOWS
+  </text>
+</svg>

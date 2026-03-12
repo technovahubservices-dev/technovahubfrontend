@@ -44,22 +44,52 @@ const services = [
     "description": "Automate your email campaigns with personalized messages, scheduling and analytics to drive conversions and customer loyalty.",
     "__v": 0
   },
-  {
-    "_id": "68da69f11713a66d0bb50c61",
-    "title": "Accounting Dashboard",
-    "description": "Track expenses, invoices and financial reports in a centralized dashboard designed for smarter business decisions.",
-    "__v": 0
-  },
-  {
-    "_id": "68da6a021713a66d0bb50c63",
-    "title": "Sales Dashboard",
-    "description": "Visualize and monitor your sales pipeline, KPIs and performance metrics with interactive dashboards for faster growth.",
-    "__v": 0
-  },
+  // {
+  //   "_id": "68da69f11713a66d0bb50c61",
+  //   "title": "Accounting Dashboard",
+  //   "description": "Track expenses, invoices and financial reports in a centralized dashboard designed for smarter business decisions.",
+  //   "__v": 0
+  // },
+  // {
+  //   "_id": "68da6a021713a66d0bb50c63",
+  //   "title": "Sales Dashboard",
+  //   "description": "Visualize and monitor your sales pipeline, KPIs and performance metrics with interactive dashboards for faster growth.",
+  //   "__v": 0
+  // },
   {
     "_id": "68da6a221713a66d0bb50c65",
     "title": "Employee Tracking",
     "description": "Monitor employee performance, attendance and productivity with smart tracking tools designed to enhance accountability and efficiency.",
+    "__v": 0
+  },
+  {
+    "_id": "68da6a331713a66d0bb50c67",
+    "title": "SaaS Development",
+    "description": "Build scalable software as a service platforms with secure architecture, subscription workflows and cloud ready performance for long term growth.",
+    "__v": 0
+  },
+  {
+    "_id": "68da6a441713a66d0bb50c69",
+    "title": "CRM Development",
+    "description": "Develop custom CRM systems to manage leads, customer interactions and sales pipelines in one place for better engagement and faster conversions.",
+    "__v": 0
+  },
+  {
+    "_id": "68da6a551713a66d0bb50c6b",
+    "title": "Database Development",
+    "description": "Design and optimize reliable database solutions with strong data modeling, fast queries and secure storage to support business critical operations.",
+    "__v": 0
+  },
+  {
+    "_id": "68da6a661713a66d0bb50c6d",
+    "title": "Mobile App Development",
+    "description": "Create high performance mobile applications with intuitive user experiences, cross platform compatibility and seamless backend integration.",
+    "__v": 0
+  },
+  {
+    "_id": "68da6a771713a66d0bb50c6f",
+    "title": "BI App Development",
+    "description": "Build business intelligence applications that transform raw data into interactive dashboards, actionable insights and informed strategic decisions.",
     "__v": 0
   },
 

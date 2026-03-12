@@ -59,7 +59,7 @@ const AboutUs = () => {
       >
         At <span className="font-bold text-black">Technovahub</span>, we build
         smart systems and 
-        <span className="text-blue-600 font-semibold"> AI-powered platforms </span>
+        <span className="text-blue-600 font-semibold"> AI powered platforms </span>
         that streamline operations, enhance decision making and drive digital
         growth for businesses worldwide.
       </motion.p>
@@ -69,7 +69,7 @@ const AboutUs = () => {
         className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed"
       >
         By combining advanced technology with a
-        <span className="text-blue-600 font-semibold"> people-first mindset</span>,
+        <span className="text-blue-600 font-semibold"> people first mindset</span>,
         we enable smarter decisions and sustainable growth.
       </motion.p>
 

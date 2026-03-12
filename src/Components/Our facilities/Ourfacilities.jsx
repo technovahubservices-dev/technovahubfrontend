@@ -12,22 +12,22 @@ const cards = [
   {
     icon: <FaBookReader className="w-14 h-14 text-blue-600 mb-4" />,
     title: "Smart Class",
-    desc: "Tech-upgraded classrooms enhancing learning and engagement for students and teachers. 🎓",
+    desc: "Tech upgraded classrooms enhancing learning and engagement for students and teachers. 🎓",
   },
   {
     icon: <GrWorkshop className="w-14 h-14 text-blue-600 mb-4" />,
     title: "Practical Lab",
-    desc: "Hands-on spaces where students explore concepts interactively through experiments. 🔬",
+    desc: "Hands on spaces where students explore concepts interactively through experiments. 🔬",
   },
   {
     icon: <SiGoogleclassroom className="w-14 h-14 text-blue-600 mb-4" />,
-    title: "Class Rooms",
-    desc: "Spacious, well-lit, and comfortable classrooms that inspire focused learning. 🌞",
+    title: "Workspace",
+    desc: "Spacious, well lit, and comfortable workspaces that inspire focused learning. 🌞",
   },
   {
     icon: <MdMeetingRoom className="w-14 h-14 text-blue-600 mb-4" />,
     title: "Seminar Hall",
-    desc: "Spacious and well-equipped hall designed for productive discussions and learning sessions.",
+    desc: "Spacious and well equipped hall designed for productive discussions and learning sessions.",
   }
 ];
 
@@ -82,3 +82,4 @@ const Ourfacilities = () => {
 };
 
 export default Ourfacilities;
+

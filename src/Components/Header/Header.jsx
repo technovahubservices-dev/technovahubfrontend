@@ -32,7 +32,7 @@ const navItems = [
     ],
   },
   {
-    name: "PRODUCT",
+    name: "PRODUCTS",
     link: [
       { name: "Nexion", path: "/product/nexion" },
       { name: "Trackpulse", path: "/product/trackpulse" },

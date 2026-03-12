@@ -45,7 +45,7 @@ function Technology() {
         {/* Sub text */}
         <p className="mt-4 text-gray-600 max-w-3xl mx-auto text-base sm:text-lg">
           We leverage modern and scalable technologies to build secure,
-          high-performance, and future-ready digital solutions.
+          high performance, and future ready digital solutions.
         </p>
 
         {/* Tech Cards */}
