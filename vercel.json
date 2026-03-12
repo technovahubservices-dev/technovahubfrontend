@@ -1,6 +1,11 @@
 {
   "rewrites": [
     { "source": "/bni/:path*", "destination": "https://bni-six.vercel.app/:path*" },
+    { "source": "/nexion/landingpage/:path*", "destination": "https://nexion-ruby.vercel.app/:path*" },
+    { "source": "/nexion/landingpage", "destination": "https://nexion-ruby.vercel.app/" },
+    { "source": "/nexion/:path*", "destination": "https://technovo-automation.vercel.app/:path*" },
+    { "source": "/trackpulse/landingpage/:path*", "destination": "https://tracking-app-landing-page-self.vercel.app/:path*" },
+    { "source": "/trackpulse/landingpage", "destination": "https://tracking-app-landing-page-self.vercel.app/" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
