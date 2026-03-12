@@ -1,9 +1,6 @@
 {
-  "redirects": [
-    { "source": "/bni", "destination": "https://bni-six.vercel.app", "permanent": false },
-    { "source": "/bni/:path*", "destination": "https://bni-six.vercel.app/:path*", "permanent": false }
-  ],
   "rewrites": [
+    { "source": "/bni/:path*", "destination": "https://bni-six.vercel.app/:path*" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
