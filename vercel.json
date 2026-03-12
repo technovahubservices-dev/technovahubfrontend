@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" },
-    { "source": "/bni/:path*", "destination": "https://bni.technovahub.in/:path*" }
+    { "source": "/bni/:path*", "destination": "https://bni-six.vercel.app/:path*" },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
