@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logoremove.png";
 
 const navItems = [
-  { name: "hOME", path: "/" },
+  { name: "HOME", path: "/" },
   { name: "ABOUT US", path: "/about" },
 
   {
