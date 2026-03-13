@@ -4,11 +4,11 @@ import { Link, useParams } from "react-router-dom";
 const productConfig = {
   nexion: {
     name: "Nexion",
-    url: "https://nexion-ruby.vercel.app/",
+    url: "https://technovahub.in/nexion/landingpage",
   },
   trackpulse: {
     name: "Trackpulse",
-    url: "https://tracking-app-landing-page-self.vercel.app/",
+    url: "https://technovahub.in/trackpulse/landingpage",
   },
 };
 
