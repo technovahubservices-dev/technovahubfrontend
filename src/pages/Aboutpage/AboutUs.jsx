@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import aboutImg from "../../assets/about.png";
-import CompanyProfile from "../../assets/TechnovaHub-profile.pdf";
+import CompanyProfile from "../../assets/TechnovaHub-profile(2).pdf";
 
 const container = {
   hidden: { opacity: 0 },
