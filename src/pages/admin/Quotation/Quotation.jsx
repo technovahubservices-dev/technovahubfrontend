@@ -339,7 +339,7 @@ const handlePrint = () => {
               <div>
                 <h1 className="text-sm sm:text-lg font-bold">Aroun Systems & Safety Equipments</h1>
                 <p className="text-[13px]">Manufacturer & Wholesalers For Fire & Safety Equipments</p>
-                <p className="text-xs sm:text-sm mt-2">GSTIN : 34ADXPA0879K1Z3 | Address : 38, 39, 2nd Cross Street, Green Garden, Lawspet Post, Puducherry - 605 008</p>
+                <p className="text-xs sm:text-sm mt-2">GSTIN : 34AKUPV7977K1ZT | Address : 38, 39, 2nd Cross Street, Green Garden, Lawspet Post, Puducherry - 605 008</p>
               </div>
               <div className="flex gap-2">
                 <img src={qr2} alt="" className="w-[50px] h-[30px]" />
@@ -359,7 +359,7 @@ const handlePrint = () => {
 
   {/* Static GST line */}
   <p className="text-sm mt-2  font-bold">
-    <span className="font-bold ">GST:</span> 34ADXPA0879K1Z3
+    <span className="font-bold ">GST:</span> 34AKUPV7977K1ZT
   </p>
 
   {Object.entries(buyerInfo).map(([key, value]) => (

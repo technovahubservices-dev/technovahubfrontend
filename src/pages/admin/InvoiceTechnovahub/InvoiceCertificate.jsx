@@ -428,7 +428,7 @@ if (loading)
                 }}
               >
                 <p>Phone: 9360962810 | Email: technovahubcareer@gmail.com</p>
-                <p>GSTIN: 34ADXPA0879K1Z3 | State: 34-Puducherry</p>
+                <p>GSTIN: 34AKUPV7977K1ZT | State: 34-Puducherry</p>
               </div>
             </div>
             <hr style={{ borderColor: "#d1d5db" }} />
@@ -446,7 +446,7 @@ if (loading)
                <p style={{ color: "#05438fff", fontWeight:"bold",  marginBottom: "10px" , fontSize:"13px" }}>
                   GST IN: <br />{" "}
                   <span style={{ color: "#040202ff", fontWeight: "500" }}>
-                    34ADXPA0879K1Z3
+                    34AKUPV7977K1ZT
                   </span>{" "}
                 </p>
                 <hr style={{ borderColor: "#d1d5db" }} />

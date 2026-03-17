@@ -441,7 +441,7 @@ export default function ArounCertificate() {
                 >
                   GST IN: <br />{" "}
                   <span style={{ color: "#040202ff", fontWeight: "500" }}>
-                    34ADXPA0879K1Z3
+                    34AKUPV7977K1ZT
                   </span>{" "}
                 </p>
                 <hr style={{ borderColor: "#d1d5db" }} />
