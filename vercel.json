@@ -6,8 +6,14 @@
     { "source": "/nexion/:path*", "destination": "https://technovo-automation.vercel.app/:path*" },
     { "source": "/trackpulse/landingpage/:path*", "destination": "https://tracking-app-landing-page-self.vercel.app/:path*" },
     { "source": "/trackpulse/landingpage", "destination": "https://technovahub.in/trackpulse/landingpage" },
-    { "source": "/jothi_eyecare/Test/:path*", "destination": "https://jothi-eyecare-frontend.vercel.app/:path*" },
-    { "source": "/jothi_eyecare/Test", "destination": "https://technovahub.in/jothi_eyecare/Test" },
+{
+  "source": "/jothi_eyecare/test/:path*",
+  "destination": "https://jothi-eyecare-frontend.vercel.app/:path*"
+},
+{
+  "source": "/jothi_eyecare/test",
+  "destination": "https://technovahub.in/jothi_eyecare/test"
+},
     { "source": "/(.*)", "destination": "/" }
   ]
 }
