@@ -44,6 +44,14 @@
       "source": "/test_german-car-workshop",
       "destination": "https://technovahub.in/test_german-car-workshop"
     },
+    {
+      "source": "/test_Tshirt/:path*",
+      "destination": "https://t-shirt-landingpage-3h7h.vercel.app/:path*"
+    },
+    {
+      "source": "/test_Tshirt",
+      "destination": "https://technovahub.in/test_Tshirt"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
