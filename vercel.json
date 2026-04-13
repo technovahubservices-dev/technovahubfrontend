@@ -7,12 +7,12 @@
     { "source": "/trackpulse/landingpage/:path*", "destination": "https://tracking-app-landing-page-self.vercel.app/:path*" },
     { "source": "/trackpulse/landingpage", "destination": "https://technovahub.in/trackpulse/landingpage" },
 {
-  "source": "/jothi_eyecare/test/:path*",
+  "source": "/test_jothiEyecare/:path*",
   "destination": "https://jothi-eyecare-frontend.vercel.app/:path*"
 },
 {
-  "source": "/jothi_eyecare/test",
-  "destination": "https://technovahub.in/jothi_eyecare/test"
+  "source": "/test_jothiEyecare",
+  "destination": "https://technovahub.in/test_jothiEyecare"
 },
     { "source": "/(.*)", "destination": "/" }
   ]
