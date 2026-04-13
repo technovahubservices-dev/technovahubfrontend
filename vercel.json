@@ -53,12 +53,12 @@
       "destination": "https://technovahub.in/test_Tshirt"
     },
     {
-      "source": "/test_LePontDashbord/:path*",
-      "destination": "https://le-pont-snowy.vercel.app/:path*"
+      "source": "/test_Midas/:path*",
+      "destination": "https://midas-site-gray.vercel.app/:path*"
     },
     {
-      "source": "/test_LePontDashbord",
-      "destination": "https://technovahub.in/test_LePontDashbord"
+      "source": "/test_Midas",
+      "destination": "https://technovahub.in/test_Midas"
     },
     { "source": "/(.*)", "destination": "/" }
   ]
