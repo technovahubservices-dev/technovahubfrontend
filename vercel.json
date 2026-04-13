@@ -60,6 +60,14 @@
       "source": "/test_Midas",
       "destination": "https://technovahub.in/test_Midas"
     },
+    {
+      "source": "/test_grayRock/:path*",
+      "destination": "https://gray-rock-sap-frontend.vercel.app/order:path*"
+    },
+    {
+      "source": "/test_grayRock",
+      "destination": "https://technovahub.in/test_grayRock"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
