@@ -62,11 +62,11 @@
     },
     {
       "source": "/test_grayRock/:path*",
-      "destination": "https://gray-rock-sap-frontend.vercel.app/order:path*"
+      "destination": "https://gray-rock-sap-frontend.vercel.app/test_grayRock/:path*"
     },
     {
       "source": "/test_grayRock",
-      "destination": "https://technovahub.in/test_grayRock"
+      "destination": "https://gray-rock-sap-frontend.vercel.app/test_grayRock/order"
     },
     { "source": "/(.*)", "destination": "/" }
   ]
