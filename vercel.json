@@ -68,6 +68,14 @@
       "source": "/test_grayRock/:path*",
       "destination": "https://gray-rock-sap-frontend.vercel.app/test_grayRock/:path*"
     },
+    {
+      "source": "/test_redTaxi",
+      "destination": "https://technovahub.in/test_redTaxi"
+    },
+    {
+      "source": "/test_redTaxi/:path*",
+      "destination": "https://red-taxi-py.vercel.app/mirror/pages/index.html/:path*"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
