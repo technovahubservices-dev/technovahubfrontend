@@ -70,11 +70,11 @@
     },
     {
       "source": "/test_redTaxi",
-      "destination": "https://technovahub.in/test_redTaxi/mirror/pages/index.html"
+      "destination": "https://red-taxi-py.vercel.app/test_redTaxi/"
     },
     {
       "source": "/test_redTaxi/:path*",
-      "destination": "https://red-taxi-py.vercel.app/mirror/pages/index.html/:path*"
+      "destination": "https://red-taxi-py.vercel.app/test_redTaxi/:path*"
     },
     { "source": "/(.*)", "destination": "/" }
   ]
