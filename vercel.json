@@ -70,7 +70,7 @@
     },
     {
       "source": "/test_redTaxi",
-      "destination": "https://technovahub.in/test_redTaxi"
+      "destination": "https://technovahub.in/test_redTaxi/mirror/pages/index.html"
     },
     {
       "source": "/test_redTaxi/:path*",
