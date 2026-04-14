@@ -61,12 +61,12 @@
       "destination": "https://technovahub.in/test_Midas"
     },
     {
-      "source": "/test_grayRock/:path*",
-      "destination": "https://gray-rock-sap-frontend.vercel.app/order/:path*"
+      "source": "/test_grayRock",
+      "destination": "https://gray-rock-sap-frontend.vercel.app/test_grayRock/order"
     },
     {
-      "source": "/test_grayRock",
-      "destination": "https://technovhub.in/test_grayRock/order"
+      "source": "/test_grayRock/:path*",
+      "destination": "https://gray-rock-sap-frontend.vercel.app/test_grayRock/:path*"
     },
     { "source": "/(.*)", "destination": "/" }
   ]
