@@ -77,6 +77,10 @@
       "destination": "https://red-taxi-py.vercel.app/test_redTaxi/:path*"
     },
     {
+      "source": "/salesvision",
+      "destination": "https://sales-vision-frontend.vercel.app/salesvision/"
+    },
+    {
       "source": "/salesvision/:path*",
       "destination": "https://sales-vision-frontend.vercel.app/salesvision/:path*"
     },
