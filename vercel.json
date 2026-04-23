@@ -92,6 +92,14 @@
       "source": "/test-salesvision/:path*",
       "destination": "https://sales-vision-frontend.vercel.app/test-salesvision/:path*"
     },
+    {
+      "source": "/test_giftShop/:path*",
+      "destination": "https://giftshopfrontend.vercel.app/:path*"
+    },
+    {
+      "source": "/test_giftShop",
+      "destination": "https://technovahub.in/test_giftShop"
+    },
 
     { "source": "/(.*)", "destination": "/" }
   ]
