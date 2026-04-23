@@ -21,6 +21,14 @@
       "destination": "https://technovo-automation.vercel.app"
     },
     {
+      "source": "/test_meekshiConsultancy/:path*",
+      "destination": "https://meekshi-consultancy-wdlo.vercel.app/:path*"
+    },
+    {
+      "source": "/test_meekshiConsultancy",
+      "destination": "https://technovahub.in/test_meekshiConsultancy"
+    },
+    {
       "source": "/trackpulse/landingpage/:path*",
       "destination": "https://tracking-app-landing-page-self.vercel.app/:path*"
     },
@@ -77,13 +85,13 @@
       "destination": "https://red-taxi-py.vercel.app/test_redTaxi/:path*"
     },
     {
-  "source": "/test-salesvision",
-  "destination": "https://sales-vision-frontend.vercel.app/test-salesvision"
-},
-{
-  "source": "/test-salesvision/:path*",
-  "destination": "https://sales-vision-frontend.vercel.app/test-salesvision/:path*"
-},
+      "source": "/test-salesvision",
+      "destination": "https://sales-vision-frontend.vercel.app/test-salesvision"
+    },
+    {
+      "source": "/test-salesvision/:path*",
+      "destination": "https://sales-vision-frontend.vercel.app/test-salesvision/:path*"
+    },
 
     { "source": "/(.*)", "destination": "/" }
   ]
