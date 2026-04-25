@@ -94,11 +94,11 @@
     },
     {
       "source": "/test_giftshop/:path*",
-      "destination": "https://giftshopfrontend.vercel.app/:path*"
+      "destination": "https://giftshopfrontend.vercel.app/test_giftshop/:path*"
     },
     {
       "source": "/test_giftshop",
-      "destination": "https://technovahub.in/test_giftshop"
+      "destination": "https://giftshopfrontend.vercel.app/test_giftshop"
     },
 
     { "source": "/(.*)", "destination": "/" }
