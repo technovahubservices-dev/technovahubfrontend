@@ -98,7 +98,7 @@
     },
     {
       "source": "/test_giftshop",
-      "destination": "https://giftshopfrontend.vercel.app/test_giftshop"
+      "destination": "https://technovahub.in/test_giftshop"
     },
 
     { "source": "/(.*)", "destination": "/" }
