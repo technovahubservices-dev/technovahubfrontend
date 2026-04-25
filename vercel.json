@@ -93,7 +93,7 @@
       "destination": "https://sales-vision-frontend.vercel.app/test-salesvision/:path*"
     },
     {
-      "source": "/test_giftShop/:path*",
+      "source": "/test_giftshop/:path*",
       "destination": "https://giftshopfrontend.vercel.app/:path*"
     },
     {
