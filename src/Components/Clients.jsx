@@ -114,7 +114,7 @@ const Clients = () => {
 
       {/* INDUSTRIAL EXPERTS */}
       <div className="max-w-6xl mx-auto px-6 text-center mt-24">
-        <Title text="We are empowered by our partners" />
+        <Title text="Industries We Serve" />
         <p className="text-blue-700 mt-4 mb-10 text-lg font-light">
           Collaborating with top industry pioneers shaping the future of technology.
         </p>
