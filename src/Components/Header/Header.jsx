@@ -36,6 +36,7 @@ const navItems = [
     link: [
       { name: "Nexion", path: "/product/nexion" },
       { name: "Trackpulse", path: "/product/trackpulse" },
+      { name: "Biz Connect", path: "/product/biz_connect" },
     ],
   },
   { name: "CONTACT", path: "/contact" },

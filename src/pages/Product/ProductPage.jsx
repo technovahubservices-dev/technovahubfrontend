@@ -10,6 +10,10 @@ const productConfig = {
     name: "Trackpulse",
     url: "https://technovahub.in/trackpulse/landingpage",
   },
+  biz_connect: {
+    name: "Biz Connect",
+    url: "https://technovahub.in/product/techno_biz_connect",
+  },
 };
 
 const ProductPage = () => {

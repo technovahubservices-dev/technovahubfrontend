@@ -37,6 +37,7 @@ const Layout = ({ children }) => {
   const hideHeaderFooterRoutes = new Set([
     "/product/nexion",
     "/product/trackpulse",
+    "/product/biz_connect",
     "/career/neuro-science",
   ]);
   const hideHeaderFooter =
