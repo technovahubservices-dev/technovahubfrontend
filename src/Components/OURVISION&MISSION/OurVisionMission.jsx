@@ -21,12 +21,24 @@ const VisionMission = () => {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-200/40 rounded-full blur-3xl animate-pulse"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 lg:px-16 text-center">
-        <div data-aos="fade-up">
+        
+
+        <p
+          className="mx-auto mt-5 mb-8 md:mb-10 max-w-4xl text-sm md:text-lg leading-relaxed text-gray-700"
+          data-aos="fade-up"
+        >
+          TechnovaHub is an AI-driven technology company dedicated to creating
+          intelligent solutions and nurturing future-ready talent. We
+          specialize in Artificial Intelligence, Machine Learning, Generative
+          AI, automation and modern software development, empowering businesses
+          and individuals to thrive in an AI-powered world. We are committed to
+          driving innovation through smart and transformative technology.
+        </p>
+        <div className="mt-2 md:mt-4" data-aos="fade-up">
           <Title text="OUR VISION & MISSION" />
         </div>
-
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mt-10">
           {/* Vision */}
           <div
             className="relative p-6 md:p-10 rounded-3xl backdrop-blur-lg bg-white/70 border border-white/40 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 text-left"
@@ -43,11 +55,7 @@ const VisionMission = () => {
             </div>
 
             <p className="text-gray-700 text-sm md:text-lg  leading-relaxed">
-              Our vision is to become a nationally recognized hub of excellence
-              in <span className="text-blue-600 font-medium">technology education</span>, IT services
-              and automation driven innovation. We aim to nurture
-              <span className="text-cyan-600 font-medium"> future ready talent </span> and deliver
-              transformative solutions that empower industries to advance.
+              To be a globally trusted technology partner driving innovation, automation and digital transformation across industries.
             </p>
           </div>
 
@@ -67,13 +75,7 @@ const VisionMission = () => {
             </div>
 
             <p className="text-gray-700  text-sm   md:text-lg leading-relaxed">
-              Our mission is to empower learners with
-              <span className="text-blue-600 font-medium"> industry relevant skills </span> through
-              hands on training and real world projects. We bridge the gap
-              between academics and practical application creating
-              <span className="text-cyan-600 font-medium"> future ready professionals </span> and
-              supporting businesses with
-              <span className="text-blue-500 font-medium"> automation and IT solutions</span>.
+              Our mission is to empower businesses with smart automation and innovative IT solutions that drive growth, improve efficiency and enhance customer experiences.
             </p>
           </div>
         </div>

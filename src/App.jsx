@@ -24,6 +24,7 @@ import Homeseven from "./pages/Homeseven";
 import Sevenhome from "./pages/Sevenhome";
 import ProductPage from "./pages/Product/ProductPage";
 import NeuroSciencePage from "./pages/Career/NeuroSciencePage";
+import FacilitiesPage from "./pages/Career/FacilitiesPage";
 
 
 
@@ -38,6 +39,7 @@ const Layout = ({ children }) => {
     "/product/nexion",
     "/product/trackpulse",
     "/product/biz_connect",
+    "/product/techno_biz_connect",
     "/career/neuro-science",
   ]);
   const hideHeaderFooter =
@@ -73,6 +75,7 @@ const App = () => {
           <Route path="/softwaresolutions" element={<Softwaresol />} />
           <Route path="/product/:slug" element={<ProductPage />} />
           <Route path="/career/neuro-science" element={<NeuroSciencePage />} />
+          <Route path="/career/facilities" element={<FacilitiesPage />} />
           <Route path="/7Days-AI-innovation" element={<Homeseven />} />
           <Route path="/young-innovator" element={<YoungInnovator />} />
 
@@ -101,3 +104,4 @@ const App = () => {
 };
 
 export default App;
+

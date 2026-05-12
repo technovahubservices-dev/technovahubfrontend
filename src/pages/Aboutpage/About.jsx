@@ -14,9 +14,9 @@ const About = () => {
 <div className='mt-[100px]'>
    <AboutUs/>
     <AboutUsTwo/>
-   <StatsCounter/>
    <Technology/>
    <LeadersSection/>
+   <StatsCounter/>
    </div>
   );
 };

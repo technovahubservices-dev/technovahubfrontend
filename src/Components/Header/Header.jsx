@@ -14,6 +14,14 @@ const navItems = [
       { name: "Terms & Conditions", path: "/termsandCondition" },
     ],
   },
+  {
+    name: "PRODUCTS",
+    link: [
+      { name: "Nexion", path: "/product/nexion" },
+      { name: "Trackpulse", path: "/product/trackpulse" },
+      { name: "Techno Biz Connect", path: "/product/techno_biz_connect" },
+    ],
+  },
 
   {
     name: "EVENTS",
@@ -27,6 +35,7 @@ const navItems = [
     name: "CAREER",
     link: [
       { name: "Internship Offered", path: "/courses" },
+      { name: "Our Facilities", path: "/career/facilities" },
       { name: "Verify Certificate", path: "/verifyCertificate" },
       { name: "Neuro Science", path: "/career/neuro-science" },
     ],
@@ -173,8 +182,8 @@ const Navbar = () => {
         {/* MOBILE MENU */}
         <div
           className={`lg:hidden absolute top-full left-0 w-full transition-all duration-300 ease-in-out bg-white shadow-lg ${isOpen
-              ? "max-h-[calc(100vh-84px)] opacity-100 overflow-y-auto"
-              : "max-h-0 opacity-0 overflow-hidden"
+            ? "max-h-[calc(100vh-84px)] opacity-100 overflow-y-auto"
+            : "max-h-0 opacity-0 overflow-hidden"
             }`}
         >
           <div className="px-4 py-6 space-y-4 flex flex-col items-center">

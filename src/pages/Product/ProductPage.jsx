@@ -14,6 +14,10 @@ const productConfig = {
     name: "Biz Connect",
     url: "https://technovahub.in/product/techno_biz_connect",
   },
+  techno_biz_connect: {
+    name: "Techno Biz Connect",
+    url: "https://technovahub.in/product/techno_biz_connect",
+  },
 };
 
 const ProductPage = () => {
@@ -59,3 +63,4 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
+

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ecosystemImage from "../../assets/images/software-ecosystem-option-2.svg";
 
 const Softwarebanner = () => {
@@ -72,7 +73,8 @@ const Softwarebanner = () => {
               </li>
             </ul>
 
-            <button
+            <Link
+              to="/contact#contact-form"
               className="
             mt-4 inline-block
             bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700
@@ -84,7 +86,7 @@ const Softwarebanner = () => {
           "
             >
               DISCUSS YOUR PROJECT
-            </button>
+            </Link>
           </div>
 
           <div className="flex-1 relative w-full flex justify-center items-center z-0">
