@@ -108,6 +108,14 @@
       "source": "/product/techno_biz_connect",
       "destination": "https://technovahub.in/product/techno_biz_connect"
     },
+    {
+      "source": "/tbc_connect/:path*",
+      "destination": "https://nfcprofilebackend-c1bn.onrender.com/:path*"
+    },
+    {
+      "source": "/tbc_connect",
+      "destination": "https://technovahub.in/tbc_connect"
+    },
 
     { "source": "/(.*)", "destination": "/" }
   ]
