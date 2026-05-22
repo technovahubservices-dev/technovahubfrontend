@@ -109,13 +109,13 @@
       "destination": "https://technovahub.in/product/techno_biz_connect"
     },
     {
-      "source": "/nfc/api/:path*",
-      "destination": "https://nfcprofilebackend-c1bn.onrender.com/:path*"
-    },
-    {
-      "source": "/nfc/api",
-      "destination": "https://technovahub.in/nfc/api"
-    },
+  "source": "/tbc_connect/:path*",
+  "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect/:path*"
+},
+{
+  "source": "/tbc_connect",
+  "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect"
+},
 
     { "source": "/(.*)", "destination": "/" }
   ]
