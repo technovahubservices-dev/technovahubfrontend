@@ -109,12 +109,12 @@
       "destination": "https://technovahub.in/product/techno_biz_connect"
     },
     {
-      "source": "/nfc/:path*",
+      "source": "/nfc/api/:path*",
       "destination": "https://nfcprofilebackend-c1bn.onrender.com/:path*"
     },
     {
-      "source": "/nfc",
-      "destination": "https://technovahub.in/nfc"
+      "source": "/nfc/api",
+      "destination": "https://technovahub.in/nfc/api"
     },
 
     { "source": "/(.*)", "destination": "/" }
