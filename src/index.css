@@ -85,3 +85,14 @@ body, html {
   animation: shimmer 1.8s infinite;
   background-size: 200% 100%;
 }
+
+@keyframes drift {
+  0%, 100% {
+    transform: translateY(-8px);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.95;
+  }
+}
