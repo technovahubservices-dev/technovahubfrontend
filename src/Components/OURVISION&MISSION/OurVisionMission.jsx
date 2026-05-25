@@ -27,11 +27,11 @@ const VisionMission = () => {
           className="mx-auto mt-5 mb-8 md:mb-10 max-w-4xl text-sm md:text-lg leading-relaxed text-gray-700"
           data-aos="fade-up"
         >
-          TechnovaHub is an AI-driven technology company dedicated to creating
-          intelligent solutions and nurturing future-ready talent. We
+          TechnovaHub is an AI driven technology company dedicated to creating
+          intelligent solutions and nurturing future ready talent. We
           specialize in Artificial Intelligence, Machine Learning, Generative
           AI, automation and modern software development, empowering businesses
-          and individuals to thrive in an AI-powered world. We are committed to
+          and individuals to thrive in an AI powered world. We are committed to
           driving innovation through smart and transformative technology.
         </p>
         <div className="mt-2 md:mt-4" data-aos="fade-up">

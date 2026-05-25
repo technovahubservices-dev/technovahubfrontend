@@ -3,8 +3,9 @@ import { Heart } from "lucide-react";
 
 const CloudScoreCallout = () => {
   return (
-    <div className="cloud-callout z-20 mx-auto mb-4 w-[240px] max-w-[calc(100vw-1rem)] sm:mb-0 sm:absolute sm:left-auto sm:right-5 sm:top-14 sm:w-[320px] sm:max-w-none lg:right-10 lg:top-16 lg:w-[440px]">
+    <div className="cloud-callout z-20 mx-auto mb-4 w-[240px] max-w-[calc(100vw-1rem)] sm:mb-0 sm:absolute sm:left-auto sm:right-5 sm:top-20 sm:w-[320px] sm:max-w-none lg:right-10 lg:top-24 lg:w-[440px]">
       <div
+        className="cloud-callout__shape"
         style={{
           animation: "cloudFloat 4s ease-in-out infinite",
           willChange: "transform",
@@ -15,11 +16,11 @@ const CloudScoreCallout = () => {
         <a
           href="https://ai-score-checker.vercel.app/"
           aria-label="Check my AI score"
-          className="group relative block"
+          className="group relative block h-full w-full"
           style={{ textDecoration: "none" }}
         >
           <div
-            className="relative flex flex-col items-center justify-center text-center rotate-0 sm:rotate-6 lg:rotate-6"
+            className="cloud-callout__content relative flex flex-col items-center justify-center text-center rotate-0 sm:rotate-6 lg:rotate-6"
             style={{
               paddingTop: "12%",
               paddingBottom: "8%",
@@ -136,7 +137,41 @@ const CloudScoreCallout = () => {
 
         @media (max-width: 640px) {
           .cloud-callout {
-            width: min(240px, calc(100vw - 1rem));
+            width: min(220px, calc(100vw - 1rem));
+          }
+
+          .cloud-callout__content {
+            padding-top: 14% !important;
+            padding-bottom: 11% !important;
+            padding-left: 12% !important;
+            padding-right: 12% !important;
+          }
+
+          .cloud-callout__content h2 {
+            font-size: 0.95rem !important;
+            margin-bottom: 0.12rem !important;
+          }
+
+          .cloud-callout__content p {
+            font-size: 0.62rem !important;
+            line-height: 1.25 !important;
+            margin-bottom: 0.52rem !important;
+            max-width: 10.8rem !important;
+          }
+
+          .cloud-callout__content > span {
+            gap: 0.4rem !important;
+            padding: 0.38rem 0.68rem !important;
+          }
+
+          .cloud-callout__content > span span:first-of-type {
+            font-size: 0.5rem !important;
+            letter-spacing: 0.08em !important;
+          }
+
+          .cloud-callout__content > span svg {
+            width: 12px !important;
+            height: 12px !important;
           }
         }
       `}</style>
