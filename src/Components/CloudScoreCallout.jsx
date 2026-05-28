@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 
 const CloudScoreCallout = () => {
   return (
-    <div className="cloud-callout z-20 mx-auto mb-4 w-[240px] max-w-[calc(100vw-1rem)] sm:mb-0 sm:absolute sm:left-auto sm:right-5 sm:top-20 sm:w-[320px] sm:max-w-none lg:right-10 lg:top-24 lg:w-[440px]">
+    <div className="cloud-callout z-20 mx-auto mb-4 w-[220px] max-w-[calc(100vw-1rem)] sm:mb-0 sm:absolute sm:left-auto sm:right-5 sm:top-20 sm:w-[320px] sm:max-w-none lg:right-10 lg:top-24 lg:w-[440px]">
       <div
         className="cloud-callout__shape"
         style={{
@@ -22,7 +22,7 @@ const CloudScoreCallout = () => {
           <div
             className="cloud-callout__content relative flex flex-col items-center justify-center text-center rotate-0 sm:rotate-6 lg:rotate-6"
             style={{
-              paddingTop: "12%",
+              paddingTop: "20%",
               paddingBottom: "8%",
               paddingLeft: "10%",
               paddingRight: "10%",
@@ -82,7 +82,7 @@ const CloudScoreCallout = () => {
                 fontSize: "clamp(0.8rem, 2.2vw, 1.05rem)",
                 color: "#4a6a8a",
                 fontWeight: 500,
-                marginBottom: "0.9rem",
+                marginBottom: "1rem",
                 maxWidth: "14rem",
                 position: "relative",
                 zIndex: 1,
@@ -99,6 +99,7 @@ const CloudScoreCallout = () => {
                 backgroundColor: "rgba(255,255,255,0.97)",
                 padding: "0.65rem 1.4rem",
                 boxShadow: "0 4px 18px rgba(15,30,60,0.10)",
+                marginTop: "0.1rem",
                 position: "relative",
                 zIndex: 1,
               }}
@@ -141,32 +142,76 @@ const CloudScoreCallout = () => {
           }
 
           .cloud-callout__content {
-            padding-top: 14% !important;
-            padding-bottom: 11% !important;
+            padding-top: 18% !important;
+            padding-bottom: 9% !important;
             padding-left: 12% !important;
             padding-right: 12% !important;
           }
 
           .cloud-callout__content h2 {
-            font-size: 0.95rem !important;
-            margin-bottom: 0.12rem !important;
+            font-size: 0.9rem !important;
+            margin-bottom: 0.08rem !important;
+            max-width: 9.6rem !important;
           }
 
           .cloud-callout__content p {
-            font-size: 0.62rem !important;
-            line-height: 1.25 !important;
-            margin-bottom: 0.52rem !important;
-            max-width: 10.8rem !important;
+            font-size: 0.58rem !important;
+            line-height: 1.2 !important;
+            margin-bottom: 0.42rem !important;
+            max-width: 10rem !important;
           }
 
           .cloud-callout__content > span {
-            gap: 0.4rem !important;
-            padding: 0.38rem 0.68rem !important;
+            gap: 0.34rem !important;
+            padding: 0.34rem 0.62rem !important;
+            margin-top: 0.28rem !important;
           }
 
           .cloud-callout__content > span span:first-of-type {
-            font-size: 0.5rem !important;
+            font-size: 0.46rem !important;
             letter-spacing: 0.08em !important;
+          }
+
+          .cloud-callout__content > span svg {
+            width: 11px !important;
+            height: 11px !important;
+          }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+          .cloud-callout {
+            width: 320px;
+          }
+
+          .cloud-callout__content {
+            padding-top: 18% !important;
+            padding-bottom: 8% !important;
+            padding-left: 11% !important;
+            padding-right: 11% !important;
+          }
+
+          .cloud-callout__content h2 {
+            font-size: 1.15rem !important;
+            margin-bottom: 0.18rem !important;
+            max-width: 11.5rem !important;
+          }
+
+          .cloud-callout__content p {
+            font-size: 0.72rem !important;
+            line-height: 1.22 !important;
+            margin-bottom: 0.86rem !important;
+            max-width: 12.8rem !important;
+          }
+
+          .cloud-callout__content > span {
+            gap: 0.34rem !important;
+            padding: 0.5rem 1rem !important;
+            margin-top: 0.04rem !important;
+          }
+
+          .cloud-callout__content > span span:first-of-type {
+            font-size: 0.58rem !important;
+            letter-spacing: 0.1em !important;
           }
 
           .cloud-callout__content > span svg {
