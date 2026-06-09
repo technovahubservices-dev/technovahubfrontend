@@ -14,7 +14,7 @@ import CloudScoreCallout from '../Components/CloudScoreCallout'
 const LandingPage = () => {
   return (
     <div>
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-visible pb-6">
         <HeroBanner/>
         <CloudScoreCallout />
       </section>

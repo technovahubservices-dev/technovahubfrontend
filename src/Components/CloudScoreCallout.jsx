@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 
 const CloudScoreCallout = () => {
   return (
-    <div className="cloud-callout z-20 mx-auto mb-4 w-[220px] max-w-[calc(100vw-1rem)] sm:mb-0 sm:absolute sm:left-auto sm:right-5 sm:top-20 sm:w-[320px] sm:max-w-none lg:right-10 lg:top-24 lg:w-[440px]">
+    <div className="cloud-callout absolute left-1/2 top-4 z-30 w-[240px] max-w-[calc(100vw-1rem)] -translate-x-1/2 sm:left-auto sm:right-5 sm:top-20 sm:w-[320px] sm:max-w-none lg:right-10 lg:top-24 lg:w-[460px]">
       <div
         className="cloud-callout__shape"
         style={{
@@ -20,12 +20,12 @@ const CloudScoreCallout = () => {
           style={{ textDecoration: "none" }}
         >
           <div
-            className="cloud-callout__content relative flex flex-col items-center justify-center text-center rotate-0 sm:rotate-6 lg:rotate-6"
+            className="cloud-callout__content relative flex flex-col items-center justify-center text-center rotate-0"
             style={{
-              paddingTop: "20%",
+              paddingTop: "19%",
               paddingBottom: "8%",
-              paddingLeft: "10%",
-              paddingRight: "10%",
+              paddingLeft: "11%",
+              paddingRight: "11%",
               transformOrigin: "center center",
             }}
           >
@@ -64,11 +64,11 @@ const CloudScoreCallout = () => {
             <h2
               className="font-black leading-tight tracking-tight"
               style={{
-                fontSize: "clamp(1.2rem, 4vw, 1.85rem)",
+                fontSize: "clamp(1.35rem, 4.4vw, 2.15rem)",
                 color: "#0f1e2e",
                 fontFamily: "'Inter', 'DM Sans', system-ui, sans-serif",
                 fontWeight: 900,
-                marginBottom: "0.35rem",
+                marginBottom: "0.42rem",
                 position: "relative",
                 zIndex: 1,
               }}
@@ -79,11 +79,11 @@ const CloudScoreCallout = () => {
             <p
               className="leading-snug"
               style={{
-                fontSize: "clamp(0.8rem, 2.2vw, 1.05rem)",
+                fontSize: "clamp(0.92rem, 2.55vw, 1.18rem)",
                 color: "#4a6a8a",
                 fontWeight: 500,
-                marginBottom: "1rem",
-                maxWidth: "14rem",
+                marginBottom: "1.08rem",
+                maxWidth: "15.2rem",
                 position: "relative",
                 zIndex: 1,
               }}
@@ -97,7 +97,7 @@ const CloudScoreCallout = () => {
                 borderRadius: "9999px",
                 border: "1.5px solid rgba(180,210,240,0.6)",
                 backgroundColor: "rgba(255,255,255,0.97)",
-                padding: "0.65rem 1.4rem",
+                padding: "0.72rem 1.55rem",
                 boxShadow: "0 4px 18px rgba(15,30,60,0.10)",
                 marginTop: "0.1rem",
                 position: "relative",
@@ -115,7 +115,7 @@ const CloudScoreCallout = () => {
               />
               <span
                 style={{
-                  fontSize: "clamp(0.65rem, 1.6vw, 0.78rem)",
+                  fontSize: "clamp(0.72rem, 1.8vw, 0.9rem)",
                   fontWeight: 800,
                   letterSpacing: "0.14em",
                   color: "#1a5fb4",
@@ -138,43 +138,43 @@ const CloudScoreCallout = () => {
 
         @media (max-width: 640px) {
           .cloud-callout {
-            width: min(220px, calc(100vw - 1rem));
+            width: min(240px, calc(100vw - 0.75rem));
           }
 
           .cloud-callout__content {
-            padding-top: 18% !important;
-            padding-bottom: 9% !important;
+            padding-top: 17% !important;
+            padding-bottom: 8% !important;
             padding-left: 12% !important;
             padding-right: 12% !important;
           }
 
           .cloud-callout__content h2 {
-            font-size: 0.9rem !important;
-            margin-bottom: 0.08rem !important;
-            max-width: 9.6rem !important;
+            font-size: 1.02rem !important;
+            margin-bottom: 0.15rem !important;
+            max-width: 10.6rem !important;
           }
 
           .cloud-callout__content p {
-            font-size: 0.58rem !important;
+            font-size: 0.66rem !important;
             line-height: 1.2 !important;
-            margin-bottom: 0.42rem !important;
-            max-width: 10rem !important;
+            margin-bottom: 0.58rem !important;
+            max-width: 11rem !important;
           }
 
           .cloud-callout__content > span {
-            gap: 0.34rem !important;
-            padding: 0.34rem 0.62rem !important;
-            margin-top: 0.28rem !important;
+            gap: 0.38rem !important;
+            padding: 0.42rem 0.72rem !important;
+            margin-top: 0.18rem !important;
           }
 
           .cloud-callout__content > span span:first-of-type {
-            font-size: 0.46rem !important;
+            font-size: 0.52rem !important;
             letter-spacing: 0.08em !important;
           }
 
           .cloud-callout__content > span svg {
-            width: 11px !important;
-            height: 11px !important;
+            width: 12px !important;
+            height: 12px !important;
           }
         }
 
@@ -184,39 +184,39 @@ const CloudScoreCallout = () => {
           }
 
           .cloud-callout__content {
-            padding-top: 18% !important;
+            padding-top: 17% !important;
             padding-bottom: 8% !important;
-            padding-left: 11% !important;
-            padding-right: 11% !important;
+            padding-left: 11.5% !important;
+            padding-right: 11.5% !important;
           }
 
           .cloud-callout__content h2 {
-            font-size: 1.15rem !important;
-            margin-bottom: 0.18rem !important;
-            max-width: 11.5rem !important;
+            font-size: 1.34rem !important;
+            margin-bottom: 0.24rem !important;
+            max-width: 12.5rem !important;
           }
 
           .cloud-callout__content p {
-            font-size: 0.72rem !important;
+            font-size: 0.82rem !important;
             line-height: 1.22 !important;
-            margin-bottom: 0.86rem !important;
-            max-width: 12.8rem !important;
+            margin-bottom: 0.98rem !important;
+            max-width: 13.8rem !important;
           }
 
           .cloud-callout__content > span {
-            gap: 0.34rem !important;
-            padding: 0.5rem 1rem !important;
-            margin-top: 0.04rem !important;
+            gap: 0.4rem !important;
+            padding: 0.58rem 1.08rem !important;
+            margin-top: 0.08rem !important;
           }
 
           .cloud-callout__content > span span:first-of-type {
-            font-size: 0.58rem !important;
+            font-size: 0.68rem !important;
             letter-spacing: 0.1em !important;
           }
 
           .cloud-callout__content > span svg {
-            width: 12px !important;
-            height: 12px !important;
+            width: 13px !important;
+            height: 13px !important;
           }
         }
       `}</style>

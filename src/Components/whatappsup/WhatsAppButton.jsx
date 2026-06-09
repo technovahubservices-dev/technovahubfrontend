@@ -1,25 +1,36 @@
 import React from "react";
+import { MessageCircle } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { CONTACT } from "../../data/company";
 
-const WhatsAppButton = () => {
-  const phoneNumber = "9360962810";
-  const message = "Hello TechnovaHub, I have an enquiry!";
+const WhatsAppButton = ({ open = false, onClick }) => {
+  const handleChatClick = () => {
+    if (onClick) onClick();
+  };
 
-  const handleClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(url, "_blank");
+  const handleWhatsAppClick = () => {
+    window.open(CONTACT.whatsapp, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className="fixed bottom-7 right-3 bg-green-500 hover:bg-green-600 text-white p-2  w-[40px] h-[40px] rounded-full shadow-lg flex items-center justify-center transition-transform transform hover:scale-110 z-50"
-      aria-label="Chat on WhatsApp"
-    >
-      <FaWhatsapp className="text-3xl" />
-    </button>
+    <div className="fixed bottom-7 right-3 z-[99998] flex flex-col items-end gap-3">
+      <button
+        onClick={handleWhatsAppClick}
+        className="w-[56px] h-[56px] rounded-full shadow-lg flex items-center justify-center text-white bg-[#25D366] hover:bg-[#1faa52] transition-transform transform hover:scale-110"
+        aria-label="Open WhatsApp chat"
+      >
+        <FaWhatsapp size={28} />
+      </button>
+
+      <button
+        onClick={handleChatClick}
+        className="w-[56px] h-[56px] rounded-full shadow-lg flex items-center justify-center text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 transition-transform transform hover:scale-110"
+        aria-label="Chatbot open"
+        aria-pressed={open}
+      >
+        <MessageCircle size={27} strokeWidth={2.2} />
+      </button>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./Components/Header/Header";
@@ -14,6 +15,7 @@ import Courses from "./pages/Courses/Courses";
 
 import GalleryPages from "./pages/Gallery/GalleryPages";
 import WhatsAppButton from "./Components/whatappsup/WhatsAppButton";
+import ChatWindow from "./Components/chatbot/ChatWindow";
 
 import PosterPopup from "./Components/popup/PosterPopup";
 import ProtectedRoute from "./Components/protectRoutes/ProtectedRoute";
@@ -35,6 +37,7 @@ import YoungInnovator from "./pages/YoungInnovator";
 // Wrapper to use location
 const Layout = ({ children }) => {
   const location = useLocation();
+  const [chatOpen, setChatOpen] = useState(true);
   const hideHeaderFooterRoutes = new Set([
     "/product/nexion",
     "/product/trackpulse",
@@ -55,7 +58,15 @@ const Layout = ({ children }) => {
       {children}
       {!hideHeaderFooter && <Footer />}
       {!hideHeaderFooter && <Backtop />}
-      {!hideHeaderFooter && <WhatsAppButton />}
+      {!hideHeaderFooter && (
+        <>
+          <WhatsAppButton open={chatOpen} onClick={() => setChatOpen(true)} />
+          {typeof document !== "undefined" && createPortal(
+            <ChatWindow open={chatOpen} onClose={() => setChatOpen(true)} autoAcceptTnc />,
+            document.body
+          )}
+        </>
+      )}
       {!hideHeaderFooter && <PosterPopup />}
     </div>
   );

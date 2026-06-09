@@ -7,12 +7,10 @@ body, html {
     font-family: 'Poppins', sans-serif; /* Apply Poppins globally */
     scroll-behavior: smooth;
     background-color: #f8fafc;
-
     overflow-x: hidden; 
      scroll-behavior: auto; /* Overrides smooth scrolling */
  
 }
-
 
 
 /* Popup Bounce Animation */
