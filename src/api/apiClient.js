@@ -3,7 +3,7 @@ import axios from "axios";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://technovabackend-si9o.onrender.com";
 
 const apiClient = axios.create({
-  baseURL: `${API_BASE_URL}/api`,   // /api append pannunga
+  baseURL: `${API_BASE_URL}/api/chat`,   // /api append pannunga
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
