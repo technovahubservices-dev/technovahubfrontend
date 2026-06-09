@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { API_URL } from '../data/constants.js'
+import { CHAT_API_URL } from '../data/constants.js'
 import { buildSystemPrompt, parseChips, stripChips, needsPricing, needsCourses } from '../utils/chatUtils.js'
 import { sfx } from '../utils/audio.js'
 
@@ -91,7 +91,7 @@ export function useGemini({ setMessages, intent, frustrated, userName, userCtx, 
       const timeoutId = setTimeout(() => controller.abort(), 30000)
 
       try {
-        const res = await fetch(`${API_URL}/chat`, {
+        const res = await fetch(`${CHAT_API_URL}/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),

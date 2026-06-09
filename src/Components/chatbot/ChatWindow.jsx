@@ -10,7 +10,7 @@ import { useChatState } from '../../hooks/useChatState.js'
 import { useLeadFlow } from '../../hooks/useLeadFlow.js'
 import { useInactivity } from '../../hooks/useInactivity.js'
 import { useSession } from '../../hooks/useSession.js'
-import { SK, API_URL } from '../../data/constants.js'
+import { SK, CHAT_API_URL } from '../../data/constants.js'
 import TNCScreen from './TNCScreen.jsx'
 import LeadForm from './LeadForm.jsx'
 import ChatHeader from './ChatHeader.jsx'
@@ -64,7 +64,7 @@ export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = fal
   useEffect(() => {
     if (!sessionId || !tncDone) return
     let cancelled = false
-    fetch(`${API_URL}/sessions/${sessionId}`)
+    fetch(`${CHAT_API_URL}/sessions/${sessionId}`)
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (cancelled || !data?.messages?.length) return

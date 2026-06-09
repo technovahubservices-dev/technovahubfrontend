@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { SendHorizontal, MessageCircle, LoaderCircle } from 'lucide-react'
-import { API_URL } from '../../data/constants.js'
+import { CHAT_API_URL } from '../../data/constants.js'
 import { COMPANY_PROFILE } from '../../data/company.js'
 import { useSession } from '../../hooks/useSession.js'
 
@@ -34,7 +34,7 @@ export default function QuickChatWidget() {
     setLoading(true)
 
     try {
-      const res = await fetch(`${API_URL}/chat`, {
+      const res = await fetch(`${CHAT_API_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

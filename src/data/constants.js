@@ -15,10 +15,11 @@ export const DEFAULT_POS  = { bottom: 108, right: 24 }
 export const DEFAULT_SIZE = { w: 380, h: 595 }
 
 // ─── API CONFIG ───────────────────────────────────────────────────────────
-// All Gemini requests go through the Express backend proxy — no API key in the browser.
-const viteApiBaseUrl = typeof import.meta !== 'undefined' && import.meta.env
-  ? import.meta.env.VITE_API_BASE_URL
-  : undefined
+// Keep admin APIs and chatbot APIs on separate backend bases.
+const env = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env : {}
 
-export const API_BASE_URL = viteApiBaseUrl || 'https://technovabackend-si9o.onrender.com'
+export const API_BASE_URL = env.VITE_API_BASE_URL || 'https://technovahub-solution-backend-vmz7.onrender.com'
+export const CHAT_API_BASE_URL = env.VITE_CHAT_API_BASE_URL || 'https://technovabackend-si9o.onrender.com'
+
 export const API_URL = `${API_BASE_URL}/api`
+export const CHAT_API_URL = `${CHAT_API_BASE_URL}/api`
