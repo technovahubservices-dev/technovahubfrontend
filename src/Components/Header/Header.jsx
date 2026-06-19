@@ -66,6 +66,13 @@ const Navbar = () => {
       : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
     }`;
 
+  const getDropdownButtonClasses = (name) =>
+    `inline-flex items-center gap-1 text-base font-semibold transition duration-200 ease-in-out pt-1 ${
+      openDropdown === name
+        ? "text-blue-700 border-b-2 border-blue-700"
+        : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
+    }`;
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
@@ -105,8 +112,9 @@ const Navbar = () => {
                     </Link>
                   ) : (
                     <button
+                      type="button"
                       onClick={() => toggleDropdown(item.name)}
-                      className="flex items-center gap-1 text-base font-semibold text-gray-900 hover:text-blue-600 transition"
+                      className={getDropdownButtonClasses(item.name)}
                     >
                       {item.name}
                       <ChevronDown

@@ -1,9 +1,8 @@
 import axios from "axios";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://technovabackend-si9o.onrender.com";
+import { API_URL } from "../data/constants";
 
 const apiClient = axios.create({
-  baseURL: `${API_BASE_URL}/api/chat`,   // /api append pannunga
+  baseURL: API_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
