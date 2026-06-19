@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
@@ -37,7 +37,8 @@ import YoungInnovator from "./pages/YoungInnovator";
 // Wrapper to use location
 const Layout = ({ children }) => {
   const location = useLocation();
-  const [chatOpen, setChatOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
   const hideHeaderFooterRoutes = new Set([
     "/product/nexion",
     "/product/trackpulse",
@@ -48,6 +49,40 @@ const Layout = ({ children }) => {
   const hideHeaderFooter =
     location.pathname.startsWith("/admin") ||
     hideHeaderFooterRoutes.has(location.pathname);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+    const updateViewport = (event) => {
+      const mobile = event.matches;
+      setIsMobile(mobile);
+      setMobileChatOpen(mobile ? false : true);
+    };
+
+    updateViewport(mediaQuery);
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", updateViewport);
+    } else if (mediaQuery.addListener) {
+      mediaQuery.addListener(updateViewport);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", updateViewport);
+      } else if (mediaQuery.removeListener) {
+        mediaQuery.removeListener(updateViewport);
+      }
+    };
+  }, []);
+
+  const chatOpen = isMobile ? mobileChatOpen : true;
+  const handleChatToggle = () => {
+    if (isMobile) setMobileChatOpen((prev) => !prev);
+  };
+  const handleChatClose = () => {
+    if (isMobile) setMobileChatOpen(false);
+  };
 
   return (
     <div>
@@ -60,9 +95,9 @@ const Layout = ({ children }) => {
       {!hideHeaderFooter && <Backtop />}
       {!hideHeaderFooter && (
         <>
-          <WhatsAppButton open={chatOpen} onClick={() => setChatOpen(true)} />
+          <WhatsAppButton open={chatOpen} onClick={handleChatToggle} showChatToggle={isMobile} />
           {typeof document !== "undefined" && createPortal(
-            <ChatWindow open={chatOpen} onClose={() => setChatOpen(true)} autoAcceptTnc />,
+            <ChatWindow open={chatOpen} onClose={handleChatClose} autoAcceptTnc isMobile={isMobile} />,
             document.body
           )}
         </>

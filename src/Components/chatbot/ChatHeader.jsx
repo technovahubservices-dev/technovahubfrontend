@@ -8,11 +8,13 @@ import {
   Trash2,
   Home,
   MoreVertical,
+  X,
 } from 'lucide-react'
 import logo from '../../assets/images/logo.png'
 export default function ChatHeader({
   onSearchToggle, onExport, tts, hasTts, onTtsToggle,
   onClear, isDragged, onResetPos, onHdDown, onHdTouch, onContact,
+  onClose, showCloseButton = false,
 }) {
   const [overflowOpen, setOverflowOpen] = useState(false)
 
@@ -40,14 +42,28 @@ export default function ChatHeader({
           )}
         </div>
 
-        <button
-          className="tvh-hbtn tvh-overflow-btn"
-          data-nd="1"
-          onClick={() => setOverflowOpen(v => !v)}
-          title="More options"
-          aria-label="More options"
-          aria-expanded={overflowOpen}
-        ><MoreVertical size={16} strokeWidth={2.1} /></button>
+        <div className="tvh-hbtns-mobile">
+          {showCloseButton && (
+            <button
+              className="tvh-hbtn tvh-close-btn"
+              data-nd="1"
+              onClick={onClose}
+              title="Close chat"
+              aria-label="Close chat"
+            >
+              <X size={16} strokeWidth={2.1} />
+            </button>
+          )}
+
+          <button
+            className="tvh-hbtn tvh-overflow-btn"
+            data-nd="1"
+            onClick={() => setOverflowOpen(v => !v)}
+            title="More options"
+            aria-label="More options"
+            aria-expanded={overflowOpen}
+          ><MoreVertical size={16} strokeWidth={2.1} /></button>
+        </div>
 
         {overflowOpen && (
           <div className="tvh-overflow-menu">

@@ -1,9 +1,9 @@
 import React from "react";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { CONTACT } from "../../data/company";
 
-const WhatsAppButton = ({ open = false, onClick }) => {
+const WhatsAppButton = ({ open = false, onClick, showChatToggle = false }) => {
   const handleChatClick = () => {
     if (onClick) onClick();
   };
@@ -22,14 +22,16 @@ const WhatsAppButton = ({ open = false, onClick }) => {
         <FaWhatsapp size={28} />
       </button>
 
-      <button
-        onClick={handleChatClick}
-        className="w-[56px] h-[56px] rounded-full shadow-lg flex items-center justify-center text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 transition-transform transform hover:scale-110"
-        aria-label="Chatbot open"
-        aria-pressed={open}
-      >
-        <MessageCircle size={27} strokeWidth={2.2} />
-      </button>
+      {showChatToggle && (
+        <button
+          onClick={handleChatClick}
+          className="w-[56px] h-[56px] rounded-full shadow-lg flex items-center justify-center text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 transition-transform transform hover:scale-110"
+          aria-label={open ? "Close chatbot" : "Open chatbot"}
+          aria-pressed={open}
+        >
+          {open ? <X size={26} strokeWidth={2.4} /> : <MessageCircle size={27} strokeWidth={2.2} />}
+        </button>
+      )}
     </div>
   );
 };

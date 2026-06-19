@@ -139,6 +139,8 @@
 .tvh-hbtn:focus-visible { outline: 2px solid var(--lime); outline-offset: 1px; }
 .tvh-hbtn.on  { color: var(--lime); }
 .tvh-hbtn.spin { animation: spinHalf var(--dur-base) var(--ease-out); }
+.tvh-hbtns-mobile { display: flex; align-items: center; gap: 4px; }
+.tvh-close-btn { display: none; }
 
 /* Secondary controls — hidden on mobile behind overflow */
 .tvh-hbtns-secondary { display: flex; align-items: center; gap: 4px; }
@@ -390,6 +392,8 @@
 
   /* Secondary controls collapse behind overflow */
   .tvh-hbtns-secondary { display: none; }
+  .tvh-hbtns-mobile { display: flex; align-items: center; gap: 4px; }
+  .tvh-close-btn { display: flex !important; }
   .tvh-overflow-btn { display: flex !important; }
   .tvh-overflow-menu {
     display: flex !important; flex-direction: column; position: absolute; top: 100%; right: 8px;

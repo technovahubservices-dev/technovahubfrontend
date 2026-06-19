@@ -19,7 +19,7 @@ import MessageList from './MessageList.jsx'
 import ChatComposer from './ChatComposer.jsx'
 import ContactPanel from './ContactPanel.jsx'
 
-export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = false }) {
+export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = false, isMobile = false }) {
   const sessionId = useSession()
   const chat = useChatState()
   const { messages, setMessages, lang, setLang, userName, setUserName, tncDone, setTncRaw, clearChat, exportChat, initGreeting } = chat
@@ -321,6 +321,8 @@ export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = fal
         onHdDown={onHdDown}
         onHdTouch={onHdTouch}
         onContact={() => setShowContact(v => !v)}
+        onClose={handleClose}
+        showCloseButton={isMobile}
       />
       {srchOpen && <SearchBar query={srchQ} onChange={setSrchQ} onPrev={srchPrev} onNext={srchNext} onClose={() => { setSrchOpen(false); setSrchQ('') }} matchCount={srchMatches.length} currentIndex={srchIdx} />}
       {!tncDone && <TNCScreen onAccept={() => setTncRaw('1')} onDecline={handleClose} />}
