@@ -109,14 +109,24 @@
       "destination": "https://technovahub.in/product/techno_biz_connect"
     },
     {
-  "source": "/tbc_connect/:path*",
-  "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect/:path*"
-},
-{
-  "source": "/tbc_connect",
-  "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect"
-},
-
-    { "source": "/(.*)", "destination": "/" }
+      "source": "/tbc_connect/:path*",
+      "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect/:path*"
+    },
+    {
+      "source": "/tbc_connect",
+      "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect"
+    },
+     {
+      "source": "/ai_score_checker/:path*",
+      "destination": "https://ai-score-checker.vercel.app/:path*"
+    },
+    {
+      "source": "/ai_score_checker",
+      "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ]
 }
