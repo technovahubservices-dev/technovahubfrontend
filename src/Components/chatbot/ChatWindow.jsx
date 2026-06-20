@@ -322,7 +322,7 @@ export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = fal
         onHdTouch={onHdTouch}
         onContact={() => setShowContact(v => !v)}
         onClose={handleClose}
-        showCloseButton={isMobile}
+        showCloseButton={true}
       />
       {srchOpen && <SearchBar query={srchQ} onChange={setSrchQ} onPrev={srchPrev} onNext={srchNext} onClose={() => { setSrchOpen(false); setSrchQ('') }} matchCount={srchMatches.length} currentIndex={srchIdx} />}
       {!tncDone && <TNCScreen onAccept={() => setTncRaw('1')} onDecline={handleClose} />}
