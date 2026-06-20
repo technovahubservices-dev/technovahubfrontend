@@ -14,7 +14,7 @@ const CloudScoreCallout = () => {
         }}
       >
         <a
-          href="https://ai-score-checker.vercel.app/"
+          href="https://technovahub.in/ai_score_checker"
           aria-label="Check my AI score"
           className="group relative block h-full w-full"
           style={{ textDecoration: "none" }}
