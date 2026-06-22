@@ -126,11 +126,11 @@
     },
     {
       "source": "/test_pg_infrastructure/:path*",
-      "destination": "https://pg-infra-frontend.vercel.app/my-tasks/:path*"
+      "destination": "https://pg-infra-frontend.vercel.app/:path*"
     },
     {
       "source": "/test_pg_infrastructure",
-      "destination": "https://pg-infra-frontend.vercel.app/my-tasks/test_pg_infrastructure"
+      "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
     },
     {
       "source": "/(.*)",
