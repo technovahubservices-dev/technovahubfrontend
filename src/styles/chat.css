@@ -2,19 +2,38 @@
 .tvh-root { position: fixed; inset: 0; pointer-events: none; z-index: 99999; font-family: var(--font); }
 
 /* ─── FAB ────────────────────────────────────────────────────────────────── */
-.tvh-fab {
-  position: absolute; width: 62px; height: 62px; border-radius: 50%; border: none; cursor: pointer;
-  background: linear-gradient(135deg, var(--lime), var(--lime2));
-  display: flex; align-items: center; justify-content: center; font-size: 26px;
-  pointer-events: all;
-  box-shadow: 0 8px 32px var(--limeglow), 0 2px 8px rgba(0,0,0,.5);
-  transition: transform var(--dur-base) var(--ease-spring);
-  z-index: 100000;
+.tvh-fab-wrap {
+  position: fixed;
+  bottom: 96px;
+  right: 12px;
+  pointer-events: none;
+  z-index: 100001;
 }
-.tvh-fab:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
-.tvh-fab:hover { transform: scale(1.12) rotate(15deg); }
+.tvh-fab-wrap .tvh-fab { position: relative; }
+
+.tvh-fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #2563EB, #06B6D4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+  box-shadow: 0 8px 32px rgba(6,182,212,.35), 0 2px 8px rgba(0,0,0,.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  z-index: 100002;
+}
+.tvh-fab:focus-visible { outline: 2px solid #2563EB; outline-offset: 3px; }
+.tvh-fab:hover { transform: scale(1.1); }
+.tvh-fab--open {
+  background: linear-gradient(135deg, #1D4ED8, #0891B2);
+}
+.tvh-fab--open:hover { transform: scale(1.08) rotate(90deg); }
 .tvh-fab.shake { animation: fabShake .5s var(--ease-spring); }
-.tvh-fab-ring  { position: absolute; width: 78px; height: 78px; border-radius: 50%; border: 2px solid rgba(214,255,75,.45); pointer-events: none; }
+.tvh-fab-ring  { position: absolute; width: 72px; height: 72px; border-radius: 50%; border: 2px solid rgba(37,99,235,.35); pointer-events: none; }
 
 /* FAB text label */
 .tvh-fab-label {
@@ -349,6 +368,27 @@
   /* Interactive feedback — single fire */
   .tvh-snd:active { animation: sendClick 80ms var(--ease-out); }
   .tvh-chip:active { animation: chipFlash .15s var(--ease-out); }
+}
+
+@media (min-width: 768px) {
+  .tvh-fab-wrap {
+    bottom: 100px;
+    right: 24px;
+  }
+}
+
+.tvh-fab-wrap--open {
+  bottom: auto;
+  top: 16px;
+  right: 16px;
+}
+
+@media (min-width: 768px) {
+  .tvh-fab-wrap--open {
+    top: auto;
+    bottom: 100px;
+    right: 24px;
+  }
 }
 
 /* ─── MOBILE ─────────────────────────────────────────────────────────────── */

@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 
 const CloudScoreCallout = () => {
   return (
-    <div className="cloud-callout absolute left-1/2 top-4 z-30 w-[240px] max-w-[calc(100vw-1rem)] -translate-x-1/2 sm:left-auto sm:right-5 sm:top-20 sm:w-[320px] sm:max-w-none lg:right-10 lg:top-24 lg:w-[460px]">
+<div className="cloud-callout absolute left-1/2 top-4 z-30 w-[240px] max-w-[calc(100vw-1rem)] -translate-x-1/2 sm:left-16 sm:top-20 sm:w-[320px] sm:max-w-none lg:left-64 lg:top-60 lg:w-[460px]">
       <div
         className="cloud-callout__shape"
         style={{
@@ -17,7 +17,7 @@ const CloudScoreCallout = () => {
           href="https://technovahub.in/ai_score_checker"
           aria-label="Check my AI score"
           className="group relative block h-full w-full"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none" ,fontSize:"20" }}
         >
           <div
             className="cloud-callout__content relative flex flex-col items-center justify-center text-center rotate-0"
@@ -64,7 +64,7 @@ const CloudScoreCallout = () => {
             <h2
               className="font-black leading-tight tracking-tight"
               style={{
-                fontSize: "clamp(1.35rem, 4.4vw, 2.15rem)",
+              fontSize: "clamp(1.8rem, 5.4vw, 0.75rem)",
                 color: "#0f1e2e",
                 fontFamily: "'Inter', 'DM Sans', system-ui, sans-serif",
                 fontWeight: 900,

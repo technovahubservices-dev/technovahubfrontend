@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { Bot, X } from 'lucide-react'
 import '../../styles/chat.css'
 import { detectIntent, detectName, detectFrustration, needsLead, searchMessages } from '../../utils/chatUtils.js'
 import { sfx } from '../../utils/audio.js'
@@ -19,7 +20,7 @@ import MessageList from './MessageList.jsx'
 import ChatComposer from './ChatComposer.jsx'
 import ContactPanel from './ContactPanel.jsx'
 
-export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = false, isMobile = false }) {
+export default function ChatWindow({ open, onClose, onToggle, onNudge, autoAcceptTnc = false, isMobile = false }) {
   const sessionId = useSession()
   const chat = useChatState()
   const { messages, setMessages, lang, setLang, userName, setUserName, tncDone, setTncRaw, clearChat, exportChat, initGreeting } = chat
@@ -255,6 +256,14 @@ export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = fal
     setTimeout(() => { setClosing(false) }, 380)
   }
 
+  const handleFabToggle = () => {
+    if (open) {
+      handleClose()
+    } else {
+      onToggle?.()
+    }
+  }
+
   const handleResetPos = () => {
     sfx.reset()
     setClosing(true)
@@ -300,30 +309,45 @@ export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = fal
       s.bottom = 'auto'
     } else {
       s.right = pos.right ?? 24
-      s.bottom = pos.bottom ?? 108
+      s.bottom = pos.bottom ?? 172
     }
     return s
   }, [pos, size])
 
-  if (!open && !closing) return null
-
   return (
+    <div className="tvh-root">
+      <div className={`tvh-fab-wrap${open ? ' tvh-fab-wrap--open' : ''}`}>
+        <button
+          type="button"
+          className={`tvh-fab${open ? ' tvh-fab--open' : ''}`}
+          onClick={handleFabToggle}
+          aria-label={open ? 'Close chatbot' : 'Open chatbot'}
+          aria-expanded={open}
+        >
+          {open ? (
+            <X size={26} strokeWidth={2.4} color="#fff" />
+          ) : (
+            <Bot size={28} strokeWidth={2.2} color="#fff" />
+          )}
+        </button>
+      </div>
+      {(open || closing) && (
     <div ref={winRef} className={`tvh-win ${closing ? 'closing' : 'opening'}`} style={winStyle} data-theme="light" onClick={resetTimer}>
-      <ChatHeader
-        onSearchToggle={() => setSrchOpen(v => !v)}
-        onExport={exportChat}
-        tts={tts}
-        hasTts={hasSpeechSynthesis}
-        onTtsToggle={() => setTtsRaw(v => v === '1' ? '0' : '1')}
-        onClear={clearChat}
-        isDragged={isDragged}
-        onResetPos={handleResetPos}
-        onHdDown={onHdDown}
-        onHdTouch={onHdTouch}
-        onContact={() => setShowContact(v => !v)}
-        onClose={handleClose}
-        showCloseButton={true}
-      />
+     <ChatHeader
+  onSearchToggle={() => setSrchOpen(v => !v)}
+  onExport={exportChat}
+  tts={tts}
+  hasTts={hasSpeechSynthesis}
+  onTtsToggle={() => setTtsRaw(v => v === '1' ? '0' : '1')}
+  onClear={clearChat}
+  isDragged={isDragged}
+  onResetPos={handleResetPos}
+  onHdDown={onHdDown}
+  onHdTouch={onHdTouch}
+  onContact={() => setShowContact(v => !v)}
+  onClose={handleClose}
+  showCloseButton={true}
+/>
       {srchOpen && <SearchBar query={srchQ} onChange={setSrchQ} onPrev={srchPrev} onNext={srchNext} onClose={() => { setSrchOpen(false); setSrchQ('') }} matchCount={srchMatches.length} currentIndex={srchIdx} />}
       {!tncDone && <TNCScreen onAccept={() => setTncRaw('1')} onDecline={handleClose} />}
       {tncDone && (
@@ -382,6 +406,8 @@ export default function ChatWindow({ open, onClose, onNudge, autoAcceptTnc = fal
           <path d="M11 1L1 11M7 1L1 7M11 5L5 11" stroke="var(--txt2)" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       </div>
+    </div>
+      )}
     </div>
   )
 }

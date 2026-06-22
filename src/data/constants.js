@@ -11,7 +11,7 @@ export const SK = {
 }
 
 // ─── LAYOUT DEFAULTS ──────────────────────────────────────────────────────
-export const DEFAULT_POS  = { bottom: 108, right: 24 }
+export const DEFAULT_POS  = { bottom: 172, right: 24 }
 export const DEFAULT_SIZE = { w: 380, h: 595 }
 
 // ─── API CONFIG ───────────────────────────────────────────────────────────

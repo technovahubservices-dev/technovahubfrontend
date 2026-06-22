@@ -38,7 +38,7 @@ import YoungInnovator from "./pages/YoungInnovator";
 const Layout = ({ children }) => {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
-  const [mobileChatOpen, setMobileChatOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const hideHeaderFooterRoutes = new Set([
     "/product/nexion",
     "/product/trackpulse",
@@ -54,9 +54,7 @@ const Layout = ({ children }) => {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
 
     const updateViewport = (event) => {
-      const mobile = event.matches;
-      setIsMobile(mobile);
-      setMobileChatOpen(mobile ? false : true);
+      setIsMobile(event.matches);
     };
 
     updateViewport(mediaQuery);
@@ -76,12 +74,11 @@ const Layout = ({ children }) => {
     };
   }, []);
 
-  const chatOpen = isMobile ? mobileChatOpen : true;
   const handleChatToggle = () => {
-    if (isMobile) setMobileChatOpen((prev) => !prev);
+    setChatOpen((prev) => !prev);
   };
   const handleChatClose = () => {
-    if (isMobile) setMobileChatOpen(false);
+    setChatOpen(false);
   };
 
   return (
@@ -95,9 +92,9 @@ const Layout = ({ children }) => {
       {!hideHeaderFooter && <Backtop />}
       {!hideHeaderFooter && (
         <>
-          <WhatsAppButton open={chatOpen} onClick={handleChatToggle} showChatToggle={isMobile} />
+          <WhatsAppButton />
           {typeof document !== "undefined" && createPortal(
-            <ChatWindow open={chatOpen} onClose={handleChatClose} autoAcceptTnc isMobile={isMobile} />,
+            <ChatWindow open={chatOpen} onClose={handleChatClose} onToggle={handleChatToggle} autoAcceptTnc isMobile={isMobile} />,
             document.body
           )}
         </>
