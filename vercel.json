@@ -116,13 +116,21 @@
       "source": "/tbc_connect",
       "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect"
     },
-     {
+    {
       "source": "/ai_score_checker/:path*",
       "destination": "https://ai-score-checker.vercel.app/:path*"
     },
     {
       "source": "/ai_score_checker",
       "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
+    },
+    {
+      "source": "/test_pg_infrastructure/:path*",
+      "destination": "https://pg-infra-frontend.vercel.app/my-tasks/:path*"
+    },
+    {
+      "source": "/test_pg_infrastructure",
+      "destination": "https://pg-infra-frontend.vercel.app/my-tasks/test_pg_infrastructure"
     },
     {
       "source": "/(.*)",
