@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Bot, Layers3, MessageSquare, Globe, ShieldCheck, GraduationCap } from "lucide-react";
 
 const pillars = [
@@ -41,6 +42,28 @@ const outcomes = [
   "More structured content for crawlers and AI systems",
 ];
 
+const steps = [
+  "Name the service clearly with a visible heading.",
+  "Group related products and capabilities under one topic.",
+  "Use short paragraphs and lists to explain what each service does.",
+  "Add FAQs so people and AI systems get direct answers quickly.",
+];
+
+const faqs = [
+  {
+    q: "What makes a page easier for AI systems to understand?",
+    a: "Clear headings, concise paragraphs, service lists, and FAQ content make the page easier to scan and interpret.",
+  },
+  {
+    q: "Which TechnovaHub services are most relevant for AI score improvement?",
+    a: "AI automation, custom software, CRM, WhatsApp automation, cloud integration, and training pages all add useful topical coverage.",
+  },
+  {
+    q: "Do internal links help structure?",
+    a: "Yes. Links to key service pages help organize the topic graph and make the website easier to navigate.",
+  },
+];
+
 const AIReadinessSection = () => {
   return (
     <section className="w-full bg-gradient-to-b from-white via-slate-50 to-blue-50/50 py-16 md:py-20">
@@ -55,6 +78,27 @@ const AIReadinessSection = () => {
           <p className="mt-4 text-sm leading-7 text-slate-600 md:text-base">
             TechnovaHub helps businesses present their products, services, and expertise in a way that is easy for people, search engines, and AI systems to understand.
           </p>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            to="/softwaresolutions"
+            className="rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-700 transition hover:border-blue-300 hover:bg-blue-50"
+          >
+            Software Solutions
+          </Link>
+          <Link
+            to="/courses"
+            className="rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-700 transition hover:border-blue-300 hover:bg-blue-50"
+          >
+            Courses
+          </Link>
+          <Link
+            to="/contact"
+            className="rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-700 transition hover:border-blue-300 hover:bg-blue-50"
+          >
+            Contact Team
+          </Link>
         </div>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -101,6 +145,48 @@ const AIReadinessSection = () => {
               That is the same pattern we use for AI automation, software development, CRM work, cloud integration, and training pages across the site.
             </p>
           </article>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-slate-900">Service coverage</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              The homepage now spells out the core offerings so the topic is not implied only by a banner or a single CTA.
+            </p>
+            <ul className="mt-4 grid gap-2 text-sm leading-6 text-slate-600">
+              <li>AI automation and workflow design</li>
+              <li>Custom software, CRM, and SaaS development</li>
+              <li>WhatsApp, email, and Instagram automation</li>
+              <li>Cloud integration, security, and deployment support</li>
+              <li>Training in AI, web development, and full stack skills</li>
+            </ul>
+          </article>
+
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-slate-900">How structure lifts the score</h3>
+            <ol className="mt-4 grid gap-3">
+              {steps.map((step, index) => (
+                <li key={step} className="flex gap-3 text-sm leading-6 text-slate-600">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
+                    {index + 1}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </article>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-slate-900">Frequently asked</h3>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {faqs.map((item) => (
+              <article key={item.q} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <h4 className="text-sm font-semibold text-slate-900">{item.q}</h4>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
