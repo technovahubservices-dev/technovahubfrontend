@@ -197,6 +197,19 @@ const seohead = () => {
       description: SITE_DESCRIPTION,
     });
 
+    upsertJsonLd("webpage", {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: meta.title,
+      url: canonicalUrl,
+      description: meta.description,
+      isPartOf: {
+        "@type": "WebSite",
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+    });
+
     upsertJsonLd("organization", {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -213,6 +226,51 @@ const seohead = () => {
         postalCode: "605008",
         addressCountry: "IN",
       },
+    });
+
+    upsertJsonLd("educational-organization", {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: imageUrl,
+      description:
+        "TechnovaHub delivers hands-on training in AI, software, cloud, cybersecurity, and full stack development.",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "No.48 Lawspet Main Road",
+        addressLocality: "Puducherry",
+        postalCode: "605008",
+        addressCountry: "IN",
+      },
+    });
+
+    upsertJsonLd("local-business", {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: SITE_NAME,
+      url: SITE_URL,
+      image: imageUrl,
+      telephone: [CONTACT.phone1, CONTACT.phone2],
+      email: CONTACT.email,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "No.48 Lawspet Main Road",
+        addressLocality: "Puducherry",
+        postalCode: "605008",
+        addressCountry: "IN",
+      },
+      areaServed: "IN",
+    });
+
+    upsertJsonLd("contact-point", {
+      "@context": "https://schema.org",
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      telephone: [CONTACT.phone1, CONTACT.phone2],
+      email: CONTACT.email,
+      availableLanguage: ["en", "ta"],
+      areaServed: "IN",
     });
   }, [location.pathname]);
 
