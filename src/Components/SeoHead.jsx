@@ -272,6 +272,72 @@ const seohead = () => {
       availableLanguage: ["en", "ta"],
       areaServed: "IN",
     });
+
+    upsertJsonLd("service", {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "AI Automation and Software Development",
+      provider: {
+        "@type": "Organization",
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      serviceType: [
+        "AI automation",
+        "Software development",
+        "Web development",
+        "Mobile app development",
+        "Cloud solutions",
+      ],
+      areaServed: "IN",
+      url: SITE_URL,
+    });
+
+    upsertJsonLd("faq", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What does TechnovaHub do?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "TechnovaHub builds AI automation, software products, and hands-on training programs for businesses and learners.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What services are available?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The team offers AI automation, custom software, web development, mobile apps, cloud solutions, and training programs.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where is TechnovaHub located?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "TechnovaHub is located at No.48 Lawspet Main Road, Puducherry 605008, India.",
+          },
+        },
+      ],
+    });
+
+    upsertJsonLd("software-application", {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "TechnovaHub Assistant",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      url: SITE_URL,
+      publisher: {
+        "@type": "Organization",
+        name: SITE_NAME,
+      },
+      description:
+        "An AI assistant experience that helps visitors explore TechnovaHub services, courses, and products.",
+    });
   }, [location.pathname]);
 
   return null;
