@@ -183,6 +183,11 @@ const seohead = () => {
       rel: "canonical",
       href: canonicalUrl,
     });
+    upsertLink('link[rel="sitemap"]', {
+      rel: "sitemap",
+      type: "application/xml",
+      href: "/sitemap.xml",
+    });
 
     upsertJsonLd("website", {
       "@context": "https://schema.org",
