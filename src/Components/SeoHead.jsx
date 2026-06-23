@@ -112,7 +112,7 @@ const upsertJsonLd = (id, value) => {
   element.textContent = JSON.stringify(value);
 };
 
-const SeoHead = () => {
+const seohead = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -214,4 +214,4 @@ const SeoHead = () => {
   return null;
 };
 
-export default SeoHead;
+export default seohead;
