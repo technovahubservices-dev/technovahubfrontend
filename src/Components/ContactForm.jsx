@@ -35,7 +35,7 @@ const ContactForm = () => {
   form.reset();
 } catch (error) {
   console.error(error);
-  alert("Something went wrong!");
+ 
 } 
   };
 
