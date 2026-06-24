@@ -22,19 +22,21 @@ const ContactForm = () => {
     };
 
     try {
-      await fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+  await fetch(scriptURL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  });
 
-      alert("Enquiry submitted successfully!");
-      form.reset();
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
+  alert("Enquiry submitted successfully!");
+  form.reset();
+} catch (error) {
+  console.error(error);
+  alert("Something went wrong!");
+} 
   };
 
   return (
