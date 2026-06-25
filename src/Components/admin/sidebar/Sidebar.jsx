@@ -44,14 +44,15 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       {/* Sidebar */}
       <div
         className={`fixed md:static bg-gradient-to-r from-blue-300 to-blue-600 text-white h-screen p-4 flex flex-col transition-all duration-300 z-50
+          overflow-hidden
           ${isOpen ? "translate-x-0 w-64" : "-translate-x-full md:translate-x-0 md:w-64"}
         `}
       >
         {/* Sidebar Header (Only visible when sidebar itself is open on mobile) */}
-        <h1 className="text-xl font-bold mb-8">Dashboard</h1>
+        <h1 className="text-xl font-bold mb-8 shrink-0">Dashboard</h1>
 
         {/* Menu Items */}
-        <nav className="flex flex-col gap-4">
+        <nav className="flex flex-col gap-4 flex-1 overflow-y-auto pr-1 overscroll-contain">
           {menuItems.map((item, idx) => {
             const isActive = location.pathname === item.path;
             return (
