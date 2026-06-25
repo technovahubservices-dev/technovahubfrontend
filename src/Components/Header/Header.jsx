@@ -61,13 +61,13 @@ const Navbar = () => {
   const isExternalLink = (path) => path?.startsWith("http");
 
   const getLinkClasses = (path) =>
-    `text-base font-semibold transition duration-200 ease-in-out pt-1 ${location.pathname === path
+    `text-[13px] xl:text-sm font-semibold transition duration-200 ease-in-out pt-1 ${location.pathname === path
       ? "text-blue-700 border-b-2 border-blue-700"
       : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
     }`;
 
   const getDropdownButtonClasses = (name) =>
-    `inline-flex items-center gap-1 text-base font-semibold transition duration-200 ease-in-out pt-1 ${
+    `inline-flex items-center gap-1 text-[13px] xl:text-sm font-semibold transition duration-200 ease-in-out pt-1 ${
       openDropdown === name
         ? "text-blue-700 border-b-2 border-blue-700"
         : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
@@ -87,23 +87,23 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50">
       <div
-        className={`transition-all duration-300 ${isScrolled ? "backdrop-blur-md bg-white/90 shadow-sm py-1" : "bg-transparent py-3 md:py-4"
+        className={`transition-all duration-300 ${isScrolled ? "backdrop-blur-md bg-white/90 shadow-sm py-1" : "bg-transparent py-2 md:py-3"
           }`}
         style={{ paddingBottom: "5px" }}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="flex justify-between items-center h-16 md:h-20">
+        <div className="max-w-7xl mx-auto px-3 md:px-4">
+          <div className="flex justify-between items-center h-14 md:h-16">
             {/* LOGO */}
             <Link to="/">
               <img
                 src={logo}
                 alt="logo"
-                className="h-14 md:h-20 w-auto object-contain"
+                className="h-10 md:h-12 w-auto object-contain"
               />
             </Link>
 
             {/* DESKTOP NAV */}
-            <div className="hidden lg:flex items-center space-x-6">
+            <div className="hidden lg:flex items-center gap-4 xl:gap-5">
               {navItems.map((item) => (
                 <div key={item.name} className="relative flex items-center">
                   {item.path ? (
@@ -118,7 +118,7 @@ const Navbar = () => {
                     >
                       {item.name}
                       <ChevronDown
-                        size={16}
+                        size={14}
                         className={`text-blue-500 transition-transform duration-300 ${openDropdown === item.name ? "rotate-180" : ""
                           }`}
                       />
