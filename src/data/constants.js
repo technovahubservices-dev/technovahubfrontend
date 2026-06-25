@@ -11,8 +11,8 @@ export const SK = {
 }
 
 // ─── LAYOUT DEFAULTS ──────────────────────────────────────────────────────
-export const DEFAULT_POS  = { bottom: 172, right: 24 }
-export const DEFAULT_SIZE = { w: 380, h: 595 }
+export const DEFAULT_POS  = { bottom: 24, right: 24 }
+export const DEFAULT_SIZE = { w: 380, h: 560 }
 
 // ─── API CONFIG ───────────────────────────────────────────────────────────
 // Keep admin APIs and chatbot APIs on separate backend bases.

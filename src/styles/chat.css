@@ -4,10 +4,10 @@
 /* ─── FAB ────────────────────────────────────────────────────────────────── */
 .tvh-fab-wrap {
   position: fixed;
-  bottom: 96px;
+  bottom: 24px;
   right: 12px;
   pointer-events: none;
-  z-index: 100001;
+  z-index: 100006;
 }
 .tvh-fab-wrap .tvh-fab { position: relative; }
 
@@ -372,7 +372,7 @@
 
 @media (min-width: 768px) {
   .tvh-fab-wrap {
-    bottom: 100px;
+    bottom: 24px;
     right: 24px;
   }
 }
