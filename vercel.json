@@ -132,6 +132,14 @@
       "source": "/test_pg_infrastructure",
       "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
     },
+     {
+      "source": "/test_saleam_biriyani/:path*",
+      "destination": "https://qrscan-lovat.vercel.app/test_saleam_biriyani/:path*"
+    },
+    {
+      "source": "/test_pg_infrastructure",
+      "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
+    },
     {
       "source": "/(.*)",
       "destination": "/"
