@@ -301,10 +301,11 @@ export default function ChatWindow({ open, onClose, onToggle, onNudge, autoAccep
   }, [srchQ, srchOpen])
 
   const winStyle = useMemo(() => {
+    const navbarSafeTop = 92
     const s = { width: size.w, height: size.h }
     if (pos.left !== undefined) {
       s.left = pos.left
-      s.top = pos.top
+      s.top = Math.max(pos.top ?? navbarSafeTop, navbarSafeTop)
       s.right = 'auto'
       s.bottom = 'auto'
     } else {

@@ -4,7 +4,7 @@
 /* ─── FAB ────────────────────────────────────────────────────────────────── */
 .tvh-fab-wrap {
   position: fixed;
-  bottom: 96px;
+  bottom: 12px;
   right: 12px;
   pointer-events: none;
   z-index: 100001;
@@ -190,9 +190,23 @@
 .tvh-tnc-no:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 
 /* ─── MESSAGES AREA ──────────────────────────────────────────────────────── */
-.tvh-msgs     { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
-.tvh-msgs::-webkit-scrollbar       { width: 3px; }
-.tvh-msgs::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 3px; }
+.tvh-msgs {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--b2) transparent;
+}
+.tvh-msgs::-webkit-scrollbar { width: 6px; }
+.tvh-msgs::-webkit-scrollbar-track { background: transparent; }
+.tvh-msgs::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 999px; }
+.tvh-msgs::-webkit-scrollbar-thumb:hover { background: var(--txt3); }
 
 /* ─── EMPTY STATE ────────────────────────────────────────────────────────── */
 .tvh-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 16px; padding: 40px 20px; }
@@ -372,21 +386,19 @@
 
 @media (min-width: 768px) {
   .tvh-fab-wrap {
-    bottom: 100px;
+    bottom: 24px;
     right: 24px;
   }
 }
 
 .tvh-fab-wrap--open {
-  bottom: auto;
-  top: 16px;
-  right: 16px;
+  bottom: 12px;
+  right: 12px;
 }
 
 @media (min-width: 768px) {
   .tvh-fab-wrap--open {
-    top: auto;
-    bottom: 100px;
+    bottom: 24px;
     right: 24px;
   }
 }

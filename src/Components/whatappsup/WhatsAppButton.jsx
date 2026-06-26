@@ -8,7 +8,7 @@ const WhatsAppButton = () => {
   };
 
   return (
-    <div className="fixed bottom-7 right-3 z-[99998] flex flex-col items-end gap-3">
+    <div className="fixed bottom-7 left-3 z-[99998] flex flex-col items-start gap-3">
       <button
         onClick={handleWhatsAppClick}
         className="w-[56px] h-[56px] rounded-full shadow-lg flex items-center justify-center text-white bg-[#25D366] hover:bg-[#1faa52] transition-transform transform hover:scale-110"
