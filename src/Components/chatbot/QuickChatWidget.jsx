@@ -7,7 +7,8 @@ import { useSession } from '../../hooks/useSession.js'
 const SYSTEM_PROMPT = `${COMPANY_PROFILE}
 
 You are TechnovaHub's official website chatbot.
-Answer clearly and briefly.
+Answer in a short format only.
+Use a title line if needed, then keep the reply to 2 short lines.
 If the user asks about a topic title or chooses a quick option, reply with only the most important points.
 If the user asks about company, courses, products, contact, or pricing, answer directly.`
 
@@ -67,7 +68,7 @@ export default function QuickChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-24 right-4 z-[100002] w-[420px] max-w-[calc(100vw-1rem)] h-[620px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#0b1020] text-white flex flex-col">
+    <div className="fixed bottom-4 right-4 z-[100002] w-[420px] max-w-[calc(100vw-1rem)] h-[min(560px,calc(100dvh-96px))] max-h-[calc(100dvh-96px)] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#0b1020] text-white flex flex-col">
       <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-500">
         <div className="flex items-center gap-2 font-semibold text-lg">
           <MessageCircle size={18} />

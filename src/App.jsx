@@ -27,6 +27,7 @@ import Sevenhome from "./pages/Sevenhome";
 import ProductPage from "./pages/Product/ProductPage";
 import NeuroSciencePage from "./pages/Career/NeuroSciencePage";
 import FacilitiesPage from "./pages/Career/FacilitiesPage";
+import SeoHead from "./Components/SeoHead";
 
 
 
@@ -83,6 +84,7 @@ const Layout = ({ children }) => {
 
   return (
     <div>
+      <SeoHead />
       {!hideHeaderFooter && <Navbar />}
       {/* {!hideHeaderFooter && <Cursor />} */}
 

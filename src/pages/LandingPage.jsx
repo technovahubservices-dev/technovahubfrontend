@@ -10,6 +10,7 @@ import Clients from '../Components/Clients'
 import Marquee from '../Components/Marquee'
 import Contact from './Contact'
 import CloudScoreCallout from '../Components/CloudScoreCallout'
+import HomeCoursesSection from '../Components/HomeCoursesSection'
 
 const LandingPage = () => {
   return (
@@ -18,6 +19,7 @@ const LandingPage = () => {
         <HeroBanner/>
         <CloudScoreCallout />
       </section>
+      <HomeCoursesSection />
       <VisionMission/>
        <SoftwareSolutions/>
       
