@@ -128,10 +128,6 @@
       "source": "/test_pg_infrastructure/:path*",
       "destination": "https://pg-infra-frontend.vercel.app/:path*"
     },
-    {
-      "source": "/test_pg_infrastructure",
-      "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
-    },
      {
       "source": "/test_saleam_biriyani/:path*",
       "destination": "https://qrscan-lovat.vercel.app/test_saleam_biriyani/:path*"
@@ -143,6 +139,30 @@
     {
       "source": "/test_pg_infrastructure",
       "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
+    },
+    {
+      "source": "/manifest.json",
+      "destination": "https://qrscan-lovat.vercel.app/manifest.json"
+    },
+    {
+      "source": "/asset-manifest.json",
+      "destination": "https://qrscan-lovat.vercel.app/asset-manifest.json"
+    },
+    {
+      "source": "/static/:path*",
+      "destination": "https://qrscan-lovat.vercel.app/static/:path*"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "https://qrscan-lovat.vercel.app/favicon.ico"
+    },
+    {
+      "source": "/logo192.png",
+      "destination": "https://qrscan-lovat.vercel.app/logo192.png"
+    },
+    {
+      "source": "/logo512.png",
+      "destination": "https://qrscan-lovat.vercel.app/logo512.png"
     },
     {
       "source": "/(.*)",
