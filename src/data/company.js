@@ -77,17 +77,7 @@ export const TVH_STATS = [
 export const TVH_CLIENTS = ['MRF', 'TVS', 'EATON', 'L&T', 'Rane', 'CavinKare', 'Teleflex', 'Steril-Gene', 'Foseco']
 export const TVH_PARTNERS = ['TCS', 'HCL', 'Infosys', 'Cognizant', 'Hexaware', 'Wipro']
 
-export const ABOUT_US = {
-  title: 'ABOUT US',
-  summary:
-    'TechnovaHub, a unit of Aroun Groups, is a premier provider of technology education and software solutions.',
-  details:
-    'We specialise in delivering practical, industry aligned training for students, professionals and entrepreneurs while building tailored tech solutions that drive efficiency, innovation and growth.',
-  mission:
-    'Empower learners and businesses with practical skills, intelligent systems, and real world outcomes.',
-  vision:
-    'Be a trusted hub for technology education, automation, and digital transformation.',
-}
+
 
 export const NEXION_PLANS = [
   {
