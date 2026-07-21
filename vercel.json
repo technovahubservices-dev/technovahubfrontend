@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/test_eyedonation/:path*",
+      "destination": "https://eyedonorfrontend.vercel.app/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/test_eyedonation",
+      "destination": "https://eyedonorfrontend.vercel.app",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/bni/:path*",
@@ -43,16 +55,6 @@
     {
       "source": "/test_jothiEyecare",
       "destination": "https://technovahub.in/test_jothiEyecare"
-    },
-    {
-      "source": "/test_eyedonation/:path*",
-      "destination": "https://eyedonorfrontend.vercel.app/:path*",
-      "permanent": false
-    },
-    {
-      "source": "/test_eyedonation",
-      "destination": "https://eyedonorfrontend.vercel.app",
-      "permanent": false
     },
     {
       "source": "/test_german-car-workshop/:path*",
