@@ -45,6 +45,14 @@
       "destination": "https://technovahub.in/test_jothiEyecare"
     },
     {
+      "source": "/test_eyedonation/:path*",
+      "destination": "https://eyedonorfrontend.vercel.app/:path*"
+    },
+    {
+      "source": "/test_eyedonation",
+      "destination": "https://technovahub.in/test_eyedonation"
+    },
+    {
       "source": "/test_german-car-workshop/:path*",
       "destination": "https://german-car-workshop.vercel.app/:path*"
     },
