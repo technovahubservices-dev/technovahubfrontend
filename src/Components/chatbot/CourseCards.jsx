@@ -1,5 +1,5 @@
 import React from 'react'
-import { COURSES } from '../../data/company.js'
+import { COURSES } from '../../data/courses.js'
 
 export default function CourseCards({ onSelect }) {
   return (

@@ -61,13 +61,13 @@ const Navbar = () => {
   const isExternalLink = (path) => path?.startsWith("http");
 
   const getLinkClasses = (path) =>
-    `text-[13px] xl:text-sm font-semibold transition duration-200 ease-in-out pt-1 ${location.pathname === path
+    `text-[13px] xl:text-sm font-normal transition duration-200 ease-in-out pt-1 ${location.pathname === path
       ? "text-blue-700 border-b-2 border-blue-700"
       : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
     }`;
 
   const getDropdownButtonClasses = (name) =>
-    `inline-flex items-center gap-1 text-[13px] xl:text-sm font-semibold transition duration-200 ease-in-out pt-1 ${
+    `inline-flex items-center gap-1 text-[13px] xl:text-sm font-normal transition duration-200 ease-in-out pt-1 ${
       openDropdown === name
         ? "text-blue-700 border-b-2 border-blue-700"
         : "text-gray-900 hover:text-blue-600 hover:border-b-2 hover:border-blue-400"
@@ -195,7 +195,7 @@ const Navbar = () => {
                   to={item.path}
                   onClick={toggleMenu}
                   className={({ isActive }) =>
-                    `block w-full text-center py-3 text-lg font-medium transition rounded-lg
+                    `block w-full text-center py-3 text-lg font-normal transition rounded-lg
                     ${isActive
                       ? "bg-blue-50 text-blue-700"
                       : "text-gray-800 hover:bg-gray-50 hover:text-blue-600"

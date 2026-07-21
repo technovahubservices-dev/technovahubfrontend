@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import about from "../../assets/images/4.jpg";
 import Title from "../../Components/Title";
+import { ABOUT_US } from "../../data/company.js";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -19,16 +19,7 @@ export default function AboutUsSection() {
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center space-y-8">
         {/* heading Components */}
         <div data-aos="fade-up">
-          <Title text="ABOUT US" />
-        </div>
-
-        {/* Image */}
-        <div className="w-full" data-aos="zoom-in">
-          <img
-            src={about}
-            alt="About Us"
-            className="w-full md:h-[600px] rounded-3xl shadow-lg object-cover"
-          />
+          <Title text={ABOUT_US.title} />
         </div>
 
         {/* Text Sections */}
@@ -38,11 +29,7 @@ export default function AboutUsSection() {
           data-aos-delay="200"
         >
           <em>
-            TechnovaHub, a unit of Aroun Groups, is a premier provider of
-            technology education and software solutions. We specialise in
-            delivering practical, industry aligned training for students,
-            professionals and entrepreneurs ensuring a workforce equipped with
-            real world skills.
+            {ABOUT_US.summary}
           </em>
         </h1>
 
@@ -52,8 +39,7 @@ export default function AboutUsSection() {
           data-aos-delay="400"
         >
           <em>
-            Our services also extend to businesses, offering tailored tech
-            solutions that drive efficiency, innovation and growth.
+            {ABOUT_US.details}
           </em>
         </h1>
       </div>

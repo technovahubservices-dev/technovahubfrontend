@@ -1,5 +1,5 @@
 import React from "react";
-import { COURSES } from "../data/company";
+import { COURSES } from "../data/courses.js";
 
 const HomeCoursesSection = () => {
   return (
