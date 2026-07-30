@@ -12,7 +12,7 @@ const MessageList = forwardRef(function MessageList({
   const emptyCopy = lang === 'tg'
     ? {
         title: 'TechnovaHub pathi enna venalum kelunga',
-        chips: ['TechnovaHub enna seyyum?', 'Padippu details kaamikkavum', 'Nexion pricing'],
+        chips: ['TechnovaHub enna seyyum?', 'course details kaamikkavum', 'Nexion pricing'],
       }
     : {
         title: 'Ask me anything about TechnovaHub',
