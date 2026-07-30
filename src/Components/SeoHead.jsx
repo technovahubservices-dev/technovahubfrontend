@@ -221,7 +221,7 @@ const seohead = () => {
       email: CONTACT.email,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "No.48 Lawspet Main Road",
+        streetAddress: "No.48 FIRST FLOOR KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD",
         addressLocality: "Puducherry",
         postalCode: "605008",
         addressCountry: "IN",
