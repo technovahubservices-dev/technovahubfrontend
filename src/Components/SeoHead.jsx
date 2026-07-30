@@ -221,7 +221,7 @@ const seohead = () => {
       email: CONTACT.email,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "No.48 FIRST FLOOR KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD",
+        streetAddress: "No.48 KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD",
         addressLocality: "Puducherry",
         postalCode: "605008",
         addressCountry: "IN",
@@ -238,7 +238,7 @@ const seohead = () => {
         "TechnovaHub delivers hands-on training in AI, software, cloud, cybersecurity, and full stack development.",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "No.48 Lawspet Main Road",
+        streetAddress: "No.48 KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD",
         addressLocality: "Puducherry",
         postalCode: "605008",
         addressCountry: "IN",
@@ -255,7 +255,7 @@ const seohead = () => {
       email: CONTACT.email,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "No.48 Lawspet Main Road",
+        streetAddress: "No.48 KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD",
         addressLocality: "Puducherry",
         postalCode: "605008",
         addressCountry: "IN",
@@ -318,7 +318,7 @@ const seohead = () => {
           name: "Where is TechnovaHub located?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "TechnovaHub is located at No.48 Lawspet Main Road, Puducherry 605008, India.",
+            text: "TechnovaHub is located at No.48 KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD, Puducherry 605008, India.",
           },
         },
       ],

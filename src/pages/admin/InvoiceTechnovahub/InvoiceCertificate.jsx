@@ -415,9 +415,9 @@ if (loading)
             <div className="flex flex-row justify-between items-center gap-[10px] mb-4">
               <div>
                 <h2 style={{ fontSize: "11px",  color: "#060608ff", }}>
-                  No.48, First Floor,
+                  No.48 KANAGAN THOTTAM VEEDHY,
                   <br />
-                  Lawspet Main Road, Puducherry - 605008
+                  LAWSPET MAIN ROAD, Puducherry - 605008
                 </h2>
               </div>
               <div

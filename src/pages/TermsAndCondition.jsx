@@ -86,7 +86,7 @@ export default function TermsAndCondition() {
                   </span>  
                   <br />
 
-               <span> Location: 48, Lawspet Main Road, Puducherry, India</span>
+               <span> Location: No.48 KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD, Puducherry - 605008, India</span>
         </div>
       </div>
     </div>

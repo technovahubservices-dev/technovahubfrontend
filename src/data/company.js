@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 export const COMPANY_PROFILE = `TechnovaHub (unit of Aroun Groups) — $2.6 Billion Technology Company
-HQ: No.48 Lawspet Main Road, Puducherry-605008, India
+HQ: No.48 KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD, Puducherry - 605008, India
 Phone: +91 9629600230 | +91 9003530230
 Email: technovahubcareer@gmail.com | Website: technovahub.in
 Tagline: "WE AUTOMATE THE ROUTINE, SO YOU CAN INNOVATE THE EXTRAORDINARY"
@@ -111,6 +111,6 @@ export const CONTACT = {
   phone2: '+91 9003530230',
   email: 'technovahubcareer@gmail.com',
   website: 'https://technovahub.in',
-  address: 'No.48 Lawspet Main Road, Puducherry - 605008',
+  address: 'No.48 KANAGAN THOTTAM VEEDHY, LAWSPET MAIN ROAD, Puducherry - 605008',
   whatsapp: 'https://wa.me/919629600230',
 }
