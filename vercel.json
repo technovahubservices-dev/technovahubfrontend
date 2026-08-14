@@ -1,4 +1,21 @@
 {
+  "redirects": [
+    {
+      "source": "/test_certificate",
+      "destination": "/test_certificates",
+      "permanent": false
+    },
+    {
+      "source": "/test_certificate/",
+      "destination": "/test_certificates/",
+      "permanent": false
+    },
+    {
+      "source": "/test_certificate/:path*",
+      "destination": "/test_certificates/:path*",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/test_eyedonation/:path*",
@@ -176,14 +193,6 @@
     {
       "source": "/test_certificates/:path*",
       "destination": "https://certificate-studio-frontend.vercel.app/:path*"
-    },
-    {
-      "source": "/test_certificate",
-      "destination": "https://certificate-studio-frontend.vercel.app/"
-    },
-    {
-      "source": "/test_certificate/",
-      "destination": "https://certificate-studio-frontend.vercel.app/"
     },
 
     {
