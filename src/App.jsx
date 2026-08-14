@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./Components/Header/Header";
 import TermsAndCondition from "./pages/TermsAndCondition";
@@ -113,6 +113,14 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/verifyCertificate" element={<VerifyCertificate />} />
+          <Route
+            path="/test_certificates"
+            element={<Navigate to="/verifyCertificate" replace />}
+          />
+          <Route
+            path="/test_certificates/*"
+            element={<Navigate to="/verifyCertificate" replace />}
+          />
           <Route path="/gallery" element={<GalleryPages />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/softwaresolutions" element={<Softwaresol />} />
