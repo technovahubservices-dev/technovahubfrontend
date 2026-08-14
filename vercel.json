@@ -145,18 +145,22 @@
       "source": "/test_quotation",
       "destination": "https://quotation-generator-umber.vercel.app/test_quotation"
     },
+  
+    {
+      "source": "/test_quota",
+      "destination": "https://quotation-generator-umber.vercel.app/test_quota"
+    },
+     {
+      "source": "/test_certificates/assets/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/assets/:path*"
+    },
     {
       "source": "/test_certificates/:path*",
       "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/:path*"
     },
-   
     {
       "source": "/test_certificates",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates"
-    },
-    {
-      "source": "/test_quota",
-      "destination": "https://quotation-generator-umber.vercel.app/test_quota"
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/"
     },
     {
       "source": "/test_pg_infrastructure/:path*",
