@@ -169,6 +169,18 @@
       "source": "/test_certificate/",
       "destination": "https://certificate-studio-frontend.vercel.app/"
     },
+    {
+      "source": "/test_certificate/assets/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate/assets/:path*"
+    },
+    {
+      "source": "/test_certificate/favicon.svg",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate/favicon.svg"
+    },
+    {
+      "source": "/test_certificate/manifest.json",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate/manifest.json"
+    },
 
     {
       "source": "/test_quota",
