@@ -146,6 +146,19 @@
       "destination": "https://quotation-generator-umber.vercel.app/test_quotation"
     },
     {
+      "source": "/test_certificates/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/:path*"
+    },
+   
+    {
+      "source": "/test_certificates",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates"
+    },
+    {
+      "source": "/test_quota",
+      "destination": "https://quotation-generator-umber.vercel.app/test_quota"
+    },
+    {
       "source": "/test_pg_infrastructure/:path*",
       "destination": "https://pg-infra-frontend.vercel.app/:path*"
     },
