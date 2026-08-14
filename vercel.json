@@ -136,24 +136,43 @@
       "source": "/ai_score_checker",
       "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
     },
-     {
+    {
       "source": "/test_quotation/:path*",
       "destination": "https://quotation-generator-umber.vercel.app/:path*"
     },
-   
     {
       "source": "/test_quotation",
       "destination": "https://quotation-generator-umber.vercel.app/test_quotation"
     },
     {
+      "source": "/test_quota",
+      "destination": "https://quotation-generator-umber.vercel.app/test_quota"
+    },
+    {
+      "source": "/test_certificates/",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/"
+    },
+    {
+      "source": "/test_certificates/assets/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/assets/:path*"
+    },
+    {
+      "source": "/test_certificates/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/:path*"
+    },
+    {
+      "source": "/test_certificates",
+      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/"
+    },
+    {
       "source": "/test_pg_infrastructure/:path*",
       "destination": "https://pg-infra-frontend.vercel.app/:path*"
     },
-     {
+    {
       "source": "/test_saleam_biriyani/:path*",
       "destination": "https://qrscan-lovat.vercel.app/test_saleam_biriyani/:path*"
     },
-     {
+    {
       "source": "/test_saleam_biriyani",
       "destination": "https://qrscan-lovat.vercel.app/test_saleam_biriyani"
     },
