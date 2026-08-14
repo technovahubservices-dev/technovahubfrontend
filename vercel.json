@@ -9,6 +9,16 @@
       "source": "/test_eyedonation",
       "destination": "https://eyedonorfrontend.vercel.app",
       "permanent": false
+    },
+    {
+      "source": "/test_certificate/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/test_certificate",
+      "destination": "https://certificate-studio-frontend.vercel.app",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -145,14 +155,6 @@
       "destination": "https://quotation-generator-umber.vercel.app/test_quotation"
     },
 
-      {
-      "source": "/test_certificate/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/:path*"
-    },
-    {
-      "source": "/test_certificate",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate"
-    },
     {
       "source": "/test_quota",
       "destination": "https://quotation-generator-umber.vercel.app/test_quota"
