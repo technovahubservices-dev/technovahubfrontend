@@ -33,6 +33,14 @@ import FacilitiesPage from "./pages/Career/FacilitiesPage";
 
 import YoungInnovator from "./pages/YoungInnovator";
 
+const CertificateStudioRedirect = () => {
+  useEffect(() => {
+    window.location.replace("https://certificate-studio-frontend.vercel.app/");
+  }, []);
+
+  return null;
+};
+
 
 // Wrapper to use location
 const Layout = ({ children }) => {
@@ -46,7 +54,6 @@ const Layout = ({ children }) => {
     "/product/techno_biz_connect",
     "/career/neuro-science",
     "/test_certificate",
-    "/verifyCertificate",
   ]);
   const hideHeaderFooter =
     location.pathname.startsWith("/admin") ||
@@ -115,8 +122,8 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/verifyCertificate" element={<VerifyCertificate />} />
-          <Route path="/test_certificate" element={<VerifyCertificate />} />
-          <Route path="/test_certificate/*" element={<VerifyCertificate />} />
+          <Route path="/test_certificate" element={<CertificateStudioRedirect />} />
+          <Route path="/test_certificate/*" element={<CertificateStudioRedirect />} />
           <Route
             path="/test_certificates"
             element={<Navigate to="/verifyCertificate" replace />}
