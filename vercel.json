@@ -158,12 +158,24 @@
     },
 
     {
-      "source": "/test_certificates/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/:path*"
+      "source": "/test_certificates/assets/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/assets/:path*"
+    },
+    {
+      "source": "/test_certificates/favicon.svg",
+      "destination": "https://certificate-studio-frontend.vercel.app/favicon.svg"
+    },
+    {
+      "source": "/test_certificates/manifest.json",
+      "destination": "https://certificate-studio-frontend.vercel.app/manifest.json"
     },
     {
       "source": "/test_certificates",
       "destination": "https://certificate-studio-frontend.vercel.app/"
+    },
+    {
+      "source": "/test_certificates/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/:path*"
     },
     {
       "source": "/test_certificate",
