@@ -10,15 +10,6 @@
     },
 
     {
-      "source": "/test_certificate/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/:path*"
-    },
-    {
-      "source": "/test_certificate",
-      "destination": "https://certificate-studio-frontend.vercel.app"
-    },
-
-    {
       "source": "/bni/:path*",
       "destination": "https://bni-six.vercel.app/:path*"
     },
