@@ -158,12 +158,8 @@
     },
 
     {
-      "source": "/test_certificate/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate/:path*"
-    },
-    {
       "source": "/test_certificate",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate"
+      "destination": "https://certificate-studio-frontend.vercel.app/"
     },
     {
       "source": "/test_certificate/",
@@ -171,15 +167,15 @@
     },
     {
       "source": "/test_certificate/assets/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate/assets/:path*"
+      "destination": "https://certificate-studio-frontend.vercel.app/assets/:path*"
     },
     {
       "source": "/test_certificate/favicon.svg",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate/favicon.svg"
+      "destination": "https://certificate-studio-frontend.vercel.app/favicon.svg"
     },
     {
       "source": "/test_certificate/manifest.json",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificate/manifest.json"
+      "destination": "https://certificate-studio-frontend.vercel.app/manifest.json"
     },
 
     {
