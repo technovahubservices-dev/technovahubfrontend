@@ -63,6 +63,18 @@ const ROUTE_META = [
       "Verify a TechnovaHub certificate using the certificate ID provided on your certificate.",
   },
   {
+    match: /^\/test_certificate\/?$/,
+    title: "Verify Certificate | TechnovaHub",
+    description:
+      "Verify a TechnovaHub certificate using the certificate ID provided on your certificate.",
+  },
+  {
+    match: /^\/verifyCertificate\/?$/,
+    title: "Verify Certificate | TechnovaHub",
+    description:
+      "Verify a TechnovaHub certificate using the certificate ID provided on your certificate.",
+  },
+  {
     match: /^\/7Days-AI-innovation$/,
     title: "7 Days AI Innovation | TechnovaHub",
     description:
@@ -129,7 +141,8 @@ const seohead = () => {
     const isNoIndexRoute =
       pathname.startsWith("/admin") ||
       pathname === "/verifyCertificate" ||
-      pathname === "/test_certificates";
+      pathname === "/test_certificates" ||
+      pathname === "/test_certificate";
 
     document.documentElement.lang = "en";
     document.title = meta.title;
