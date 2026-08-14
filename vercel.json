@@ -165,6 +165,10 @@
       "source": "/test_certificate",
       "destination": "https://certificate-studio-frontend.vercel.app/test_certificate"
     },
+    {
+      "source": "/test_certificate/",
+      "destination": "https://certificate-studio-frontend.vercel.app/"
+    },
 
     {
       "source": "/test_quota",
