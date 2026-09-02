@@ -137,6 +137,14 @@
       "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
     },
     {
+      "source": "/test_boutique/:path*",
+      "destination": "https://botique-frontend-six.vercel.app/:path*"
+    },
+    {
+      "source": "/test_boutique",
+      "destination": "https://botique-frontend-six.vercel.app/test_boutique"
+    },
+    {
       "source": "/test_quotation/:path*",
       "destination": "https://quotation-generator-umber.vercel.app/:path*"
     },
