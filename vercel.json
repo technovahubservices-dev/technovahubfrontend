@@ -1,21 +1,36 @@
 {
   "redirects": [
     {
-      "source": "/test_eyedonation/:path*",
-      "destination": "https://eyedonorfrontend.vercel.app/:path*",
+      "source": "/test_certificate",
+      "destination": "/test_certificates",
       "permanent": false
     },
     {
-      "source": "/test_eyedonation",
-      "destination": "https://eyedonorfrontend.vercel.app",
+      "source": "/test_certificate/",
+      "destination": "/test_certificates/",
+      "permanent": false
+    },
+    {
+      "source": "/test_certificate/:path*",
+      "destination": "/test_certificates/:path*",
       "permanent": false
     }
   ],
   "rewrites": [
     {
+      "source": "/test_eyedonation/:path*",
+      "destination": "https://eyedonorfrontend.vercel.app/:path*"
+    },
+    {
+      "source": "/test_eyedonation",
+      "destination": "https://eyedonorfrontend.vercel.app"
+    },
+
+    {
       "source": "/bni/:path*",
       "destination": "https://bni-six.vercel.app/:path*"
     },
+
     {
       "source": "/nexion/landingpage/:path*",
       "destination": "https://nexion-ruby.vercel.app/:path*"
@@ -32,6 +47,7 @@
       "source": "/nexion",
       "destination": "https://technovo-automation.vercel.app"
     },
+
     {
       "source": "/test_meekshiConsultancy/:path*",
       "destination": "https://meekshi-consultancy-wdlo.vercel.app/:path*"
@@ -40,6 +56,7 @@
       "source": "/test_meekshiConsultancy",
       "destination": "https://technovahub.in/test_meekshiConsultancy"
     },
+
     {
       "source": "/trackpulse/landingpage/:path*",
       "destination": "https://tracking-app-landing-page-self.vercel.app/:path*"
@@ -48,6 +65,7 @@
       "source": "/trackpulse/landingpage",
       "destination": "https://technovahub.in/trackpulse/landingpage"
     },
+
     {
       "source": "/test_jothiEyecare/:path*",
       "destination": "https://jothi-eyecare-frontend.vercel.app/:path*"
@@ -56,6 +74,7 @@
       "source": "/test_jothiEyecare",
       "destination": "https://technovahub.in/test_jothiEyecare"
     },
+
     {
       "source": "/test_german-car-workshop/:path*",
       "destination": "https://german-car-workshop.vercel.app/:path*"
@@ -64,6 +83,7 @@
       "source": "/test_german-car-workshop",
       "destination": "https://technovahub.in/test_german-car-workshop"
     },
+
     {
       "source": "/test_Tshirt/:path*",
       "destination": "https://t-shirt-landingpage-3h7h.vercel.app/:path*"
@@ -72,6 +92,7 @@
       "source": "/test_Tshirt",
       "destination": "https://technovahub.in/test_Tshirt"
     },
+
     {
       "source": "/test_Midas/:path*",
       "destination": "https://midas-site-gray.vercel.app/:path*"
@@ -80,14 +101,16 @@
       "source": "/test_Midas",
       "destination": "https://technovahub.in/test_Midas"
     },
+
     {
       "source": "/test_grayRock",
       "destination": "https://technovahub.in/test_grayRock/order"
     },
     {
       "source": "/test_grayRock/:path*",
-      "destination": "https://gray-rock-sap-frontend.vercel.app/test_grayRock/:path*"
+      "destination": "https://gray-rock-sap-frontend.vercel.app/:path*"
     },
+
     {
       "source": "/test_redTaxi",
       "destination": "https://red-taxi-py.vercel.app/test_redTaxi/"
@@ -96,6 +119,7 @@
       "source": "/test_redTaxi/:path*",
       "destination": "https://red-taxi-py.vercel.app/test_redTaxi/:path*"
     },
+
     {
       "source": "/test-salesvision",
       "destination": "https://sales-vision-frontend.vercel.app/test-salesvision"
@@ -104,6 +128,7 @@
       "source": "/test-salesvision/:path*",
       "destination": "https://sales-vision-frontend.vercel.app/test-salesvision/:path*"
     },
+
     {
       "source": "/test_giftshop/:path*",
       "destination": "https://giftshopfrontend.vercel.app/test_giftshop/:path*"
@@ -112,6 +137,7 @@
       "source": "/test_giftshop",
       "destination": "https://technovahub.in/test_giftshop"
     },
+
     {
       "source": "/product/techno_biz_connect/:path*",
       "destination": "https://nfc-landing-page-fawn.vercel.app/:path*"
@@ -120,6 +146,7 @@
       "source": "/product/techno_biz_connect",
       "destination": "https://technovahub.in/product/techno_biz_connect"
     },
+
     {
       "source": "/tbc_connect/:path*",
       "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect/:path*"
@@ -128,6 +155,7 @@
       "source": "/tbc_connect",
       "destination": "https://nfcprofilebackend-c1bn.onrender.com/tbc_connect"
     },
+
     {
       "source": "/ai_score_checker/:path*",
       "destination": "https://ai-score-checker.vercel.app/:path*"
@@ -136,6 +164,7 @@
       "source": "/ai_score_checker",
       "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
     },
+
     {
       "source": "/test_boutique/:path*",
       "destination": "https://botique-frontend-six.vercel.app/:path*"
@@ -152,30 +181,42 @@
       "source": "/test_quotation",
       "destination": "https://quotation-generator-umber.vercel.app/test_quotation"
     },
-    {
-      "source": "/test_quota",
-      "destination": "https://quotation-generator-umber.vercel.app/test_quota"
-    },
-    {
-      "source": "/test_certificates/",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/"
-    },
+
     {
       "source": "/test_certificates/assets/:path*",
       "destination": "https://certificate-studio-frontend.vercel.app/assets/:path*"
     },
     {
-      "source": "/test_certificates/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/:path*"
+      "source": "/test_certificates/favicon.svg",
+      "destination": "https://certificate-studio-frontend.vercel.app/favicon.svg"
+    },
+    {
+      "source": "/test_certificates/manifest.json",
+      "destination": "https://certificate-studio-frontend.vercel.app/manifest.json"
     },
     {
       "source": "/test_certificates",
-      "destination": "https://certificate-studio-frontend.vercel.app/test_certificates/"
+      "destination": "https://certificate-studio-frontend.vercel.app/"
     },
+    {
+      "source": "/test_certificates/:path*",
+      "destination": "https://certificate-studio-frontend.vercel.app/:path*"
+    },
+
+    {
+      "source": "/test_quota",
+      "destination": "https://quotation-generator-umber.vercel.app/test_quota"
+    },
+
     {
       "source": "/test_pg_infrastructure/:path*",
       "destination": "https://pg-infra-frontend.vercel.app/:path*"
     },
+    {
+      "source": "/test_pg_infrastructure",
+      "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
+    },
+
     {
       "source": "/test_saleam_biriyani/:path*",
       "destination": "https://qrscan-lovat.vercel.app/test_saleam_biriyani/:path*"
@@ -184,10 +225,7 @@
       "source": "/test_saleam_biriyani",
       "destination": "https://qrscan-lovat.vercel.app/test_saleam_biriyani"
     },
-    {
-      "source": "/test_pg_infrastructure",
-      "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
-    },
+
     {
       "source": "/manifest.json",
       "destination": "https://qrscan-lovat.vercel.app/manifest.json"
@@ -212,6 +250,7 @@
       "source": "/logo512.png",
       "destination": "https://qrscan-lovat.vercel.app/logo512.png"
     },
+
     {
       "source": "/(.*)",
       "destination": "/"
