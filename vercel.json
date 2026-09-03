@@ -217,14 +217,7 @@
       "source": "/test_pg_infrastructure",
       "destination": "https://pg-infra-frontend.vercel.app/test_pg_infrastructure"
     },
-  {
-      "source": "/test_jwellery/:path*",
-      "destination": "https://frontend-jewelleryshop.vercel.app/:path*"
-    },
-    {
-      "source": "/test_jwellery",
-      "destination": "https://frontend-jewelleryshop.vercel.app/test_jwellery"
-    },
+ 
 
     {
       "source": "/test_saleam_biriyani/:path*",
