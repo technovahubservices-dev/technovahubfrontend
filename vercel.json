@@ -200,7 +200,7 @@
     },
     {
       "source": "/test_certificates/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/:path*"
+      "destination": "https://certificate-studio-frontend.vercel.app/"
     },
 
     {
