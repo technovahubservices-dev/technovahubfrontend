@@ -6,6 +6,18 @@ export const getGalleryImages = async () => {
   return res.data;
 };
 
+// Start Google Drive connection for admin gallery
+export const connectGoogleDrive = async () => {
+  const token = localStorage.getItem("adminToken");
+  if (!token) throw new Error("Admin not logged in");
+
+  const res = await apiClient.get("/auth/google-drive/connect", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return res.data;
+};
+
 // Delete a gallery image
 export const deleteGalleryImage = async (id) => {
   const token = localStorage.getItem("adminToken");
