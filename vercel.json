@@ -58,6 +58,28 @@
     },
 
     {
+      "source": "/static/:path*",
+      "has": [
+        {
+          "type": "header",
+          "key": "referer",
+          "value": "https?://[^/]+/test_delhivery(?:[/?].*)?$"
+        }
+      ],
+      "destination": "https://delhivery-alpha.vercel.app/static/:path*"
+    },
+    {
+      "source": "/:file(favicon.svg|manifest.json|asset-manifest.json|logo192.png|logo512.png)",
+      "has": [
+        {
+          "type": "header",
+          "key": "referer",
+          "value": "https?://[^/]+/test_delhivery(?:[/?].*)?$"
+        }
+      ],
+      "destination": "https://delhivery-alpha.vercel.app/:file"
+    },
+    {
       "source": "/test_delhivery/:path*",
       "destination": "https://delhivery-alpha.vercel.app/:path*"
     },
