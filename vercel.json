@@ -174,7 +174,6 @@
       "source": "/ai_score_checker",
       "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
     },
-
     {
       "source": "/test_boutique/:path*",
       "destination": "https://botique-frontend-six.vercel.app/:path*"
@@ -211,7 +210,7 @@
     },
     {
       "source": "/test_certificates/:path*",
-      "destination": "https://certificate-studio-frontend.vercel.app/:path*"
+      "destination": "https://certificate-studio-frontend.vercel.app/"
     },
 
     {
