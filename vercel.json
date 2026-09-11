@@ -165,15 +165,6 @@
       "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
     },
     {
-      "source": "/test_jkr/:path*",
-      "destination": "https://frontend-jkr-jewelleryshop.vercel.app/:path*"
-    },
-    {
-      "source": "/test_jkr",
-      "destination": "https://frontend-jkr-jewelleryshop.vercel.app/test_jkr"
-    },
-
-    {
       "source": "/test_boutique/:path*",
       "destination": "https://botique-frontend-six.vercel.app/:path*"
     },
