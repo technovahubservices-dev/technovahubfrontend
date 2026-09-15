@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { uploadGalleryImages } from "../../api/gallaryApi"; 
 import toast from "react-hot-toast";
 
-const AddGalleryImage = ({ driveConnected = false }) => {
+const AddGalleryImage = ({ driveConnected = false, checkingDrive = false, driveError = "" }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -62,8 +62,8 @@ const AddGalleryImage = ({ driveConnected = false }) => {
     <div className="flex justify-end  md:p-6">
       {/* Add Image Button */}
       <button
+        type="button"
         className="bg-blue-500 text-white md:px-4 md:py-2 p-2 text-sm border-2 border-white rounded hover:bg-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-        disabled={!driveConnected}
         onClick={() => setIsModalOpen(true)}
       >
         + Image
@@ -72,7 +72,7 @@ const AddGalleryImage = ({ driveConnected = false }) => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100 bg-opacity-30">
-          <div className="bg-white w-11/12 max-w-lg rounded-lg p-6 relative shadow-lg">
+          <div role="dialog" aria-modal="true" aria-labelledby="gallery-upload-title" className="bg-white w-11/12 max-w-lg rounded-lg p-6 relative shadow-lg">
             {/* Close Button */}
             <button
               className="absolute top-3 right-3 text-gray-600 hover:text-gray-800"
@@ -86,8 +86,17 @@ const AddGalleryImage = ({ driveConnected = false }) => {
               ✕
             </button>
 
-            <h2 className="text-xl font-semibold mb-4">Upload Images</h2>
+            <h2 id="gallery-upload-title" className="text-xl font-semibold mb-4">Upload Images</h2>
             <p className="text-sm text-gray-600 mb-4">Save to Google Drive. Up to 10 images, 5 MB each. Uploaded images are visible in the website gallery.</p>
+            {(!driveConnected || checkingDrive) && (
+              <p role="status" className="mb-4 text-sm text-blue-900">
+                {checkingDrive
+                  ? "Checking Google Drive connection. You can select images while you wait."
+                  : driveError
+                    ? `${driveError} Close this window and reconnect Google Drive before uploading.`
+                    : "You can select images now. Before uploading, close this window and click Connect Google Drive."}
+              </p>
+            )}
 
             {/* File Input */}
             <input
@@ -124,10 +133,10 @@ const AddGalleryImage = ({ driveConnected = false }) => {
             {/* Submit Button */}
             <button
               className={`bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
+                selectedImages.length === 0 || loading || !driveConnected || checkingDrive ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={handleSubmit}
-              disabled={selectedImages.length === 0 || loading || !driveConnected}
+              disabled={selectedImages.length === 0 || loading || !driveConnected || checkingDrive}
             >
               {loading ? "Uploading to Google Drive..." : "Upload to Google Drive"}
             </button>

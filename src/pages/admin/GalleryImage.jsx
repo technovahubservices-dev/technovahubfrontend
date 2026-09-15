@@ -113,7 +113,7 @@ const GalleryImage = () => {
             <p className="text-sm text-blue-800">{driveConnected ? 'Google Drive connected. Ready to upload.' : 'Connect Google Drive to upload images.'}</p>
           )}
         </div>
-        <AddGalleryImage driveConnected={driveConnected && !checkingDrive}/>
+        <AddGalleryImage driveConnected={driveConnected && !checkingDrive} checkingDrive={checkingDrive} driveError={driveError}/>
         <GalleryList/>
     </div>
   )
