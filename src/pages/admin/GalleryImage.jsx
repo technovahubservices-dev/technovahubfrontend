@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AddGalleryImage from './AddGalleryImage'
 import GalleryList from './adminlogin/GalleryList'
@@ -6,9 +6,9 @@ import toast from 'react-hot-toast'
 import { connectGoogleDrive, completeGoogleDrive, getGoogleDriveStatus } from '../../api/gallaryApi'
 
 const DRIVE_STATE_KEY = 'admin-gallery-drive-state'
-const driveErrorMessage = (error) => error.response?.status === 404
+const driveErrorMessage = (error) => error.response?.data?.message || (error.response?.status === 404
   ? 'Google Drive is unavailable. Please update the gallery backend.'
-  : error.response?.data?.message || error.message || 'Failed to connect Google Drive.'
+  : error.message || 'Failed to connect Google Drive.')
 
 const GalleryImage = () => {
   const navigate = useNavigate()
@@ -17,6 +17,19 @@ const GalleryImage = () => {
   const [checkingDrive, setCheckingDrive] = useState(true)
   const [driveError, setDriveError] = useState('')
   const initialized = useRef(false)
+
+  const handleDriveError = useCallback((error) => {
+    if (error.code === 'ADMIN_LOGIN_REQUIRED' || error.response?.status === 401) {
+      localStorage.removeItem('adminToken')
+      localStorage.removeItem('adminUser')
+      localStorage.removeItem('adminLoginAt')
+      sessionStorage.removeItem(DRIVE_STATE_KEY)
+      toast.error('Please log in again', { id: 'admin-drive-login-required' })
+      navigate('/adminlogin', { replace: true })
+      return
+    }
+    setDriveError(driveErrorMessage(error))
+  }, [navigate])
 
   useEffect(() => {
     if (initialized.current) return
@@ -40,31 +53,34 @@ const GalleryImage = () => {
           setDriveConnected(Boolean(data.connected))
         }
       } catch (error) {
-        setDriveError(driveErrorMessage(error))
+        handleDriveError(error)
       } finally {
         setCheckingDrive(false)
       }
     }
     initialize()
-  }, [navigate])
+  }, [navigate, handleDriveError])
 
   const handleConnectGoogleDrive = async () => {
     setConnecting(true)
     setDriveError('')
     try {
       const data = await connectGoogleDrive()
-      const authorizationUrl = data?.authorizationUrl
+      const authorizationUrl = data?.authUrl || data?.authorizationUrl
 
-      if (!authorizationUrl || !data.state) {
+      if (!authorizationUrl) {
         throw new Error("Missing Google Drive authorization URL.")
       }
 
       const url = new URL(authorizationUrl)
       if (url.origin !== 'https://accounts.google.com') throw new Error('Invalid Google authorization URL.')
-      sessionStorage.setItem(DRIVE_STATE_KEY, data.state)
+      // Some backends include state only in the OAuth URL.
+      const state = data.state || url.searchParams.get('state')
+      sessionStorage.removeItem(DRIVE_STATE_KEY)
+      if (state) sessionStorage.setItem(DRIVE_STATE_KEY, state)
       window.location.assign(url.href)
     } catch (error) {
-      setDriveError(driveErrorMessage(error))
+      handleDriveError(error)
     } finally {
       setConnecting(false)
     }
