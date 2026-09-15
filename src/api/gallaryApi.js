@@ -1,8 +1,22 @@
 import apiClient from "./apiClient";
+import { API_URL } from "../data/constants";
 
 // Get all gallery images
 export const getGalleryImages = async () => {
   const res = await apiClient.get("/gallery");
+  return res.data.map((item) => ({
+    ...item,
+    imageUrl: item.imageUrl ? new URL(item.imageUrl, `${API_URL}/`).href : "",
+  }));
+};
+
+export const getGoogleDriveStatus = async () => {
+  const res = await apiClient.get("/auth/google-drive/status");
+  return res.data;
+};
+
+export const completeGoogleDrive = async (code, state) => {
+  const res = await apiClient.post("/auth/google-drive/complete", { code, state });
   return res.data;
 };
 
