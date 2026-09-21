@@ -15,8 +15,6 @@ import ArounManagar from "../../../pages/admin/Aroun Invoice/ArounManagar";
 import Productivitytools from "../../../pages/admin/ProductivityTools/Productivitytools";
 import SalarySlip from "../../../pages/admin/SalarySlipgenerator/SalarySlip";
 
-import SoftwareSolutionAdd from "../../../pages/admin/SoftwareSolutionAdd";
-
 const HomePage = () => (
   <div>
 
@@ -125,7 +123,6 @@ const MainContent = () => {
         <Route path="gallery" element={<Gallery />} />
         <Route path="certificate" element={<Certificate />} />
         <Route path="courses" element={<Course />} />
-        <Route path="software-solutions" element={<SoftwareSolutionAdd />} />
         <Route path="arounquotation" element={<ArounQuotation />} />
         <Route path="arounquotationEdit" element={<ArounQuotationEdit />} />
         <Route path="arouninvoice" element={<ArounVoice />} />

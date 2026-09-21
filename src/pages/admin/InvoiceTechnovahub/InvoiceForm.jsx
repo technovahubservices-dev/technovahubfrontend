@@ -1,11 +1,7 @@
-import notifyCreateResult from "../../../utils/notifyCreateResult";
-import DriveBackupNotice from "../../../Components/admin/DriveBackupNotice";
-import useSubmitLock from "../../../hooks/useSubmitLock";
 import React, { useEffect, useState } from "react";
 import { addInvoice, updateInvoice } from "../../../api/invoiceApi";
 
 const InvoiceForm = ({ onClose, onRefresh, editData, docType = "invoice" }) => {
-  const { loading, beginSave, finishSave } = useSubmitLock();
   const isQuotation = docType === "quotation";
   const docLabel = isQuotation ? "Quotation" : "Invoice";
   const [invoiceId, setInvoiceId] = useState(editData?.invoiceId || "");
@@ -55,23 +51,20 @@ const InvoiceForm = ({ onClose, onRefresh, editData, docType = "invoice" }) => {
         discount: Number(item.discount),
       })),
     };
-    if (!beginSave()) return;
     try {
       if (editData) {
         await updateInvoice(editData._id, dataToSend);
         alert(`Updated ${docLabel} successfully!`);
       } else {
-        const response = await addInvoice(dataToSend);
+        await addInvoice(dataToSend);
         console.log("Sending invoice data:", dataToSend);
-        notifyCreateResult(response, () => alert(`Created ${docLabel} successfully!`));
+        alert(`Created ${docLabel} successfully!`);
       }
       onRefresh();
       onClose();
     } catch (error) {
       console.error(error);
       alert(`Error saving ${docLabel}!`);
-    } finally {
-      finishSave();
     }
   };
 
@@ -111,7 +104,6 @@ const InvoiceForm = ({ onClose, onRefresh, editData, docType = "invoice" }) => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <DriveBackupNotice />
         {editData && (
           <div>
             <label className="font-medium text-gray-700">{`${docLabel} ID`}</label>
@@ -275,10 +267,9 @@ const InvoiceForm = ({ onClose, onRefresh, editData, docType = "invoice" }) => {
           </button>
           <button
             type="submit"
-            disabled={loading}
             className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
           >
-            {loading ? "Saving…" : editData ? `Update ${docLabel}` : `Create ${docLabel}`}
+            {editData ? `Update ${docLabel}` : `Create ${docLabel}`}
           </button>
         </div>
       </form>

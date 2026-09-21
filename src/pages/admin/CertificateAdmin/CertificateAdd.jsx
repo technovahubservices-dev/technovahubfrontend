@@ -1,6 +1,3 @@
-import notifyCreateResult from "../../../utils/notifyCreateResult";
-import DriveBackupNotice from "../../../Components/admin/DriveBackupNotice";
-import useSubmitLock from "../../../hooks/useSubmitLock";
 import React, { useState, useEffect } from "react";
 
 import { addCertificateApi, updateCertificateApi } from "../../../api/certificateApi";
@@ -9,7 +6,7 @@ import toast  from "react-hot-toast";
 const CertificateAdd = ({ editingCertificate, onDone }) => {
   const [empID, setEmpID] = useState("");
   const [empName, setEmpName] = useState("");
-  const { loading, beginSave, finishSave } = useSubmitLock();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (editingCertificate) {
@@ -28,14 +25,14 @@ const CertificateAdd = ({ editingCertificate, onDone }) => {
       return;
     }
 
-    if (!beginSave()) return;
+    setLoading(true);
     try {
       if (editingCertificate) {
         await updateCertificateApi(editingCertificate._id, { empID, empName });
         toast.success("Certificate updated successfully!");
       } else {
-        const response = await addCertificateApi({ empID, empName });
-        notifyCreateResult(response, () => toast.success("Certificate added successfully!"));
+        await addCertificateApi({ empID, empName });
+        toast.success("Certificate added successfully!");
       }
       setEmpID("");
       setEmpName("");
@@ -44,7 +41,7 @@ const CertificateAdd = ({ editingCertificate, onDone }) => {
       console.error(err);
       toast.error("Operation failed");
     } finally {
-      finishSave();
+      setLoading(false);
     }
   };
 
@@ -54,7 +51,6 @@ const CertificateAdd = ({ editingCertificate, onDone }) => {
         {editingCertificate ? "Update Certificate" : "Add Certificate"}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <DriveBackupNotice />
         <div>
           {/* <label className="block text-gray-700 font-medium mb-1">Employee ID</label> */}
           <input
@@ -84,7 +80,9 @@ const CertificateAdd = ({ editingCertificate, onDone }) => {
             }`}
           >
             {loading
-              ? "Saving…"
+              ? editingCertificate
+                ? "Updating..."
+                : "Adding..."
               : editingCertificate
                 ? "Update Certificate"
                 : "Add Certificate"}
