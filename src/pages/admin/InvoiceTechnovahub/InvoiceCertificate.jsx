@@ -9,9 +9,9 @@ import {Link} from "react-router-dom"
 export default function InvoiceCertificate({ docType = "invoice" }) {
   const quotationRef = useRef(null);
   const isQuotation = docType === "quotation";
-  const pageTitle = isQuotation ? "QUOTATION" : "INVOICE";
+  const pageTitle =  "QUOTATION" ;
   const docLabel = isQuotation ? "Quotation" : "Invoice";
-  const toLabel = isQuotation ? "Quotation To" : "Invoice To";
+  const toLabel = "Quotation To";
   const docIdLabel = isQuotation ? "Quotation #" : "Invoice #";
   const editPath = isQuotation ? "/admin/quotationEdit" : "/admin/invoiceEdit";
 
