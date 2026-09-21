@@ -1,7 +1,11 @@
+import notifyCreateResult from "../../../utils/notifyCreateResult";
+import DriveBackupNotice from "../../../Components/admin/DriveBackupNotice";
+import useSubmitLock from "../../../hooks/useSubmitLock";
 import React, { useEffect, useState } from "react";
 import { addAInvoice, updateAInvoice } from "../../../api/arounInvoiceApi";
 
 const ArounInvoiceForm = ({ onClose, onRefresh, editData }) => {
+  const { loading, beginSave, finishSave } = useSubmitLock();
   const [invoiceTo, setInvoiceTo] = useState(editData?.invoiceTo || "");
   const [address, setAddress] = useState(editData?.address || "");
   const [items, setItems] = useState(
@@ -41,19 +45,22 @@ const ArounInvoiceForm = ({ onClose, onRefresh, editData }) => {
         discount: Number(item.discount),
       })),
     };
+    if (!beginSave()) return;
     try {
       if (editData) {
         await updateAInvoice(editData._id, dataToSend);
         alert("✅ Invoice updated successfully!");
       } else {
-        await addAInvoice(dataToSend);
-        alert("✅ Invoice created successfully!");
+        const response = await addAInvoice(dataToSend);
+        notifyCreateResult(response, () => alert("✅ Invoice created successfully!"));
       }
       onRefresh();
       onClose();
     } catch (error) {
       console.error(error);
       alert("❌ Error saving invoice!");
+    } finally {
+      finishSave();
     }
   };
 
@@ -94,6 +101,7 @@ const ArounInvoiceForm = ({ onClose, onRefresh, editData }) => {
       onSubmit={handleSubmit}
       className="p-4 md:p-6 bg-white rounded-lg max-w-4xl mx-auto"
     >
+        <DriveBackupNotice />
       <h2 className="text-2xl font-semibold mb-4 text-blue-600 text-center">
         {editData ? "Edit Invoice" : "Create New Invoice"}
       </h2>
@@ -242,9 +250,10 @@ const ArounInvoiceForm = ({ onClose, onRefresh, editData }) => {
         </button>
         <button
           type="submit"
+            disabled={loading}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          {editData ? "Update Invoice" : "Create Invoice"}
+          {loading ? "Saving…" : editData ? "Update Invoice" : "Create Invoice"}
         </button>
       </div>
     </form>

@@ -11,6 +11,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { name: "Home", icon: <Home />, path: "/admin" },
      { name: "Productivity Tools", icon: <FaFileInvoiceDollar />, path: "/admin/ERP" },
     { name: "Gallery", icon: <Images />, path: "/admin/gallery" },
+    { name: "Software Solutions", icon: <BookOpen />, path: "/admin/software-solutions" },
     { name: "Courses", icon: <BookOpen />, path: "/admin/courses" },
     { name: "Certificate", icon: <Award />, path: "/admin/certificate" },
     { name: "Aroun Quotation", icon: <LiaFileInvoiceDollarSolid />, path: "/admin/arounquotation" }, 

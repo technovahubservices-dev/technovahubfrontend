@@ -1,3 +1,6 @@
+import notifyCreateResult from "../../../utils/notifyCreateResult";
+import DriveBackupNotice from "../../../Components/admin/DriveBackupNotice";
+import useSubmitLock from "../../../hooks/useSubmitLock";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { addQuotation, updateQuotation } from "../../../api/quotationApi";
@@ -5,6 +8,7 @@ import toast from "react-hot-toast";
 import { X } from "lucide-react";
 
 const QuotationForm = ({ editData, onClose, onUpdateComplete }) => {
+  const { loading, beginSave, finishSave } = useSubmitLock();
   const [quotationData, setQuotationData] = useState({
     date: new Date().toISOString().slice(0, 10),
     contactName: "",
@@ -94,18 +98,21 @@ const QuotationForm = ({ editData, onClose, onUpdateComplete }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!beginSave()) return;
     try {
       if (isEdit && editId) {
         await updateQuotation(editId, quotationData);
         toast.success("Quotation updated successfully!");
       } else {
-        await addQuotation(quotationData);
-        toast.success("Quotation added successfully!");
+        const response = await addQuotation(quotationData);
+        notifyCreateResult(response, () => toast.success("Quotation added successfully!"));
       }
       onUpdateComplete();
     } catch (err) {
       console.error(err);
       toast.error("Failed to save quotation");
+    } finally {
+      finishSave();
     }
   };
 
@@ -138,6 +145,7 @@ const QuotationForm = ({ editData, onClose, onUpdateComplete }) => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+        <DriveBackupNotice />
             {/* Header Fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -261,9 +269,10 @@ const QuotationForm = ({ editData, onClose, onUpdateComplete }) => {
               </button>
               <button
                 type="submit"
+            disabled={loading}
                 className="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg hover:from-indigo-600 hover:to-blue-500 transition-all text-sm sm:text-base"
               >
-                {isEdit ? "Update Quotation" : "Add Quotation"}
+                {loading ? "Saving…" : isEdit ? "Update Quotation" : "Add Quotation"}
               </button>
             </div>
           </form>

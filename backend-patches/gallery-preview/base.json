@@ -1,0 +1,10 @@
+[
+  {
+    "path": "controllers/galleryController.js",
+    "sha256": "a221330f9e3eceb59edc65483107ac54c205759d8ebc23cb1ca33ea54ea6bf2d"
+  },
+  {
+    "path": "routers/galleryRoutes.js",
+    "sha256": "30765a29b43650479c4a2b5083c1d4e6b9ff706800d5830fc035ba74a2ffc7f6"
+  }
+]

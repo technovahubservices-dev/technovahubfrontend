@@ -1,3 +1,6 @@
+import notifyCreateResult from "../../../utils/notifyCreateResult";
+import DriveBackupNotice from "../../../Components/admin/DriveBackupNotice";
+import useSubmitLock from "../../../hooks/useSubmitLock";
 import React, { useState, useEffect } from "react";
 import { addCourseApi, updateCourseApi } from "../../../api/CourseApi";
 import toast from "react-hot-toast";
@@ -5,7 +8,7 @@ import toast from "react-hot-toast";
 const Courseadd = ({ editingCourse, onDone }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { loading, beginSave, finishSave } = useSubmitLock();
 
   useEffect(() => {
     if (editingCourse) {
@@ -24,21 +27,21 @@ const Courseadd = ({ editingCourse, onDone }) => {
       return;
     }
 
-    setLoading(true);
+    if (!beginSave()) return;
     try {
       if (editingCourse) {
         await updateCourseApi(editingCourse._id, { title, description });
         toast.success("Course updated successfully!");
       } else {
-        await addCourseApi({ title, description });
-        toast.success("Course added successfully!");
+        const response = await addCourseApi({ title, description });
+        notifyCreateResult(response, () => toast.success("Course added successfully!"));
       }
       if (onDone) onDone();
     } catch (err) {
       toast.error("Operation failed");
       console.error(err);
     } finally {
-      setLoading(false);
+      finishSave();
     }
   };
 
@@ -48,6 +51,7 @@ const Courseadd = ({ editingCourse, onDone }) => {
         {editingCourse ? "Update Course" : "Add New Course"}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <DriveBackupNotice />
         <input
           type="text"
           value={title}
@@ -81,7 +85,7 @@ const Courseadd = ({ editingCourse, onDone }) => {
                 : "bg-blue-500 hover:bg-blue-600"
             } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            {loading ? (editingCourse ? "Updating..." : "Adding...") : editingCourse ? "Update" : "Add"}
+            {loading ? "Saving…" : editingCourse ? "Update" : "Add"}
           </button>
         </div>
       </form>
