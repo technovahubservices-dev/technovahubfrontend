@@ -201,8 +201,8 @@
       "destination": "https://inverter-smoky.vercel.app/:path*"
     },
     {
-      "source": "/test_energy",
-      "destination": "https://inverter-smoky.vercel.app/test_energy"
+      "source": "/test_energy/",
+      "destination": "https://inverter-smoky.vercel.app/test_energy/"
     },
   {
       "source": "/test_boutique/:path*",
