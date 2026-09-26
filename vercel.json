@@ -165,6 +165,14 @@
       "destination": "https://ai-score-checker.vercel.app/ai_score_checker"
     },
     {
+      "source": "/test_energy/:path*",
+      "destination": "https://inverter-smoky.vercel.app/:path*"
+    },
+    {
+      "source": "/test_energy",
+      "destination": "https://inverter-smoky.vercel.app/test_energy"
+    },
+  {
       "source": "/test_boutique/:path*",
       "destination": "https://botique-frontend-six.vercel.app/:path*"
     },
