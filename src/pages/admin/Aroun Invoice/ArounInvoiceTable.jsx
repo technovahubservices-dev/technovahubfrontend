@@ -78,12 +78,12 @@ const ArounInvoiceTable = ({ invoices, onEdit, onRefresh }) => {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6 mb-6 bg-white p-4 rounded-xl shadow-sm">
         <div className="flex flex-col w-full sm:w-64">
-          <label className="text-gray-700 font-medium mb-1">Search Description</label>
+          <label className="text-gray-700 font-medium mb-1">Search by Name</label>
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Enter description..."
+            placeholder="Enter item name..."
             className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 w-full"
           />
         </div>
