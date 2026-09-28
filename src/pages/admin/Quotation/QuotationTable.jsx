@@ -112,12 +112,12 @@ const QuotationTable = ({ onEdit }) => {
 
   {/* Description Search */}
   <div className="flex flex-col w-full sm:w-64">
-    <label className="text-gray-700 font-semibold mb-1">Search Description</label>
+    <label className="text-gray-700 font-semibold mb-1">Search By Name</label>
     <input
       type="text"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
-      placeholder="Enter item description..."
+      placeholder="Enter item name..."
       className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none w-full shadow-sm hover:border-blue-400 transition"
     />
   </div>
