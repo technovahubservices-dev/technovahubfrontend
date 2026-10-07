@@ -57,6 +57,24 @@ const ROUTE_META = [
       "Explore career-focused learning and development programs from TechnovaHub.",
   },
   {
+    match: /^\/test_certificates\/?$/,
+    title: "Verify Certificate | TechnovaHub",
+    description:
+      "Verify a TechnovaHub certificate using the certificate ID provided on your certificate.",
+  },
+  {
+    match: /^\/test_certificate\/?$/,
+    title: "Verify Certificate | TechnovaHub",
+    description:
+      "Verify a TechnovaHub certificate using the certificate ID provided on your certificate.",
+  },
+  {
+    match: /^\/verifyCertificate\/?$/,
+    title: "Verify Certificate | TechnovaHub",
+    description:
+      "Verify a TechnovaHub certificate using the certificate ID provided on your certificate.",
+  },
+  {
     match: /^\/7Days-AI-innovation$/,
     title: "7 Days AI Innovation | TechnovaHub",
     description:
@@ -120,7 +138,11 @@ const seohead = () => {
     const meta = getMetaForPath(pathname);
     const canonicalUrl = new URL(pathname, SITE_URL).toString();
     const imageUrl = `${SITE_URL}/LOGO.jpg`;
-    const isNoIndexRoute = pathname.startsWith("/admin") || pathname === "/verifyCertificate";
+    const isNoIndexRoute =
+      pathname.startsWith("/admin") ||
+      pathname === "/verifyCertificate" ||
+      pathname === "/test_certificates" ||
+      pathname === "/test_certificate";
 
     document.documentElement.lang = "en";
     document.title = meta.title;

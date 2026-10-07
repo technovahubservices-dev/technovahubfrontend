@@ -1,0 +1,669 @@
+diff --git a/controllers/galleryController.js b/controllers/galleryController.js
+--- a/controllers/galleryController.js
++++ b/controllers/galleryController.js
+@@ -1,83 +1,84 @@
+-// controllers/galleryController.js
++import mongoose from "mongoose";
+ import cloudinary from "../config/cloudinary.js";
+ import Gallery from "../models/GalleryModels.js";
+-import streamifier from "streamifier";
++import Connection from "../models/GoogleDriveConnection.js";
++import { accessToken, uploadFile, deleteFile, driveRequest } from "../services/googleDrive.js";
+ 
+-
+-
+-// Helper: upload buffer to Cloudinary
+-const uploadToCloudinary = (fileBuffer) => {
+-  return new Promise((resolve, reject) => {
+-    const stream = cloudinary.uploader.upload_stream(
+-      { folder: "gallery" }, // optional: all images inside "gallery" folder
+-      (error, result) => {
+-        if (result) resolve(result);
+-        else reject(error);
+-      }
+-    );
+-    streamifier.createReadStream(fileBuffer).pipe(stream);
+-  });
+-};
+-
+-// 📌 UPLOAD MULTIPLE IMAGES
+-export const uploadImages = async (req, res) => {
++export async function uploadImages(req, res) {
++  const uploaded = [];
++  let token;
+   try {
+-    if (!req.files || req.files.length === 0) {
+-      return res.status(400).json({ message: "Images are required" });
++    if (!req.files?.length) return res.status(400).json({ message: "Select at least one image." });
++    const connection = await Connection.findOne({ admin: req.admin._id }).sort({ createdAt: -1 }).select("+refreshToken");
++    if (!connection) return res.status(409).json({ message: "Connect Google Drive before uploading images." });
++    token = await accessToken(connection);
++    const records = [];
++    for (const file of req.files) {
++      const driveFileId = await uploadFile(token, connection.folderId, file);
++      uploaded.push(driveFileId);
++      const _id = new mongoose.Types.ObjectId();
++      records.push({ _id, imageUrl: `/api/gallery/${_id}/content`, storageProvider: "google-drive",
++        driveFileId, driveConnection: connection._id, mimeType: file.mimetype });
+     }
+-
+-    // Upload all images to Cloudinary
+-    const uploadPromises = req.files.map(file => uploadToCloudinary(file.buffer));
+-    const results = await Promise.all(uploadPromises);
+-
+-    // Save URLs to DB
+-    const galleryItems = results.map(result => ({
+-      imageUrl: result.secure_url,
+-      publicId: result.public_id, // useful for deletion
++    const saved = await Gallery.insertMany(records);
++    res.status(201).json(saved.map((doc) => {
++      const item = doc.toObject();
++      delete item.driveConnection;
++      return item;
+     }));
+-
+-    const savedImages = await Gallery.insertMany(galleryItems);
+-    res.status(201).json(savedImages);
+   } catch (error) {
+-    res.status(500).json({ error: error.message });
++    // Preserve files with saved records if MongoDB partially completed a batch.
++    for (const id of uploaded) {
++      try {
++        if (!await Gallery.exists({ driveFileId: id })) await deleteFile(token, id);
++      } catch { console.error("Gallery upload cleanup failed; inspect the Drive gallery folder."); }
++    }
++    res.status(error.status || 500).json({ message: error.message || "Image upload failed." });
+   }
+-};
++}
+ 
+-// 📌 GET ALL IMAGES
+-export const getImages = async (req, res) => {
+-  try {
+-    const images = await Gallery.find().sort({ createdAt: -1 });
+-    res.json(images);
+-  } catch (error) {
+-    res.status(500).json({ error: error.message });
+-  }
+-};
++export async function getImages(req, res) {
++  try { res.json(await Gallery.find().sort({ createdAt: -1 })); }
++  catch { res.status(500).json({ message: "Could not load gallery images." }); }
++}
+ 
+-// 📌 GET SINGLE IMAGE
+-export const getImage = async (req, res) => {
++export async function getImage(req, res) {
+   try {
+-    const image = await Gallery.findById(req.params.id);
+-    if (!image) return res.status(404).json({ message: "Image not found" });
+-    res.json(image);
+-  } catch (error) {
+-    res.status(500).json({ error: error.message });
+-  }
+-};
++    if (!mongoose.isValidObjectId(req.params.id)) return res.status(404).json({ message: "Image not found." });
++    const item = await Gallery.findById(req.params.id);
++    if (!item) return res.status(404).json({ message: "Image not found." });
++    res.json(item);
++  } catch { res.status(500).json({ message: "Could not load image." }); }
++}
+ 
+-// 📌 DELETE IMAGE (from DB + Cloudinary)
+-export const deleteImage = async (req, res) => {
++// Website gallery images are public; Drive files and credentials stay private.
++export async function getImageContent(req, res) {
+   try {
+-    const image = await Gallery.findById(req.params.id);
+-    if (!image) return res.status(404).json({ message: "Image not found" });
+-
+-    // Delete from Cloudinary
+-    await cloudinary.uploader.destroy(image.publicId);
+-
+-    // Delete from DB
+-    await Gallery.findByIdAndDelete(req.params.id);
++    if (!mongoose.isValidObjectId(req.params.id)) return res.sendStatus(404);
++    const item = await Gallery.findById(req.params.id).select("+driveConnection");
++    if (!item || item.storageProvider !== "google-drive") return res.sendStatus(404);
++    const connection = await Connection.findById(item.driveConnection).select("+refreshToken");
++    if (!connection) return res.sendStatus(404);
++    const response = await driveRequest(await accessToken(connection), `drive/v3/files/${encodeURIComponent(item.driveFileId)}?alt=media`);
++    res.set({ "Content-Type": item.mimeType || "application/octet-stream", "X-Content-Type-Options": "nosniff",
++      "Content-Security-Policy": "default-src 'none'; sandbox", "Cache-Control": "public, max-age=300" });
++    res.send(Buffer.from(await response.arrayBuffer()));
++  } catch (error) { res.sendStatus(error.status || 502); }
++}
+ 
+-    res.json({ message: "Image deleted successfully" });
+-  } catch (error) {
+-    res.status(500).json({ error: error.message });
+-  }
+-};
++export async function deleteImage(req, res) {
++  try {
++    if (!mongoose.isValidObjectId(req.params.id)) return res.status(404).json({ message: "Image not found." });
++    const item = await Gallery.findById(req.params.id).select("+driveConnection");
++    if (!item) return res.status(404).json({ message: "Image not found." });
++    if (item.storageProvider === "google-drive") {
++      const connection = await Connection.findById(item.driveConnection).select("+refreshToken");
++      if (!connection) return res.status(409).json({ message: "The Google Drive connection for this image is unavailable." });
++      await deleteFile(await accessToken(connection), item.driveFileId);
++    } else {
++      await cloudinary.uploader.destroy(item.publicId);
++    }
++    await item.deleteOne();
++    res.json({ message: "Image deleted successfully." });
++  } catch (error) { res.status(error.status || 500).json({ message: error.message }); }
++}
+diff --git a/controllers/googleDriveController.js b/controllers/googleDriveController.js
+new file mode 100644
+--- /dev/null
++++ b/controllers/googleDriveController.js
+@@ -0,0 +1,57 @@
++import { randomBytes } from "node:crypto";
++import Connection from "../models/GoogleDriveConnection.js";
++import State from "../models/GoogleDriveState.js";
++import { DRIVE_SCOPE, digestState, driveConfig, encryptToken, exchangeToken, createFolder } from "../services/googleDrive.js";
++
++export async function getDriveStatus(req, res) {
++  try {
++    driveConfig();
++    const connection = await Connection.findOne({ admin: req.admin._id }).sort({ createdAt: -1 });
++    res.json({ connected: Boolean(connection) });
++  } catch (error) { res.status(error.status || 500).json({ message: error.message }); }
++}
++
++export async function connectDrive(req, res) {
++  try {
++    const { clientId, redirectUri } = driveConfig();
++    const state = randomBytes(32).toString("hex");
++    await State.create({ digest: digestState(state), admin: req.admin._id, expiresAt: new Date(Date.now() + 600000) });
++    const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
++    url.search = new URLSearchParams({ client_id: clientId, redirect_uri: redirectUri,
++      response_type: "code", scope: DRIVE_SCOPE, access_type: "offline", prompt: "consent", state }).toString();
++    res.set("Cache-Control", "no-store").json({ authorizationUrl: url.href, state });
++  } catch (error) { res.status(error.status || 500).json({ message: error.message }); }
++}
++
++// Finish using the initiating browser's session state and authenticated admin.
++export function driveCallback(req, res) {
++  try {
++    const url = new URL("/admin/gallery", driveConfig().frontendUrl);
++    const params = new URLSearchParams({ googleDrive: "callback" });
++    for (const name of ["code", "state", "error"]) {
++      if (typeof req.query[name] === "string") params.set(name, req.query[name]);
++    }
++    // Keep the code out of frontend HTTP request logs.
++    url.hash = params.toString();
++    res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" }).redirect(url.href);
++  } catch { res.status(503).send("Google Drive is not configured on the server."); }
++}
++
++export async function completeDrive(req, res) {
++  try {
++    const { code, state } = req.body;
++    if (typeof code !== "string" || typeof state !== "string" || !/^[a-f\d]{64}$/.test(state)) {
++      return res.status(400).json({ message: "Invalid Google Drive connection response." });
++    }
++    const pending = await State.findOneAndDelete({ digest: digestState(state), admin: req.admin._id, expiresAt: { $gt: new Date() } });
++    if (!pending) return res.status(400).json({ message: "Connection request expired or was already used. Please try again." });
++    const tokens = await exchangeToken({ code, grant_type: "authorization_code", redirect_uri: driveConfig().redirectUri });
++    if (!tokens.refresh_token || !tokens.scope?.split(" ").includes(DRIVE_SCOPE)) {
++      return res.status(400).json({ message: "Please reconnect and allow Google Drive file access." });
++    }
++    const folderId = await createFolder(tokens.access_token);
++    // Old images keep using their original connection when an admin reconnects.
++    await Connection.create({ admin: req.admin._id, refreshToken: encryptToken(tokens.refresh_token), folderId });
++    res.set("Cache-Control", "no-store").json({ connected: true });
++  } catch (error) { res.status(error.status || 500).json({ message: error.message }); }
++}
+diff --git a/models/GalleryModels.js b/models/GalleryModels.js
+--- a/models/GalleryModels.js
++++ b/models/GalleryModels.js
+@@ -3,10 +3,14 @@ import mongoose from "mongoose";
+ const gallerySchema = new mongoose.Schema(
+   {
+     imageUrl: { type: String, required: true },
+-    publicId: { type: String, required: true }, 
++    publicId: { type: String, required: function () { return this.storageProvider !== "google-drive"; } },
++    storageProvider: { type: String, enum: ["cloudinary", "google-drive"], default: "cloudinary" },
++    driveFileId: String,
++    driveConnection: { type: mongoose.Schema.Types.ObjectId, ref: "GoogleDriveConnection", select: false },
++    mimeType: String,
+   },
+   { timestamps: true }
+ );
+ 
+ const Gallery = mongoose.model("Gallery", gallerySchema);
+-export default Gallery;
+\ No newline at end of file
++export default Gallery;
+diff --git a/models/GoogleDriveConnection.js b/models/GoogleDriveConnection.js
+new file mode 100644
+--- /dev/null
++++ b/models/GoogleDriveConnection.js
+@@ -0,0 +1,9 @@
++import mongoose from "mongoose";
++
++const schema = new mongoose.Schema({
++  admin: { type: mongoose.Schema.Types.ObjectId, ref: "Admin", required: true, index: true },
++  refreshToken: { type: String, required: true, select: false },
++  folderId: { type: String, required: true },
++}, { timestamps: true });
++
++export default mongoose.model("GoogleDriveConnection", schema);
+diff --git a/models/GoogleDriveState.js b/models/GoogleDriveState.js
+new file mode 100644
+--- /dev/null
++++ b/models/GoogleDriveState.js
+@@ -0,0 +1,9 @@
++import mongoose from "mongoose";
++
++const schema = new mongoose.Schema({
++  digest: { type: String, required: true, unique: true },
++  admin: { type: mongoose.Schema.Types.ObjectId, ref: "Admin", required: true },
++  expiresAt: { type: Date, required: true, expires: 0 },
++});
++
++export default mongoose.model("GoogleDriveState", schema);
+diff --git a/middleware/galleryAdmin.js b/middleware/galleryAdmin.js
+new file mode 100644
+--- /dev/null
++++ b/middleware/galleryAdmin.js
+@@ -0,0 +1,15 @@
++import jwt from "jsonwebtoken";
++import Admin from "../models/adminModel.js";
++
++export default async function galleryAdmin(req, res, next) {
++  try {
++    const token = req.headers.authorization?.match(/^Bearer (.+)$/i)?.[1] || req.cookies?.token;
++    if (!token) return res.status(401).json({ message: "Please sign in as admin." });
++    const decoded = jwt.verify(token, process.env.JWT_SECRET);
++    req.admin = await Admin.findById(decoded.id).select("-password");
++    if (!req.admin) return res.status(401).json({ message: "Admin account not found." });
++    next();
++  } catch {
++    res.status(401).json({ message: "Please sign in as admin again." });
++  }
++}
+diff --git a/routers/authRoutes.js b/routers/authRoutes.js
+--- a/routers/authRoutes.js
++++ b/routers/authRoutes.js
+@@ -1,8 +1,14 @@
+ // routes/adminRoutes.js
+ import express from "express";
++import galleryAdmin from "../middleware/galleryAdmin.js";
++import { getDriveStatus, connectDrive, driveCallback, completeDrive } from "../controllers/googleDriveController.js";
+ import { loginAdmin, logoutAdmin, registerAdmin } from "../controllers/authController.js";
+ 
+ const router = express.Router();
++router.get("/google-drive/status", galleryAdmin, getDriveStatus);
++router.get("/google-drive/connect", galleryAdmin, connectDrive);
++router.get("/google-drive/callback", driveCallback);
++router.post("/google-drive/complete", galleryAdmin, completeDrive);
+ 
+ 
+ 
+diff --git a/routers/galleryRoutes.js b/routers/galleryRoutes.js
+--- a/routers/galleryRoutes.js
++++ b/routers/galleryRoutes.js
+@@ -5,16 +5,32 @@ import {
+   getImages,
+   getImage,
+   deleteImage,
++  getImageContent,
+ } from "../controllers/galleryController.js";
+-import upload from "../middleware/multer.js";
++import multer from "multer";
++import galleryAdmin from "../middleware/galleryAdmin.js";
++const upload = multer({
++  storage: multer.memoryStorage(),
++  limits: { fileSize: 5 * 1024 * 1024, files: 10 },
++  fileFilter: (req, file, cb) => {
++    const allowed = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/avif"];
++    cb(allowed.includes(file.mimetype) ? null : new Error("Use JPG, PNG, GIF, WebP, or AVIF images."), allowed.includes(file.mimetype));
++  },
++});
+ // import { protect } from "../middleware/authMiddleware.js";
+ 
+ const router = express.Router();
+ 
+ // Upload multiple (max 10)
+-router.post("/", upload.array("images", 10), uploadImages);
++router.post("/", galleryAdmin, (req, res, next) => {
++  upload.array("images", 10)(req, res, (error) => {
++    if (error) return res.status(400).json({ message: error.code === "LIMIT_FILE_SIZE" ? "Each image must be 5 MB or smaller." : error.message });
++    next();
++  });
++}, uploadImages);
+ router.get("/", getImages);
++router.get("/:id/content", getImageContent);
+ router.get("/:id", getImage);
+-router.delete("/:id", deleteImage);
++router.delete("/:id", galleryAdmin, deleteImage);
+ 
+ export default router;
+diff --git a/services/googleDrive.js b/services/googleDrive.js
+new file mode 100644
+--- /dev/null
++++ b/services/googleDrive.js
+@@ -0,0 +1,98 @@
++import { randomBytes, createCipheriv, createDecipheriv, createHash } from "node:crypto";
++
++export const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.file";
++export const digestState = (state) => createHash("sha256").update(state).digest("hex");
++
++export function driveConfig() {
++  const { GOOGLE_CLIENT_ID: clientId, GOOGLE_CLIENT_SECRET: clientSecret,
++    GOOGLE_DRIVE_REDIRECT_URI: redirectUri, FRONTEND_URL: frontendUrl,
++    GOOGLE_DRIVE_TOKEN_KEY: key } = process.env;
++  if (!clientId || !clientSecret || !redirectUri || !frontendUrl || !/^[a-f\d]{64}$/i.test(key || "")) {
++    throw Object.assign(new Error("Google Drive is not configured on the server."), { status: 503 });
++  }
++  for (const value of [redirectUri, frontendUrl]) {
++    const url = new URL(value);
++    if (url.protocol !== "https:" && !(url.protocol === "http:" && url.hostname === "localhost")) {
++      throw new Error("Google Drive URLs must use HTTPS (or localhost for development).");
++    }
++  }
++  return { clientId, clientSecret, redirectUri, frontendUrl, key: Buffer.from(key, "hex") };
++}
++
++export function encryptToken(token) {
++  const iv = randomBytes(12);
++  const cipher = createCipheriv("aes-256-gcm", driveConfig().key, iv);
++  const ciphertext = Buffer.concat([cipher.update(token, "utf8"), cipher.final()]);
++  return Buffer.concat([iv, cipher.getAuthTag(), ciphertext]).toString("base64");
++}
++
++export function decryptToken(value) {
++  const data = Buffer.from(value, "base64");
++  const decipher = createDecipheriv("aes-256-gcm", driveConfig().key, data.subarray(0, 12));
++  decipher.setAuthTag(data.subarray(12, 28));
++  return Buffer.concat([decipher.update(data.subarray(28)), decipher.final()]).toString("utf8");
++}
++
++export async function exchangeToken(params) {
++  const { clientId, clientSecret } = driveConfig();
++  const response = await fetch("https://oauth2.googleapis.com/token", {
++    method: "POST", signal: AbortSignal.timeout(30000),
++    body: new URLSearchParams({ client_id: clientId, client_secret: clientSecret, ...params }),
++  });
++  const data = await response.json();
++  if (!response.ok || !data.access_token) {
++    throw Object.assign(new Error("Google Drive authorization expired or failed. Please reconnect Google Drive."), { status: 409 });
++  }
++  return data;
++}
++
++export async function accessToken(connection) {
++  const data = await exchangeToken({ grant_type: "refresh_token", refresh_token: decryptToken(connection.refreshToken) });
++  return data.access_token;
++}
++
++export async function driveRequest(token, path, options = {}) {
++  const response = await fetch(`https://www.googleapis.com/${path}`, {
++    ...options, signal: AbortSignal.timeout(60000),
++    headers: { ...options.headers, Authorization: `Bearer ${token}` },
++  });
++  if (!response.ok) {
++    const message = response.status === 401 ? "Please reconnect Google Drive."
++      : response.status === 403 ? "Google Drive denied access. Check permissions and available storage."
++      : response.status === 404 ? "Image or folder was not found in Google Drive."
++      : "Google Drive request failed. Please try again.";
++    throw Object.assign(new Error(message), { status: response.status === 404 ? 404 : 502 });
++  }
++  return response;
++}
++
++export async function createFolder(token) {
++  const response = await driveRequest(token, "drive/v3/files?fields=id", {
++    method: "POST", headers: { "Content-Type": "application/json" },
++    body: JSON.stringify({ name: "TechnovaHub Gallery", mimeType: "application/vnd.google-apps.folder" }),
++  });
++  return (await response.json()).id;
++}
++
++export async function uploadFile(token, folderId, file) {
++  const boundary = `technovahub_${randomBytes(16).toString("hex")}`;
++  const metadata = JSON.stringify({ name: file.originalname, parents: [folderId] });
++  const body = Buffer.concat([
++    Buffer.from(`--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${metadata}\r\n--${boundary}\r\nContent-Type: ${file.mimetype}\r\n\r\n`),
++    file.buffer, Buffer.from(`\r\n--${boundary}--\r\n`),
++  ]);
++  const response = await driveRequest(token, "upload/drive/v3/files?uploadType=multipart&fields=id", {
++    method: "POST", headers: { "Content-Type": `multipart/related; boundary=${boundary}` }, body,
++  });
++  const data = await response.json();
++  if (!data.id) throw new Error("Google Drive did not return an uploaded file ID.");
++  return data.id;
++}
++
++export async function deleteFile(token, id) {
++  try {
++    await driveRequest(token, `drive/v3/files/${encodeURIComponent(id)}`, { method: "DELETE" });
++  } catch (error) {
++    if (error.status !== 404) throw error;
++  }
++}
+diff --git a/tests/googleDrive.test.js b/tests/googleDrive.test.js
+new file mode 100644
+--- /dev/null
++++ b/tests/googleDrive.test.js
+@@ -0,0 +1,48 @@
++import test from "node:test";
++import assert from "node:assert/strict";
++import { encryptToken, decryptToken, accessToken, uploadFile, deleteFile, DRIVE_SCOPE } from "../services/googleDrive.js";
++
++Object.assign(process.env, {
++  GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-secret',
++  GOOGLE_DRIVE_REDIRECT_URI: 'http://localhost:9000/api/auth/google-drive/callback',
++  FRONTEND_URL: 'http://localhost:5173', GOOGLE_DRIVE_TOKEN_KEY: 'ab'.repeat(32),
++});
++
++test('refresh tokens are encrypted with authenticated, randomized ciphertext', () => {
++  const first = encryptToken('private-refresh-token');
++  assert.notEqual(first, encryptToken('private-refresh-token'));
++  assert.equal(decryptToken(first), 'private-refresh-token');
++  const tampered = Buffer.from(first, 'base64');
++  tampered[30] ^= 1;
++  assert.throws(() => decryptToken(tampered.toString('base64')));
++});
++
++test('refresh uses server credentials; upload keeps binary content and folder metadata', async (t) => {
++  const file = { originalname: 'photo "one".png', mimetype: 'image/png', buffer: Buffer.from([0, 255, 128, 10, 13]) };
++  const calls = [];
++  t.mock.method(globalThis, 'fetch', async (url, options) => {
++    calls.push({ url, options });
++    return new Response(JSON.stringify(calls.length === 1 ? { access_token: 'access', scope: DRIVE_SCOPE } : { id: 'drive-file' }));
++  });
++  const token = await accessToken({ refreshToken: encryptToken('refresh') });
++  assert.equal(calls[0].options.body.get('refresh_token'), 'refresh');
++  assert.equal(calls[0].options.body.get('client_secret'), 'test-secret');
++  assert.equal(await uploadFile(token, 'folder-id', file), 'drive-file');
++  const request = calls[1];
++  assert.equal(request.options.headers.Authorization, 'Bearer access');
++  assert.ok(request.url.includes('uploadType=multipart'));
++  assert.ok(request.options.body.includes(file.buffer));
++  assert.ok(request.options.body.toString().includes(JSON.stringify({ name: file.originalname, parents: ['folder-id'] })));
++});
++
++test('revoked connection returns an actionable reconnect error', async (t) => {
++  t.mock.method(globalThis, 'fetch', async () => new Response(JSON.stringify({ error: 'invalid_grant' }), { status: 400 }));
++  await assert.rejects(accessToken({ refreshToken: encryptToken('revoked') }), /reconnect Google Drive/);
++});
++
++test('deletion tolerates a file already removed from Drive but rejects permission failures', async (t) => {
++  const fetchMock = t.mock.method(globalThis, 'fetch', async () => new Response('', { status: 404 }));
++  await deleteFile('access', 'missing-file');
++  fetchMock.mock.mockImplementation(async () => new Response('', { status: 403 }));
++  await assert.rejects(deleteFile('access', 'forbidden-file'), /denied access/);
++});
+diff --git a/tests/googleDriveControllers.test.js b/tests/googleDriveControllers.test.js
+new file mode 100644
+--- /dev/null
++++ b/tests/googleDriveControllers.test.js
+@@ -0,0 +1,92 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { readFile } from 'node:fs/promises';
++import { SourceTextModule, SyntheticModule } from 'node:vm';
++
++async function controller(name, dependencies) {
++  const source = await readFile(new URL(`../controllers/${name}.js`, import.meta.url), 'utf8');
++  const module = new SourceTextModule(source);
++  await module.link(async (specifier) => {
++    const values = dependencies[specifier];
++    assert.ok(values, `Missing test dependency ${specifier}`);
++    return new SyntheticModule(Object.keys(values), function () {
++      for (const [key, value] of Object.entries(values)) this.setExport(key, value);
++    });
++  });
++  await module.evaluate();
++  return module.namespace;
++}
++
++function response() {
++  return { statusCode: 200, status(value) { this.statusCode = value; return this; },
++    json(value) { this.body = value; return this; }, set() { return this; } };
++}
++
++test('OAuth completion atomically consumes state for the signed-in admin before exchanging code', async () => {
++  let queried;
++  let exchanges = 0;
++  const methods = await controller('googleDriveController', {
++    'node:crypto': { randomBytes() {} },
++    '../models/GoogleDriveConnection.js': { default: {} },
++    '../models/GoogleDriveState.js': { default: { async findOneAndDelete(query) { queried = query; return null; } } },
++    '../services/googleDrive.js': { DRIVE_SCOPE: 'drive.file', digestState: (s) => `hash:${s}`,
++      driveConfig() {}, encryptToken() {}, exchangeToken() { exchanges++; }, createFolder() {} },
++  });
++  const res = response();
++  await methods.completeDrive({ body: { code: 'code', state: 'ab'.repeat(32) }, admin: { _id: 'admin-1' } }, res);
++  assert.equal(queried.admin, 'admin-1');
++  assert.ok(queried.expiresAt.$gt instanceof Date);
++  assert.equal(res.statusCode, 400);
++  assert.equal(exchanges, 0);
++});
++
++async function uploadController({ connection = {}, failSecond = false, dbFailure = false, persisted = false } = {}) {
++  const uploaded = [], deleted = [];
++  let saved;
++  class ObjectId { toString() { return 'gallery-id'; } }
++  const methods = await controller('galleryController', {
++    mongoose: { default: { Types: { ObjectId } } },
++    '../config/cloudinary.js': { default: {} },
++    '../models/GalleryModels.js': { default: {
++      async insertMany(records) { saved = records; if (dbFailure) throw new Error('database unavailable'); return records.map((r) => ({ toObject: () => ({ ...r }) })); },
++      async exists() { return persisted; },
++    } },
++    '../models/GoogleDriveConnection.js': { default: { findOne() { return { sort() { return { select: async () => connection }; } }; } } },
++    '../services/googleDrive.js': {
++      accessToken: async () => 'access',
++      uploadFile: async () => { if (failSecond && uploaded.length) throw new Error('quota exceeded'); const id = `file-${uploaded.length}`; uploaded.push(id); return id; },
++      deleteFile: async (token, id) => deleted.push(id), driveRequest() {},
++    },
++  });
++  const req = { admin: { _id: 'admin-1' }, files: [{ mimetype: 'image/png' }, { mimetype: 'image/jpeg' }] };
++  const res = response();
++  await methods.uploadImages(req, res);
++  return { res, saved, uploaded, deleted };
++}
++
++test('upload requires a connected Drive', async () => {
++  const { res, uploaded } = await uploadController({ connection: null });
++  assert.equal(res.statusCode, 409);
++  assert.equal(uploaded.length, 0);
++});
++
++test('upload records Drive IDs and gallery content URLs without returning connection references', async () => {
++  const { res, saved } = await uploadController({ connection: { _id: 'private-connection', folderId: 'folder' } });
++  assert.equal(res.statusCode, 201);
++  assert.equal(saved[0].storageProvider, 'google-drive');
++  assert.equal(saved[0].driveFileId, 'file-0');
++  assert.equal(saved[0].imageUrl, '/api/gallery/gallery-id/content');
++  assert.equal(saved[0].driveConnection, 'private-connection');
++  assert.equal(res.body[0].driveConnection, undefined);
++});
++
++test('failed batch upload removes previously uploaded files', async () => {
++  const { res, deleted } = await uploadController({ failSecond: true });
++  assert.equal(res.statusCode, 500);
++  assert.deepEqual(deleted, ['file-0']);
++});
++
++test('database failure cleans up unrecorded files but preserves partially saved records', async () => {
++  assert.deepEqual((await uploadController({ dbFailure: true })).deleted, ['file-0', 'file-1']);
++  assert.deepEqual((await uploadController({ dbFailure: true, persisted: true })).deleted, []);
++});
+diff --git a/GOOGLE_DRIVE_SETUP.md b/GOOGLE_DRIVE_SETUP.md
+new file mode 100644
+--- /dev/null
++++ b/GOOGLE_DRIVE_SETUP.md
+@@ -0,0 +1,66 @@
++# Google Drive gallery storage
++
++The frontend works with the matching backend changes in `D:/Technovahub-solution_backend`.
++Deploy both repositories to enable Drive uploads. Existing Cloudinary records continue to work;
++new uploads require an admin Google Drive connection. No existing images are migrated.
++
++## Backend configuration
++
++Use Node.js 22 or later. Enable the Google Drive API in your Google Cloud project,
++configure the OAuth consent screen, and create an OAuth client of type **Web application**.
++Add the exact backend callback URL below to its authorized redirect URIs.
++
++Set these variables in your backend hosting environment (locally, `.env.local`):
++
++```dotenv
++GOOGLE_CLIENT_ID=your-web-client-id
++GOOGLE_CLIENT_SECRET=your-web-client-secret
++GOOGLE_DRIVE_REDIRECT_URI=https://technovahub-solution-backend.onrender.com/api/auth/google-drive/callback
++FRONTEND_URL=https://technovahub.in
++GOOGLE_DRIVE_TOKEN_KEY=your-64-character-hex-key
++```
++
++Generate the encryption key once using:
++
++```sh
++node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
++```
++
++Keep the key stable and secret: stored refresh tokens cannot be decrypted after replacing it.
++Keep all Google secrets on the backend; do not use `VITE_` variables for them.
++Existing MongoDB, JWT, and Cloudinary configuration remains necessary for the application
++and older images. No additional npm dependencies are required.
++
++For local development, use `http://localhost:9000/api/auth/google-drive/callback`
++and `FRONTEND_URL=http://localhost:5173`, and set the frontend `VITE_API_BASE_URL=http://localhost:9000`.
++
++If the Google consent app is in Testing, add the connecting Google account as a test user.
++Google may expire test-mode refresh tokens after seven days; configure production publishing
++as appropriate before relying on persistent gallery access.
++
++## Use
++
++1. Deploy the updated backend and frontend.
++2. Sign in as admin and open **Gallery**.
++3. Click **Connect Google Drive**, select your Google account, and allow file access.
++4. The app creates a **TechnovaHub Gallery** folder in that account.
++5. Click **+ Image**, select up to 10 images (5 MB each), then **Upload to Google Drive**.
++
++The app requests only `drive.file` access. Refresh tokens are encrypted in MongoDB.
++OAuth completion requires the initiating admin's authentication, a matching browser session
++state, and an unexpired, single-use server state record.
++Files remain private in Drive. The public gallery API serves image bytes to website visitors;
++uploading to this gallery therefore makes the image visible on the website.
++Deleting a gallery entry also deletes its Drive file. Cloudinary entries still use Cloudinary deletion.
++Reconnect creates a new folder/connection; old entries retain their original connection.
++Revoking the old Google grant can prevent older images from loading.
++
++## Validation
++
++Run `node --experimental-vm-modules --test tests/googleDrive*.test.js` in the backend and `npm run build` in the frontend.
++The tests mock Google and database calls. A live account check is still required:
++connect, upload an image, verify the Drive folder and website thumbnail, and delete the test image.
++
++References: [Google server OAuth](https://developers.google.com/identity/protocols/oauth2/web-server),
++[Drive uploads](https://developers.google.com/workspace/drive/api/guides/manage-uploads),
++[Drive downloads](https://developers.google.com/workspace/drive/api/guides/manage-downloads).

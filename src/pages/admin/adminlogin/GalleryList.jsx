@@ -80,10 +80,20 @@ const GalleryList = () => {
                 <td className="py-2 px-4">{indexOfFirstItem + index + 1}</td>
                 <td className="py-2 px-4">
                   <img
-                    src={item.imageUrl}
-                    alt={`Gallery ${index + 1}`}
-                    className="w-[50px] h-[50px] md:w-32 md:h-20 object-cover rounded shadow-sm"
-                  />
+                  src={
+                    item.driveFileId
+                      ? `https://lh3.googleusercontent.com/d/${item.driveFileId}=w500`
+                      : item.imageUrl
+                  }
+                  alt={`Gallery ${index + 1}`}
+                  referrerPolicy="no-referrer"
+                  className="w-[50px] h-[50px] md:w-32 md:h-20 object-cover rounded shadow-sm"
+                  onError={(e) => {
+                    if (item.imageUrl && e.currentTarget.src !== item.imageUrl) {
+                      e.currentTarget.src = item.imageUrl;
+                    }
+                  }}
+                />
                 </td>
                 <td className="py-2 px-4 flex flex-wrap gap-2">
                   <button

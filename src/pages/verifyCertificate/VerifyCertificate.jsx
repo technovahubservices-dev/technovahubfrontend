@@ -17,12 +17,18 @@ const VerifyCertificate = () => {
 
     try {
       const response = await getCertificateData();
-      if (!response.success) {
-        setError("Failed to fetch data");
+      const certificateList = Array.isArray(response)
+        ? response
+        : Array.isArray(response?.data)
+          ? response.data
+          : [];
+
+      if (!certificateList.length) {
+        setError("No certificate records were returned");
         return;
       }
 
-      let cert = response.data.find((item) => item.empID === empID);
+      let cert = certificateList.find((item) => item.empID === empID);
 
       // Fallback for locally added certificate
       if (!cert && empID === "TH-0156") {

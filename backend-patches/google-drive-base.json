@@ -1,0 +1,50 @@
+[
+  {
+    "path": "controllers/galleryController.js",
+    "sha256": "f581b601160a355f53ea652d27107e3bbccc5c6256c1169efe82faece8952a32"
+  },
+  {
+    "path": "controllers/googleDriveController.js",
+    "sha256": null
+  },
+  {
+    "path": "models/GalleryModels.js",
+    "sha256": "df494f0caeffc62d55ab5c135803dbe528ed5043c552020bab76ef67d91f32fb"
+  },
+  {
+    "path": "models/GoogleDriveConnection.js",
+    "sha256": null
+  },
+  {
+    "path": "models/GoogleDriveState.js",
+    "sha256": null
+  },
+  {
+    "path": "middleware/galleryAdmin.js",
+    "sha256": null
+  },
+  {
+    "path": "routers/authRoutes.js",
+    "sha256": "0c64ec2dca34c6358b2b7a464205197d1a778ea37a6b3489cca95682d4e5664e"
+  },
+  {
+    "path": "routers/galleryRoutes.js",
+    "sha256": "09108de6342a65d2f32ca8b909b768a224ebed437304b83d2f4ccab42f2f454f"
+  },
+  {
+    "path": "services/googleDrive.js",
+    "sha256": null
+  },
+  {
+    "path": "tests/googleDrive.test.js",
+    "sha256": null
+  },
+  {
+    "path": "tests/googleDriveControllers.test.js",
+    "sha256": null
+  },
+  {
+    "path": "GOOGLE_DRIVE_SETUP.md",
+    "sha256": null
+  }
+]
