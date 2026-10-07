@@ -214,7 +214,7 @@
     },
     {
       "source": "/test_polio/:path*",
-      "destination": "https://polio-three.vercel.app//:path*"
+      "destination": "https://polio-three.vercel.app/:path*"
     },
     {
       "source": "/test_polio",
