@@ -106,15 +106,6 @@
       "source": "/test_jothiEyecare",
       "destination": "https://technovahub.in/test_jothiEyecare"
     },
-
-    {
-      "source": "/test_polio/:path*",
-      "destination": "https://polio-three.vercel.app/:path*"
-    },
-    {
-      "source": "/test_polio",
-      "destination": "https://technovahub.in/test_polio"
-    },
     {
       "source": "/test_german-car-workshop/:path*",
       "destination": "https://german-car-workshop.vercel.app/:path*"
