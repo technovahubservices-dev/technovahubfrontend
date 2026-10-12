@@ -222,11 +222,11 @@
     },
     {
       "source": "/test_nutrition/:path*",
-      "destination": "nutritionautomationfronten-git-250ae8-technovaservices-projects.vercel.app/:path*"
+      "destination": "https://nutritionautomationfronten-git-250ae8-technovaservices-projects.vercel.app/:path*"
     },
     {
       "source": "/test_nutrition",
-      "destination": "nutritionautomationfronten-git-250ae8-technovaservices-projects.vercel.app/test_nutrition"
+      "destination": "https://nutritionautomationfronten-git-250ae8-technovaservices-projects.vercel.app/test_nutrition"
     },
     {
   "source": "/test_polio",
