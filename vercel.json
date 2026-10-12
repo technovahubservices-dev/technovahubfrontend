@@ -206,7 +206,7 @@
     },
      {
       "source": "/test_metis/:path*",
-      "destination": "https://metis-frontend-mu.vercel.app/:path*"
+      "destination":  "https://metis-frontend-mu.vercel.app/test_metis/:path*"
     },
     {
       "source": "/test_metis/",
