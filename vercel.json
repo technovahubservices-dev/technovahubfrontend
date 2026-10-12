@@ -204,14 +204,22 @@
       "source": "/test_energy/",
       "destination": "https://inverter-smoky.vercel.app/test_energy/"
     },
-     {
-      "source": "/test_metis/:path*",
-      "destination":  "https://metis-frontend-mu.vercel.app/test_metis/:path*"
-    },
-    {
-      "source": "/test_metis/",
-      "destination": "https://metis-frontend-mu.vercel.app/test_metis/"
-    },
+   {
+  "source": "/test_metis/assets/:path*",
+  "destination": "https://metis-frontend-mu.vercel.app/assets/:path*"
+},
+{
+  "source": "/test_metis/:path*",
+  "destination": "https://metis-frontend-mu.vercel.app/:path*"
+},
+{
+  "source": "/test_metis",
+  "destination": "https://metis-frontend-mu.vercel.app/"
+},
+{
+  "source": "/test_metis/",
+  "destination": "https://metis-frontend-mu.vercel.app/"
+},
   {
       "source": "/test_boutique/:path*",
       "destination": "https://botique-frontend-six.vercel.app/:path*"
