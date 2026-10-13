@@ -164,7 +164,7 @@
     },
     {
       "source": "/test_exports/:path*",
-      "destination": "https://exports-kohl.vercel.app/"
+      "destination": "https://exports-kohl.vercel.app/:path*"
     },
     {
       "source": "/test-salesvision",
