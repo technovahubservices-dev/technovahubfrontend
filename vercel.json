@@ -175,6 +175,38 @@
   "source": "/test_exports/:path*",
   "destination": "https://exports-kohl.vercel.app/:path*"
 },
+{
+  "source": "/test_exports/faq",
+  "destination": "https://exports-kohl.vercel.app/faq"
+},
+{
+  "source": "/test_exports/faq/",
+  "destination": "https://exports-kohl.vercel.app/faq/"
+},
+{
+  "source": "/test_exports/contact",
+  "destination": "https://exports-kohl.vercel.app/contact"
+},
+{
+  "source": "/test_exports/contact/",
+  "destination": "https://exports-kohl.vercel.app/contact/"
+},
+{
+  "source": "/test_exports/payment-terms",
+  "destination": "https://exports-kohl.vercel.app/payment-terms"
+},
+{
+  "source": "/test_exports/payment-terms/",
+  "destination": "https://exports-kohl.vercel.app/payment-terms/"
+},
+{
+  "source": "/test_exports/certificates",
+  "destination": "https://exports-kohl.vercel.app/certificates"
+},
+{
+  "source": "/test_exports/certificates/",
+  "destination": "https://exports-kohl.vercel.app/certificates/"
+},
     {
       "source": "/test-salesvision",
       "destination": "https://sales-vision-frontend.vercel.app/test-salesvision"
