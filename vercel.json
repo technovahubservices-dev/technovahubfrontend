@@ -184,12 +184,12 @@
   "destination": "https://exports-kohl.vercel.app/faq/"
 },
 {
-  "source": "/test_exports/contact",
-  "destination": "https://exports-kohl.vercel.app/contact"
+  "source": "/test_exports/contact-us",
+  "destination": "https://exports-kohl.vercel.app/contact-us"
 },
 {
-  "source": "/test_exports/contact/",
-  "destination": "https://exports-kohl.vercel.app/contact/"
+  "source": "/test_exports/contact-us/",
+  "destination": "https://exports-kohl.vercel.app/contact-us/"
 },
 {
   "source": "/test_exports/payment-terms",
