@@ -141,7 +141,7 @@
                      },
                      {
   "source": "/test_exports/assets/:path*",
-  "destination": "https://exports-kohl.vercel.app/test_exports/assets/:path*"
+  "destination": "https://exports-kohl.vercel.app/assets/:path*"
 },
 {
   "source": "/test_exports",
