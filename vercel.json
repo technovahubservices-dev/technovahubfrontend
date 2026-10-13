@@ -150,13 +150,21 @@
       "source": "/test_redTaxi/:path*",
       "destination": "https://red-taxi-py.vercel.app/test_redTaxi/:path*"
     },
-{
+    {
+      "source": "/test_exports/assets/:path*",
+      "destination": "https://exports-kohl.vercel.app/assets/:path*"
+    },
+    {
       "source": "/test_exports",
-      "destination": "https://exports-kohl.vercel.app/test_exports/"
+      "destination": "https://exports-kohl.vercel.app/"
+    },
+    {
+      "source": "/test_exports/",
+      "destination": "https://exports-kohl.vercel.app/"
     },
     {
       "source": "/test_exports/:path*",
-      "destination": "https://exports-kohl.vercel.app/test_exports/:path*"
+      "destination": "https://exports-kohl.vercel.app/"
     },
     {
       "source": "/test-salesvision",
