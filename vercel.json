@@ -148,7 +148,7 @@
   "destination": "https://exports-kohl.vercel.app/test_exports/"
 },
 {
-  "source": "/test_exports/",
+  "source": "/test_exports",
   "destination": "https://exports-kohl.vercel.app/test_exports/"
 },
 {
