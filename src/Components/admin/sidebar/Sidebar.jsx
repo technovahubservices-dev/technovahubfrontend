@@ -61,7 +61,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 to={item.path}
                 onClick={() => setIsOpen(false)} // auto close on mobile
                 className={`flex items-center gap-3 p-2 font-medium rounded transition 
-                  ${isActive ? "bg-blue-200 text-black" : "hover:bg-white hover:text-black"}`}
+                  ${isActive ? "bg-blue-200 text-blue-900!" : "hover:bg-white hover:text-black!"}`}
               >
                 {item.icon}
                 <span>{item.name}</span>

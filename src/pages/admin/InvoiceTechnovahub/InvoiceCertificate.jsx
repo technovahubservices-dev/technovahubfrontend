@@ -5,9 +5,12 @@ import { getInvoice } from "../../../api/invoiceApi";
 import { FaDownload, FaPrint } from "react-icons/fa";
 import qr from "../../../assets/images/logoremove.png";
 import { Link } from "react-router-dom";
+import QuotationIdSelect from "./QuotationIdSelect";
+import toast from "react-hot-toast";
 
 export default function InvoiceCertificate({ docType = "invoice" }) {
   const quotationRef = useRef(null);
+  const autoDownloadStarted = useRef(false);
 
   // ================================
   // QUOTATION LABELS ONLY
@@ -46,7 +49,14 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
         setItems(scoped);
 
         if (scoped?.length) {
-          setInvoiceIdFilter(scoped[0].invoiceId);
+          const requestedId = new URLSearchParams(window.location.search).get("downloadId");
+          const requestedQuotation = requestedId
+            ? scoped.find((quotation) => quotation._id === requestedId)
+            : null;
+          setInvoiceIdFilter(requestedQuotation?.invoiceId || scoped[0].invoiceId);
+          if (requestedId && !requestedQuotation) {
+            toast.error("That quotation could not be found.");
+          }
         }
       } catch (error) {
         console.error("Error fetching invoices:", error);
@@ -64,7 +74,10 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
     (inv) => inv.invoiceId === invoiceIdFilter
   );
 
-  const selectedInvoice = filteredInvoices[0] || null;
+  const requestedDownloadId = new URLSearchParams(window.location.search).get("downloadId");
+  const selectedInvoice = (requestedDownloadId
+    ? items.find((invoice) => invoice._id === requestedDownloadId)
+    : filteredInvoices[0]) || null;
 
   const tableItems =
     selectedInvoice?.items.map((item, idx) => ({
@@ -196,8 +209,9 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
   const handleDownload = async () => {
     if (!quotationRef.current) return;
 
+    let clone;
     try {
-      const clone = quotationRef.current.cloneNode(true);
+      clone = quotationRef.current.cloneNode(true);
 
       Object.assign(clone.style, {
         transform: "scale(1)",
@@ -255,15 +269,23 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
         imgHeight * ratio
       );
 
-      pdf.save(
-        `${docLabel}_${tableItems[0]?.invoiceId || "000"}.pdf`
-      );
-
-      document.body.removeChild(clone);
+      const quotationNumber = tableItems[0]?.invoiceId;
+      if (!quotationNumber || !tableItems.length) throw new Error("Quotation has no downloadable details.");
+      pdf.save(`TechnovaHub-${docLabel}-${quotationNumber}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
+      toast.error("Could not generate the quotation PDF. Please try again.");
+    } finally {
+      if (clone?.parentNode) clone.parentNode.removeChild(clone);
     }
   };
+
+  useEffect(() => {
+    const requestedId = requestedDownloadId;
+    if (!requestedId || loading || !selectedInvoice || selectedInvoice._id !== requestedId || autoDownloadStarted.current) return;
+    autoDownloadStarted.current = true;
+    handleDownload();
+  }, [loading, selectedInvoice]);
 
   const handlePrint = () => {
     if (!quotationRef.current) return;
@@ -414,19 +436,15 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
       <div className="mb-6 w-full flex flex-col md:flex-row justify-center items-center gap-4 px-2 md:px-0 print:hidden">
 
         <div className="w-full md:w-[300px]">
-          <select
+          <QuotationIdSelect
+            ids={invoiceIdOptions}
             value={invoiceIdFilter}
-            onChange={(e) =>
-              setInvoiceIdFilter(e.target.value)
-            }
-            className="border border-[#3b82f6] outline-none p-2 rounded w-full text-sm md:text-base"
-          >
-            {invoiceIdOptions.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
+            onChange={setInvoiceIdFilter}
+            includeAllOption={false}
+            emptyMessage="No quotation found"
+            ariaLabel="Select Quotation ID"
+            inputClassName="border border-[#3b82f6] outline-none p-2 pr-7 rounded w-full text-sm md:text-base"
+          />
         </div>
 
         <Link to={editPath}>

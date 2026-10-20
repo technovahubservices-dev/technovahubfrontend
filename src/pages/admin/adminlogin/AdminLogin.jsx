@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import logo from "../../../assets/images/logoremove.png";
 import { Link, useNavigate } from "react-router-dom";
-import { loginAdmin } from "../../../api/authApi";
+import { loginAdmin, warmAdminApi } from "../../../api/authApi";
 import toast from "react-hot-toast";
 import bgImage from "../../../assets/images/bk3.jpg";
 
@@ -13,12 +13,19 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const loginInProgress = useRef(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    void warmAdminApi();
+  }, []);
 
   const handleSubmit = async (e) => {
     
     e.preventDefault();
+    if (loginInProgress.current) return;
+    loginInProgress.current = true;
     setLoading(true);
 
     try {
@@ -41,74 +48,84 @@ const AdminLogin = () => {
       console.error("Login error:", err);
       toast.error(err.message || "Login failed ❌");
     } finally {
+      loginInProgress.current = false;
       setLoading(false);
     }
   };
 
   return (
-    <div  className=" flex justify-center md:items-center p-2   h-[100vh]  bg-cover bg-center "
-      style={{ backgroundImage: `url(${bgImage})` }}>
-         
+    <main
+      className="relative flex min-h-screen min-h-[100svh] items-center justify-center bg-cover bg-center px-4 py-8 text-gray-800"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      <div aria-hidden="true" className="absolute inset-0 bg-slate-950/20" />
+      <section aria-labelledby="admin-login-title" className="relative w-full max-w-[480px] rounded-3xl border border-white/70 bg-white/90 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-xl sm:p-8">
+        <img src={logo} alt="TechnovaHub — Empowering Minds" className="mx-auto mb-6 h-28 w-56 object-contain" />
 
-      <div className="w-full    max-w-xl md:p-10 p-8 bg-white/10   backdrop-blur-md md:shadow-lg shadow-xl mt-6 rounded-[50px] ">
-        <div className="flex justify-center ">
-          <img src={logo} alt="Logo" className="rounded-full w-[200px] h-[150px] md:w-[290px] md:h-[250px]" />
-        </div>
+        <h1 id="admin-login-title" className="text-2xl font-bold text-center text-slate-900">Admin Login</h1>
+        <p className="mt-2 text-center text-sm leading-relaxed text-slate-600">Sign in to manage the TechnovaHub dashboard</p>
 
-        <h2 className="text-xl font-extrabold text-center mb-6 ">Admin Login</h2>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="mt-7 space-y-5" aria-busy={loading}>
           {/* Username */}
           <div className="relative">
-            <AiOutlineUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <label htmlFor="admin-username" className="sr-only">Username</label>
+            <AiOutlineUser aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={21} />
             <input
+              id="admin-username"
+              name="username"
+              autoComplete="username"
               type="text"
               value={userName}
              onChange={(e) => setUserName(e.target.value.toLowerCase())}
               placeholder="Enter admin username"
-              className="mt-1 block text-white rounded-md w-full pl-10 px-3 py-2 border border-white rounded focus:outline-none focus:ring focus:border-blue-500"
+              className="block h-14 w-full rounded-xl border border-gray-300 bg-white/95 pl-12 pr-4 text-gray-800 placeholder:text-gray-500 placeholder:opacity-100 transition-colors focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-500/15"
               required
             />
           </div>
 
           {/* Password with toggle */}
           <div className="relative">
-            <AiOutlineLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <label htmlFor="admin-password" className="sr-only">Password</label>
+            <AiOutlineLock aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={21} />
             <input
+              id="admin-password"
+              name="password"
+              autoComplete="current-password"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter password"
-              className="mt-1 block rounded-md text-white w-full pl-10 px-3 py-2 border border-white rounded focus:outline-none focus:ring focus:border-blue-500 pr-10"
+              className="block h-14 w-full rounded-xl border border-gray-300 bg-white/95 pl-12 pr-14 text-gray-800 placeholder:text-gray-500 placeholder:opacity-100 transition-colors focus:border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-500/15"
               required
             />
             <button
               type="button"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-pressed={showPassword}
+              aria-controls="admin-password"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 top-1/2 -translate-y-1/2 px-3 flex items-center text-gray-500"
+              className="absolute inset-y-0 right-1 my-auto flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-blue-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
             >
-              {showPassword ? <AiOutlineEyeInvisible className="text-white" size={20} /> : <AiOutlineEye className="text-white" size={20} />}
+              {showPassword ? <AiOutlineEyeInvisible aria-hidden="true" size={21} /> : <AiOutlineEye aria-hidden="true" size={21} />}
             </button>
           </div>
 
-          {/* Submit & Back */}
-          <div className="flex justify-between mb-10 items-center">
-            <Link to="/">
-              <p className="mt-3 text-sm  text-blue-400 underline  ">Back to website</p>
-            </Link>
+          {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className={`mt-5 bg-blue-400 hover:bg-blue-500 text-white md:py-2 p-2 border-2 border-white  md:px-4 rounded transition ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className="flex h-[52px] w-full items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 font-semibold text-white shadow-lg shadow-blue-600/15 transition-colors hover:from-blue-700 hover:to-indigo-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? "Logging in..." : " Go to Dashboard"}
+              {loading ? "Logging in..." : "Login"}
             </button>
-          </div>
         </form>
-      </div>
-    </div>
+        <div className="mt-6 text-center">
+          <Link to="/" className="inline-flex items-center gap-2 rounded text-sm font-medium text-blue-700! hover:text-blue-900! hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
+            <span aria-hidden="true">←</span> Back to website
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 };
 
