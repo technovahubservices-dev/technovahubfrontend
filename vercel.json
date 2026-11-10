@@ -93,11 +93,11 @@
                      },
                         {
                          "source":  "/test_technovalens/:path*",
-                         "destination":  "https://technovalens-git-main-technovas-projects-37226de2.vercel.app/:path*"
+                         "destination":  "https://technovalens.vercel.app"
                      },
                      {
                          "source":  "/test_technovalens",
-                         "destination":  "https://technovalens-git-main-technovas-projects-37226de2.vercel.app/"
+                         "destination": "https://technovalens.vercel.app"
                      },
                      {
                          "source":  "/test_jothiEyecare/:path*",
