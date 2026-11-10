@@ -91,6 +91,14 @@
                          "source":  "/trackpulse/landingpage",
                          "destination":  "https://technovahub.in/trackpulse/landingpage"
                      },
+                        {
+                         "source":  "/test_technovalens/:path*",
+                         "destination":  "https://technovalens-git-main-technovas-projects-37226de2.vercel.app/:path*"
+                     },
+                     {
+                         "source":  "/test_technovalens",
+                         "destination":  "https://technovalens-git-main-technovas-projects-37226de2.vercel.app/"
+                     },
                      {
                          "source":  "/test_jothiEyecare/:path*",
                          "destination":  "https://jothi-eyecare-frontend.vercel.app/:path*"
