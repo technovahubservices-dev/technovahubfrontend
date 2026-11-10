@@ -14,8 +14,13 @@
                           "source":  "/test_certificate/:path*",
                           "destination":  "/test_certificates/:path*",
                           "permanent":  false
+                      },
+                      {
+                          "source":  "/test_technovalens",
+                          "destination":  "/test_technovalens/",
+                          "permanent":  false
                       }
-                  ],
+                    ],
     "rewrites":  [
                      {
                          "source":  "/test_eyedonation/:path*",
@@ -92,12 +97,16 @@
                          "destination":  "https://technovahub.in/trackpulse/landingpage"
                      },
                         {
-                         "source":  "/test_technovalens/:path*",
-                         "destination":  "https://technovalens.vercel.app"
+                         "source":  "/test_technovalens/assets/:path*",
+                         "destination":  "https://technovalens.vercel.app/assets/:path*"
                      },
                      {
-                         "source":  "/test_technovalens",
-                         "destination": "https://technovalens.vercel.app"
+                         "source":  "/test_technovalens/",
+                         "destination":  "https://technovalens.vercel.app/"
+                     },
+                     {
+                         "source":  "/test_technovalens/:path*",
+                         "destination":  "https://technovalens.vercel.app/:path*"
                      },
                      {
                          "source":  "/test_jothiEyecare/:path*",
