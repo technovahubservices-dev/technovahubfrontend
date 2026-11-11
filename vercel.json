@@ -97,15 +97,15 @@
                          "destination":  "https://technovahub.in/trackpulse/landingpage"
                      },
                         {
-                         "source":  "/test_technovalens/assets/:path*",
+                         "source":  "/technovalens/assets/:path*",
                          "destination":  "https://technovalens.vercel.app/assets/:path*"
                      },
                      {
-                         "source":  "/test_technovalens/",
+                         "source":  "/technovalens/",
                          "destination":  "https://technovalens.vercel.app/"
                      },
                      {
-                         "source":  "/test_technovalens/:path*",
+                         "source":  "/technovalens/:path*",
                          "destination":  "https://technovalens.vercel.app/:path*"
                      },
                      {
