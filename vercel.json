@@ -108,6 +108,16 @@
                          "source":  "/technovalens/:path*",
                          "destination":  "https://technovalens.vercel.app/:path*"
                      },
+
+{
+  "source": "/biometric",
+  "destination":  "https://biometric-red.vercel.app/"
+},
+{
+  "source": "/biometric/:path*",
+  "destination": "https://biometric-red.vercel.app/:path*"
+},
+
                      {
                          "source":  "/test_jothiEyecare/:path*",
                          "destination":  "https://jothi-eyecare-frontend.vercel.app/:path*"
