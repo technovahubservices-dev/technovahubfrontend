@@ -29,6 +29,20 @@ export const loginAdmin = async (userName, password) => {
   }
 };
 
+export const changeAdminPassword = async (userName, currentPassword, newPassword, confirmPassword) => {
+  try {
+    const response = await apiClient.post("/auth/change-password", {
+      userName,
+      currentPassword,
+      newPassword,
+      confirmPassword,
+    });
+    return response.data;
+  } catch (err) {
+    throw err.response?.data || { message: "Password update failed" };
+  }
+};
+
 // Admin register
 export const registerAdmin = async (userName, password) => {
   try {

@@ -6,6 +6,7 @@ import Navbar from "./Components/Header/Header";
 import TermsAndCondition from "./pages/TermsAndCondition";
 import Footer from "./Components/Footer/Footer";
 import AdminLogin from "./pages/admin/adminlogin/AdminLogin";
+import ChangePassword from "./pages/admin/adminlogin/ChangePassword";
 import Contact from "./pages/Contact";
 import About from "./pages/Aboutpage/About";
 import LayoutDashboard from "./Components/admin/layout/LayoutDashboard";
@@ -139,6 +140,7 @@ const App = () => {
 
           {/* Admin */}
           <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="/adminlogin/change-password" element={<ChangePassword />} />
 
           <Route
             path="/admin/*"

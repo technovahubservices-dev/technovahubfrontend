@@ -124,6 +124,11 @@ const AdminLogin = () => {
             <span aria-hidden="true">←</span> Back to website
           </Link>
         </div>
+        <div className="mt-4 text-center">
+          <Link to="/adminlogin/change-password" className="rounded text-sm font-semibold text-blue-700 hover:text-blue-900 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
+            Change Password
+          </Link>
+        </div>
       </section>
     </main>
   );
