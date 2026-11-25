@@ -123,6 +123,12 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
   const handleDownload = (id) => {
     if (!id || downloadingId) return;
     setDownloadingId(id);
+    if (!isQuotation) {
+      window.dispatchEvent(new CustomEvent("technovahub:download-invoice", {
+        detail: { invoiceId: id, onComplete: () => setDownloadingId(null) },
+      }));
+      return;
+    }
     const previewUrl = new URL("/admin/quotation", window.location.origin);
     previewUrl.searchParams.set("downloadId", id);
     window.open(previewUrl.href, "_blank", "noopener,noreferrer");
@@ -364,16 +370,16 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
                       >
                         Edit
                       </button>
-                      {isQuotation && <button
+                      <button
                         type="button"
                         title={`Download ${docLabel}`}
                         aria-label={`Download ${docLabel.toLowerCase()} ${row.invoiceId}`}
                         disabled={downloadingId === row._invoiceId}
                         onClick={() => handleDownload(row._invoiceId)}
-                        className="inline-flex h-7 w-7 items-center justify-center rounded bg-blue-600 text-white shadow hover:bg-blue-700 disabled:opacity-60"
+                        className={`inline-flex h-7 w-7 items-center justify-center rounded bg-blue-600 text-white shadow hover:bg-blue-700 disabled:opacity-60 ${isQuotation ? "" : "-mx-1"}`}
                       >
                         {downloadingId === row._invoiceId ? "…" : <FaDownload aria-hidden="true" />}
-                      </button>}
+                      </button>
                       <button
                         onClick={() => handleDelete(row._invoiceId)}
                         className={`rounded bg-red-500 px-1.5 py-1 text-xs text-white shadow hover:bg-red-600 ${isQuotation ? "" : "sm:text-sm"}`}

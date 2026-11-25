@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import qr from "../../../assets/images/logoremove.png";
 import InvoiceTable from "./InvoiceTable";
 import InvoiceForm from "./InvoiceForm";
+import InvoiceCertificate from "./InvoiceCertificate";
 import { getInvoice } from "../../../api/invoiceApi";
 
 const InvoiceManager = ({ docType = "invoice" }) => {
@@ -65,6 +66,16 @@ const InvoiceManager = ({ docType = "invoice" }) => {
         onRefresh={fetchInvoices}
         docType={docType}
       />
+
+      {!isQuotation && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed top-0 -left-[10000px]"
+          style={{ width: "210mm" }}
+        >
+          <InvoiceCertificate docType="invoice" enableListDownload />
+        </div>
+      )}
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-50 p-4">

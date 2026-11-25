@@ -140,11 +140,14 @@ test('invoice preview uses only invoice records and keeps INV numbers through dr
     { _id: 'quote', invoiceId: 'QT-801', invoiceTo: 'Quotation Customer', items: [] },
     { _id: 'invoice', invoiceId: 'INV-001', invoiceTo: 'Invoice Customer', address: 'Invoice Address',
       date: '2026-10-01', dueDate: '2026-10-31', items: [{ desc: 'Invoice Service', qty: 1, rate: 100, discount: 0, gst: 18 }] },
+    { _id: 'invoice-2', invoiceId: 'INV-002', invoiceTo: 'Second Invoice Customer', address: 'Second Address',
+      date: '2026-10-02', dueDate: '2026-11-01', items: [{ desc: 'Second Invoice Service', qty: 2, rate: 250, discount: 0, gst: 18 }] },
   ];
   let printHtml = '';
   const savedFiles = [];
+  const listeners = {};
   const printWindow = { document: { open() {}, close() {}, write(html) { printHtml = html; } }, focus() {}, print() {}, close() {} };
-  const page = mount('InvoiceCertificate.jsx', { docType: 'invoice' }, {
+  const page = mount('InvoiceCertificate.jsx', { docType: 'invoice', enableListDownload: true }, {
     '../../../api/invoiceApi': { getInvoice: async () => records },
     './QuotationIdSelect': 'document-select',
     html2canvas: async () => ({ width: 800, height: 1100, toDataURL: () => 'image' }),
@@ -153,7 +156,11 @@ test('invoice preview uses only invoice records and keeps INV numbers through dr
     'react-hot-toast': { error() {} },
     '../../../assets/images/logoremove.png': 'logo.png', 'react-router-dom': { Link: 'a' },
   }, { document: { body: { appendChild() {}, removeChild() {} }, querySelectorAll: () => [] },
-    window: { open: () => printWindow, location: { search: '' } }, setTimeout: fn => fn(),
+    window: {
+      open: () => printWindow, location: { search: '' },
+      addEventListener: (type, listener) => { listeners[type] = listener; },
+      removeEventListener() {},
+    }, setTimeout: fn => fn(),
   });
   await new Promise(resolve => setImmediate(resolve)); page.render();
   const selector = page.find('document-select')[0].props;
@@ -165,16 +172,30 @@ test('invoice preview uses only invoice records and keeps INV numbers through dr
   assert.ok(page.allText().includes('INV-001'));
   assert.ok(page.allText().includes('Invoice Customer'));
   assert.ok(!page.allText().includes('Quotation Customer'));
-
   const preview = page.find('div').find(node => node.props.ref && typeof node.props.ref === 'object');
-  preview.props.ref.current = { cloneNode: () => ({ style: {}, outerHTML: 'preview:INV-001' }) };
+  preview.props.ref.current = { cloneNode: () => ({ style: {}, outerHTML: 'preview:INV-002' }) };
+
+  let completed = false;
+  const listDownload = new Promise(resolve => {
+    listeners['technovahub:download-invoice']({ detail: {
+      invoiceId: 'invoice-2', onComplete: () => { completed = true; resolve(); },
+    } });
+    page.render();
+  });
+  await listDownload;
+  assert.equal(completed, true);
+  assert.equal(page.find('document-select')[0].props.value, 'INV-002');
+  assert.ok(page.allText().includes('Second Invoice Customer'));
+  assert.ok(page.allText().includes('Second Invoice Service'));
+  assert.deepEqual(savedFiles, ['INV-002.pdf']);
+
   const buttons = page.find('button');
   await buttons.find(button => page.text(button) === 'Download Invoice').props.onClick();
-  assert.deepEqual(savedFiles, ['TechnovaHub-Invoice-INV-001.pdf']);
+  assert.deepEqual(savedFiles, ['INV-002.pdf', 'INV-002.pdf']);
   buttons.find(button => page.text(button) === 'Print Invoice').props.onClick();
   printWindow.onload();
   assert.ok(printHtml.includes('<title>Invoice</title>'));
-  assert.ok(printHtml.includes('preview:INV-001'));
+  assert.ok(printHtml.includes('preview:INV-002'));
   assert.equal(page.find('a')[0].props.to, '/admin/invoiceEdit');
 });
 

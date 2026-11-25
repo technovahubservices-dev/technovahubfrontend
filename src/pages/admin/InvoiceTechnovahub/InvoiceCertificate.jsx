@@ -8,9 +8,11 @@ import { Link } from "react-router-dom";
 import QuotationIdSelect from "./QuotationIdSelect";
 import toast from "react-hot-toast";
 
-export default function InvoiceCertificate({ docType = "invoice" }) {
+export default function InvoiceCertificate({ docType = "invoice", enableListDownload = false }) {
   const quotationRef = useRef(null);
   const autoDownloadStarted = useRef(false);
+  const pdfGenerating = useRef(false);
+  const pendingListDownload = useRef(null);
 
   // ================================
   // Keep the two document types separate in both record selection and labels.
@@ -206,9 +208,20 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
     return words + " Only";
   }
 
-  const handleDownload = async () => {
-    if (!quotationRef.current) return;
+  const handleDownload = async (onComplete) => {
+    if (!quotationRef.current || pdfGenerating.current) {
+      onComplete?.();
+      return;
+    }
 
+    const documentNumber = tableItems[0]?.invoiceId;
+    if (!documentNumber || !tableItems.length) {
+      toast.error(`${docLabel} has no downloadable details.`);
+      onComplete?.();
+      return;
+    }
+
+    pdfGenerating.current = true;
     let clone;
     try {
       clone = quotationRef.current.cloneNode(true);
@@ -269,14 +282,14 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
         imgHeight * ratio
       );
 
-      const documentNumber = tableItems[0]?.invoiceId;
-      if (!documentNumber || !tableItems.length) throw new Error(`${docLabel} has no downloadable details.`);
-      pdf.save(`TechnovaHub-${docLabel}-${documentNumber}.pdf`);
+      pdf.save(isQuotation ? `TechnovaHub-${docLabel}-${documentNumber}.pdf` : `${documentNumber}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
       toast.error(`Could not generate the ${docLabel.toLowerCase()} PDF. Please try again.`);
     } finally {
       if (clone?.parentNode) clone.parentNode.removeChild(clone);
+      pdfGenerating.current = false;
+      onComplete?.();
     }
   };
 
@@ -286,6 +299,55 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
     autoDownloadStarted.current = true;
     handleDownload();
   }, [loading, selectedInvoice]);
+
+  useEffect(() => {
+    if (!enableListDownload || isQuotation) return undefined;
+    const handleListDownload = (event) => {
+      const request = event.detail;
+      if (!request?.invoiceId) return;
+      if (pdfGenerating.current || pendingListDownload.current) {
+        request.onComplete?.();
+        return;
+      }
+      if (selectedInvoice?._id === request.invoiceId) {
+        handleDownload(request.onComplete);
+        return;
+      }
+      pendingListDownload.current = request;
+      if (!loading) {
+        const invoice = items.find((item) => item._id === request.invoiceId && /^INV-/i.test(item.invoiceId || ""));
+        if (invoice) {
+          setInvoiceIdFilter(invoice.invoiceId);
+        } else {
+          pendingListDownload.current = null;
+          toast.error("That invoice could not be found.");
+          request.onComplete?.();
+        }
+      }
+    };
+    window.addEventListener("technovahub:download-invoice", handleListDownload);
+    return () => window.removeEventListener("technovahub:download-invoice", handleListDownload);
+  }, [enableListDownload, isQuotation, items, loading, selectedInvoice]);
+
+  useEffect(() => {
+    if (!enableListDownload || loading || !pendingListDownload.current) return;
+    const request = pendingListDownload.current;
+    const invoice = items.find((item) => item._id === request.invoiceId && /^INV-/i.test(item.invoiceId || ""));
+    if (invoice) {
+      setInvoiceIdFilter(invoice.invoiceId);
+    } else {
+      pendingListDownload.current = null;
+      toast.error("That invoice could not be found.");
+      request.onComplete?.();
+    }
+  }, [enableListDownload, items, loading]);
+
+  useEffect(() => {
+    const request = pendingListDownload.current;
+    if (!enableListDownload || loading || !request || selectedInvoice?._id !== request.invoiceId) return;
+    pendingListDownload.current = null;
+    handleDownload(request.onComplete);
+  }, [enableListDownload, loading, selectedInvoice]);
 
   const handlePrint = () => {
     if (!quotationRef.current) return;

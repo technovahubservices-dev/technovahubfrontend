@@ -28,9 +28,11 @@ const records = Array.from({ length: 8 }, (_, i) => ({
 }));
 
 function mount({ failIds = [], docType = 'quotation' } = {}) {
-  let invoices = [...records], cursor = 0, tree;
+  let invoices = records.map(record => docType === 'invoice'
+    ? { ...record, invoiceId: record.invoiceId.replace(/^QT-/, 'INV-') }
+    : { ...record }), cursor = 0, tree;
   let refreshes = 0;
-  const state = [], refs = [], requests = [], notifications = [], edits = [];
+  const state = [], refs = [], requests = [], notifications = [], edits = [], dispatched = [];
   const api = load('src/api/invoiceApi.js', { './apiClient': { delete: async url => {
     const id = url.split('/').pop();
     requests.push(id);
@@ -54,7 +56,11 @@ function mount({ failIds = [], docType = 'quotation' } = {}) {
     'react-hot-toast': { success: message => notifications.push(message), error: message => notifications.push(message) },
     'react-router-dom': { Link: 'a' }, './QuotationIdSelect': 'quotation-select',
     './BulkQuotationDeleteDialog': 'delete-dialog',
-  }, { window: { confirm: () => true }, alert: message => notifications.push(message) }).default;
+  }, {
+    CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
+    window: { confirm: () => true, dispatchEvent: event => dispatched.push(event) },
+    alert: message => notifications.push(message),
+  }).default;
   function render() {
     cursor = 0;
     tree = component({ invoices, docType, onEdit: record => edits.push(record), onRefresh: async () => { refreshes++; } });
@@ -86,6 +92,7 @@ function mount({ failIds = [], docType = 'quotation' } = {}) {
   }); }
   render();
   return { find, button, click, check, change, checkboxes, ids, requests, notifications, edits,
+    text, dispatched,
     dialog: () => find('delete-dialog')[0],
     render, remaining: () => invoices, refreshes: () => refreshes,
     async confirm() { await find('delete-dialog')[0].props.onConfirm(); render(); },
@@ -180,6 +187,20 @@ test('individual Edit/Delete remain available; invoice mode has no bulk controls
   assert.equal(invoice.checkboxes().length, 0);
   assert.ok(invoice.button('Edit'));
   assert.ok(invoice.button('Delete'));
+});
+
+test('invoice rows place a direct PDF Download action between Edit and Delete', () => {
+  const table = mount({ docType: 'invoice' });
+  const invoiceRow = table.find('tr').find(row => table.find('td', row).length === 7);
+  const actionsCell = table.find('td', invoiceRow).at(-1);
+  const actions = table.find('button', actionsCell);
+  assert.deepEqual(actions.map(button => button.props['aria-label'] || table.text(button)), [
+    'Edit', 'Download invoice INV-100000', 'Delete',
+  ]);
+  assert.equal(actions[1].props.className, 'inline-flex h-7 w-7 items-center justify-center rounded bg-blue-600 text-white shadow hover:bg-blue-700 disabled:opacity-60 -mx-1');
+  actions[1].props.onClick();
+  assert.equal(table.dispatched[0].type, 'technovahub:download-invoice');
+  assert.equal(table.dispatched[0].detail.invoiceId, records[0]._id);
 });
 
 test('API validates IDs before any request, deduplicates, and limits concurrency', async () => {
