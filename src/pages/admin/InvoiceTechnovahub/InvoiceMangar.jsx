@@ -15,7 +15,7 @@ const InvoiceManager = ({ docType = "invoice" }) => {
     try {
       const data = await getInvoice();
       const scoped = (data || []).filter((inv) =>
-        isQuotation ? /^QT-/i.test(inv?.invoiceId || "") : !/^QT-/i.test(inv?.invoiceId || "")
+        isQuotation ? /^QT-/i.test(inv?.invoiceId || "") : /^INV-/i.test(inv?.invoiceId || "")
       );
       setInvoices(scoped);
     } catch (err) {

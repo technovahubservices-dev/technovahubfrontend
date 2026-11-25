@@ -2,6 +2,7 @@ import React, { useEffect, useId, useRef, useState } from "react";
 
 const QuotationIdSelect = ({
   ids, value, onChange,
+  documentLabel = "Quotation",
   includeAllOption = true,
   emptyMessage = "No quotation ID found",
   ariaLabel = "Filter by Quotation ID",
@@ -83,7 +84,7 @@ const QuotationIdSelect = ({
           aria-activedescendant={isOpen && activeIndex >= 0 ? `${listId}-${activeIndex}` : undefined}
           autoComplete="off"
           value={isOpen ? query : value || (includeAllOption ? "All Quotations" : "")}
-          placeholder="Search or select Quotation ID"
+          placeholder={`Search or select ${documentLabel} ID`}
           onFocus={() => setIsOpen(true)}
           onClick={() => setIsOpen(true)}
           onChange={(event) => {
@@ -97,7 +98,7 @@ const QuotationIdSelect = ({
         <span aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-600">▼</span>
       </div>
       {isOpen && (
-        <ul id={listId} role="listbox" aria-label="Quotation IDs" className="absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-gray-300 bg-white py-1 text-gray-900 shadow-lg">
+        <ul id={listId} role="listbox" aria-label={`${documentLabel} IDs`} className="absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-gray-300 bg-white py-1 text-gray-900 shadow-lg">
           {options.map((id, index) => (
             <li
               key={id}

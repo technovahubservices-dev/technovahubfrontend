@@ -26,7 +26,7 @@ function mount(filename, initialProps, dependencies = {}, globals = {}) {
   };
   const module = { exports: {} };
   const code = transformSync(fs.readFileSync(path.join(folder, filename), 'utf8'), { loader: 'jsx', format: 'cjs' }).code;
-  vm.runInNewContext(code, { module, exports: module.exports, console, ...globals,
+  vm.runInNewContext(code, { module, exports: module.exports, console, URLSearchParams, ...globals,
     require(name) {
       if (name === 'react') return react;
       if (name in dependencies) return dependencies[name];
@@ -63,20 +63,26 @@ test('shared selector searches API IDs and drives the existing preview, download
   const savedFiles = [], renderedClones = [];
   const printWindow = { document: { open() {}, close() {}, write(html) { printHtml = html; } },
     focus() {}, print() { printed++; }, close() {} };
-  const page = mount('InvoiceCertificate.jsx', { docType: 'invoice' }, {
+  const page = mount('InvoiceCertificate.jsx', { docType: 'quotation' }, {
     '../../../api/invoiceApi': { getInvoice: async () => { apiCalls++; return [...records, { invoiceId: 'INV-001' }]; } },
     './QuotationIdSelect': 'quotation-select',
     html2canvas: async clone => { renderedClones.push(clone); return { width: 800, height: 1100, toDataURL: () => 'image' }; },
     jspdf: class { internal = { pageSize: { getWidth: () => 210, getHeight: () => 297 } }; addImage() {} save(name) { savedFiles.push(name); } },
     'react-icons/fa': { FaDownload: 'download-icon', FaPrint: 'print-icon' },
+    'react-hot-toast': { error() {} },
     '../../../assets/images/logoremove.png': 'logo.png', 'react-router-dom': { Link: 'a' },
   }, { document: { body: { appendChild() {}, removeChild() {} }, querySelectorAll: () => [] },
-    window: { open: () => printWindow }, setTimeout: fn => fn(),
+    window: { open: () => printWindow, location: { search: '' } }, setTimeout: fn => fn(),
   });
   await new Promise(resolve => setImmediate(resolve)); page.render();
   const selectorProps = () => page.find('quotation-select')[0].props;
   assert.equal(selectorProps().value, records[0].invoiceId);
   assert.ok(page.allText().includes('Customer 0'));
+  assert.ok(page.allText().includes('QUOTATION'));
+  assert.ok(page.allText().includes('Quotation To:'));
+  assert.ok(page.allText().includes('Quotation #'));
+  assert.ok(page.allText().includes('QT-821050'));
+  assert.equal(selectorProps().documentLabel, 'Quotation');
   assert.equal(selectorProps().includeAllOption, false);
   assert.equal(selectorProps().emptyMessage, 'No quotation found');
   const listeners = {};
@@ -120,13 +126,56 @@ test('shared selector searches API IDs and drives the existing preview, download
   preview.props.ref.current = { cloneNode: () => ({ style: {}, outerHTML: `preview:${selectorProps().value}` }) };
   const buttons = page.find('button');
   await buttons.find(button => page.text(button) === 'Download Quotation').props.onClick();
-  assert.deepEqual(savedFiles, ['Quotation_QT-532275.pdf']);
+  assert.deepEqual(savedFiles, ['TechnovaHub-Quotation-QT-532275.pdf']);
   assert.equal(renderedClones[0].outerHTML, 'preview:QT-532275');
   buttons.find(button => page.text(button) === 'Print Quotation').props.onClick();
   printWindow.onload();
   assert.equal(printed, 1); assert.ok(printHtml.includes('preview:QT-532275'));
   assert.equal(page.find('a')[0].props.to, '/admin/quotationEdit');
   assert.equal(apiCalls, 1, 'Selection should reuse the existing loaded data');
+});
+
+test('invoice preview uses only invoice records and keeps INV numbers through dropdown, PDF and print', async () => {
+  const records = [
+    { _id: 'quote', invoiceId: 'QT-801', invoiceTo: 'Quotation Customer', items: [] },
+    { _id: 'invoice', invoiceId: 'INV-001', invoiceTo: 'Invoice Customer', address: 'Invoice Address',
+      date: '2026-10-01', dueDate: '2026-10-31', items: [{ desc: 'Invoice Service', qty: 1, rate: 100, discount: 0, gst: 18 }] },
+  ];
+  let printHtml = '';
+  const savedFiles = [];
+  const printWindow = { document: { open() {}, close() {}, write(html) { printHtml = html; } }, focus() {}, print() {}, close() {} };
+  const page = mount('InvoiceCertificate.jsx', { docType: 'invoice' }, {
+    '../../../api/invoiceApi': { getInvoice: async () => records },
+    './QuotationIdSelect': 'document-select',
+    html2canvas: async () => ({ width: 800, height: 1100, toDataURL: () => 'image' }),
+    jspdf: class { internal = { pageSize: { getWidth: () => 210, getHeight: () => 297 } }; addImage() {} save(name) { savedFiles.push(name); } },
+    'react-icons/fa': { FaDownload: 'download-icon', FaPrint: 'print-icon' },
+    'react-hot-toast': { error() {} },
+    '../../../assets/images/logoremove.png': 'logo.png', 'react-router-dom': { Link: 'a' },
+  }, { document: { body: { appendChild() {}, removeChild() {} }, querySelectorAll: () => [] },
+    window: { open: () => printWindow, location: { search: '' } }, setTimeout: fn => fn(),
+  });
+  await new Promise(resolve => setImmediate(resolve)); page.render();
+  const selector = page.find('document-select')[0].props;
+  assert.equal(selector.value, 'INV-001');
+  assert.equal(selector.documentLabel, 'Invoice');
+  assert.ok(page.allText().includes('INVOICE'));
+  assert.ok(page.allText().includes('Invoice To:'));
+  assert.ok(page.allText().includes('Invoice #'));
+  assert.ok(page.allText().includes('INV-001'));
+  assert.ok(page.allText().includes('Invoice Customer'));
+  assert.ok(!page.allText().includes('Quotation Customer'));
+
+  const preview = page.find('div').find(node => node.props.ref && typeof node.props.ref === 'object');
+  preview.props.ref.current = { cloneNode: () => ({ style: {}, outerHTML: 'preview:INV-001' }) };
+  const buttons = page.find('button');
+  await buttons.find(button => page.text(button) === 'Download Invoice').props.onClick();
+  assert.deepEqual(savedFiles, ['TechnovaHub-Invoice-INV-001.pdf']);
+  buttons.find(button => page.text(button) === 'Print Invoice').props.onClick();
+  printWindow.onload();
+  assert.ok(printHtml.includes('<title>Invoice</title>'));
+  assert.ok(printHtml.includes('preview:INV-001'));
+  assert.equal(page.find('a')[0].props.to, '/admin/invoiceEdit');
 });
 
 test('selector deduplicates preview IDs and retains the list-page defaults', () => {

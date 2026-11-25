@@ -13,18 +13,14 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
   const autoDownloadStarted = useRef(false);
 
   // ================================
-  // Keep the quotation records scoped separately, while rendering their
-  // documents with the requested invoice terminology.
+  // Keep the two document types separate in both record selection and labels.
   // ================================
   const isQuotation = docType === "quotation";
-  const pageTitle = "INVOICE";
-  const docLabel = "Invoice";
-  const toLabel = "Invoice To";
-  const docIdLabel = "Invoice #";
+  const pageTitle = isQuotation ? "QUOTATION" : "INVOICE";
+  const docLabel = isQuotation ? "Quotation" : "Invoice";
+  const toLabel = isQuotation ? "Quotation To" : "Invoice To";
+  const docIdLabel = isQuotation ? "Quotation #" : "Invoice #";
   const editPath = isQuotation ? "/admin/quotationEdit" : "/admin/invoiceEdit";
-  const displayInvoiceId = (id) => isQuotation
-    ? String(id || "-").replace(/^QT-/i, "INV-")
-    : id || "-";
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,19 +43,19 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
         const scoped = (data || []).filter((inv) =>
           isQuotation
             ? /^QT-/i.test(inv?.invoiceId || "")
-            : !/^QT-/i.test(inv?.invoiceId || "")
+            : /^INV-/i.test(inv?.invoiceId || "")
         );
 
         setItems(scoped);
 
         if (scoped?.length) {
           const requestedId = new URLSearchParams(window.location.search).get("downloadId");
-          const requestedQuotation = requestedId
-            ? scoped.find((quotation) => quotation._id === requestedId)
+          const requestedDocument = requestedId
+            ? scoped.find((document) => document._id === requestedId)
             : null;
-          setInvoiceIdFilter(requestedQuotation?.invoiceId || scoped[0].invoiceId);
-          if (requestedId && !requestedQuotation) {
-            toast.error("That quotation could not be found.");
+          setInvoiceIdFilter(requestedDocument?.invoiceId || scoped[0].invoiceId);
+          if (requestedId && !requestedDocument) {
+            toast.error(`That ${docLabel.toLowerCase()} could not be found.`);
           }
         }
       } catch (error) {
@@ -87,7 +83,7 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
     selectedInvoice?.items.map((item, idx) => ({
       ...item,
       _uniqueKey: selectedInvoice._id + "_" + idx,
-      invoiceId: displayInvoiceId(selectedInvoice.invoiceId),
+      invoiceId: selectedInvoice.invoiceId,
       invoiceTo: selectedInvoice.invoiceTo,
       date: selectedInvoice.date,
       dueDate: selectedInvoice.dueDate,
@@ -273,12 +269,12 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
         imgHeight * ratio
       );
 
-      const invoiceNumber = tableItems[0]?.invoiceId;
-      if (!invoiceNumber || !tableItems.length) throw new Error("Invoice has no downloadable details.");
-      pdf.save(`TechnovaHub-${docLabel}-${invoiceNumber}.pdf`);
+      const documentNumber = tableItems[0]?.invoiceId;
+      if (!documentNumber || !tableItems.length) throw new Error(`${docLabel} has no downloadable details.`);
+      pdf.save(`TechnovaHub-${docLabel}-${documentNumber}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
-      toast.error("Could not generate the quotation PDF. Please try again.");
+      toast.error(`Could not generate the ${docLabel.toLowerCase()} PDF. Please try again.`);
     } finally {
       if (clone?.parentNode) clone.parentNode.removeChild(clone);
     }
@@ -444,9 +440,10 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
             ids={invoiceIdOptions}
             value={invoiceIdFilter}
             onChange={setInvoiceIdFilter}
+            documentLabel={docLabel}
             includeAllOption={false}
-            emptyMessage="No quotation found"
-            ariaLabel="Select Quotation ID"
+            emptyMessage={`No ${docLabel.toLowerCase()} found`}
+            ariaLabel={`Select ${docLabel} ID`}
             inputClassName="border border-[#3b82f6] outline-none p-2 pr-7 rounded w-full text-sm md:text-base"
           />
         </div>
@@ -652,7 +649,7 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
                       {
                         label: docIdLabel,
                         value:
-                          displayInvoiceId(tableItems[0]?.invoiceId),
+                          tableItems[0]?.invoiceId || "-",
                       },
                       {
                         label: "Date",

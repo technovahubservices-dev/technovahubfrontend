@@ -50,6 +50,7 @@ function mount({ failIds = [], docType = 'quotation' } = {}) {
       return [state[index], next => { state[index] = typeof next === 'function' ? next(state[index]) : next; }];
     } },
     '../../../api/invoiceApi': api,
+    'react-icons/fa': { FaDownload: 'download-icon' },
     'react-hot-toast': { success: message => notifications.push(message), error: message => notifications.push(message) },
     'react-router-dom': { Link: 'a' }, './QuotationIdSelect': 'quotation-select',
     './BulkQuotationDeleteDialog': 'delete-dialog',
