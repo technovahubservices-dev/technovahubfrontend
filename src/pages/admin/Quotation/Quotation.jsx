@@ -21,7 +21,7 @@ export default function QuotationUI() {
     declarationText:
       "Product Quality: Tested by QMS, EMS, OHSAS. No Sales Involved. Payments will be received only in company name through Cheque. Goods once sold cannot be taken back in any circumstances.",
     bankName: "HDFC BANK",
-    accountNo: "50200000453361",
+    accountNo: "50200114683841",
     branchIfsc: "45 FEET ROAD, & HDFC0001278",
   });
 

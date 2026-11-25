@@ -17,7 +17,7 @@ export default function ArounCertificate() {
     declarationText:
       "Product Quality: Tested by QMS, EMS, OHSAS. No Sales Involved. Payments will be received only in company name through Cheque. Goods once sold cannot be taken back in any circumstances.",
     bankName: "HDFC BANK",
-    accountNo: "502 000 643 155 83",
+    accountNo: "50200114683841",
     branchIfsc: "HDFC0000407",
     AccountName: "AROUN SYSTEMS AND SAFETY EQUIPMENTS",
   });

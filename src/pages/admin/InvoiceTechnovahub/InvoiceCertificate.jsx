@@ -13,14 +13,18 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
   const autoDownloadStarted = useRef(false);
 
   // ================================
-  // QUOTATION LABELS ONLY
+  // Keep the quotation records scoped separately, while rendering their
+  // documents with the requested invoice terminology.
   // ================================
-  const isQuotation = true;
-  const pageTitle = "QUOTATION";
-  const docLabel = "Quotation";
-  const toLabel = "Quotation To";
-  const docIdLabel = "Quotation #";
-  const editPath = "/admin/quotationEdit";
+  const isQuotation = docType === "quotation";
+  const pageTitle = "INVOICE";
+  const docLabel = "Invoice";
+  const toLabel = "Invoice To";
+  const docIdLabel = "Invoice #";
+  const editPath = isQuotation ? "/admin/quotationEdit" : "/admin/invoiceEdit";
+  const displayInvoiceId = (id) => isQuotation
+    ? String(id || "-").replace(/^QT-/i, "INV-")
+    : id || "-";
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +34,7 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
     declarationText:
       "Product Quality: Tested by QMS, EMS, OHSAS. No Sales Involved. Payments will be received only in company name through Cheque. Goods once sold cannot be taken back in any circumstances.",
     bankName: "HDFC BANK, VENKATESHWARA NAGAR, PONDICHERRY",
-    accountNo: "50100297512837",
+    accountNo: "50200114683841",
     branchIfsc: "HDFC0001278",
     AccountName: "VIDHYAVATHI",
   });
@@ -83,7 +87,7 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
     selectedInvoice?.items.map((item, idx) => ({
       ...item,
       _uniqueKey: selectedInvoice._id + "_" + idx,
-      invoiceId: selectedInvoice.invoiceId,
+      invoiceId: displayInvoiceId(selectedInvoice.invoiceId),
       invoiceTo: selectedInvoice.invoiceTo,
       date: selectedInvoice.date,
       dueDate: selectedInvoice.dueDate,
@@ -269,9 +273,9 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
         imgHeight * ratio
       );
 
-      const quotationNumber = tableItems[0]?.invoiceId;
-      if (!quotationNumber || !tableItems.length) throw new Error("Quotation has no downloadable details.");
-      pdf.save(`TechnovaHub-${docLabel}-${quotationNumber}.pdf`);
+      const invoiceNumber = tableItems[0]?.invoiceId;
+      if (!invoiceNumber || !tableItems.length) throw new Error("Invoice has no downloadable details.");
+      pdf.save(`TechnovaHub-${docLabel}-${invoiceNumber}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
       toast.error("Could not generate the quotation PDF. Please try again.");
@@ -648,7 +652,7 @@ export default function InvoiceCertificate({ docType = "invoice" }) {
                       {
                         label: docIdLabel,
                         value:
-                          tableItems[0]?.invoiceId || "-",
+                          displayInvoiceId(tableItems[0]?.invoiceId),
                       },
                       {
                         label: "Date",

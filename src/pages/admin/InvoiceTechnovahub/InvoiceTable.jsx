@@ -365,8 +365,8 @@ const InvoiceTable = ({ invoices, onEdit, onRefresh, docType = "invoice" }) => {
                       </button>
                       {isQuotation && <button
                         type="button"
-                        title="Download Quotation"
-                        aria-label={`Download quotation ${row.invoiceId}`}
+                        title="Download Invoice"
+                        aria-label={`Download invoice ${row.invoiceId}`}
                         disabled={downloadingId === row._invoiceId}
                         onClick={() => handleDownload(row._invoiceId)}
                         className="inline-flex h-7 w-7 items-center justify-center rounded bg-blue-600 text-white shadow hover:bg-blue-700 disabled:opacity-60"
