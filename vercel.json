@@ -23,6 +23,25 @@
                     ],
     "rewrites":  [
                      {
+                         "source":  "/assets/:path*",
+                         "has":  [
+                                     {
+                                         "type":  "header",
+                                         "key":  "referer",
+                                         "value":  "https?://[^/]+/test_one_sun_solution(?:[/?].*)?$"
+                                     }
+                                 ],
+                         "destination":  "https://one-sun-solution-web.vercel.app/assets/:path*"
+                     },
+                     {
+                         "source":  "/test_one_sun_solution",
+                         "destination":  "https://one-sun-solution-web.vercel.app/"
+                     },
+                     {
+                         "source":  "/test_one_sun_solution/:path*",
+                         "destination":  "https://one-sun-solution-web.vercel.app/:path*"
+                     },
+                     {
                          "source":  "/test_eyedonation/:path*",
                          "destination":  "https://eyedonorfrontend.vercel.app/:path*"
                      },
